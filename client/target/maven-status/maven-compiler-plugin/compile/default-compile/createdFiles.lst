@@ -2,6 +2,8 @@ client\util\SceneManager.class
 client\screens\LoginScreen.class
 client\screens\LoginScreen$1.class
 client\screens\RegistrationScreen.class
+client\components\ElementSetup.class
 client\screens\RegistrationScreen$1.class
 client\Main.class
 client\screens\RegistrationScreen$2.class
+client\screens\LoginScreen$2.class

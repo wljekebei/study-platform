@@ -1,5 +1,6 @@
 package client.screens;
 
+import client.components.ElementSetup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,29 +17,20 @@ import javafx.scene.text.FontWeight;
 
 public class RegistrationScreen {
     public static Scene getScene() {
-        Label header = new Label("REGISTRATION");
+        Label header = new Label("SIGN UP");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
-        header.setStyle("-fx-text-fill: #4a4944;");
 
         TextField nameField = new TextField();
-        nameField.setFont(Font.font("Arial", 18));
-        nameField.setPromptText("first name"); 
-        nameField.setFocusTraversable(false);
+        ElementSetup.tfSetup(nameField, "first name");
 
         TextField surnameField = new TextField();
-        surnameField.setFont(Font.font("Arial", 18));
-        surnameField.setPromptText("second name"); 
-        surnameField.setFocusTraversable(false);
+        ElementSetup.tfSetup(surnameField, "second name");
         
         TextField emailField = new TextField();
-        emailField.setFont(Font.font("Arial", 18));
-        emailField.setPromptText("email"); 
-        emailField.setFocusTraversable(false);
+        ElementSetup.tfSetup(emailField, "email");
 
         TextField usernameField = new TextField();
-        usernameField.setFont(Font.font("Arial", 18));
-        usernameField.setPromptText("username"); 
-        usernameField.setFocusTraversable(false);
+        ElementSetup.tfSetup(usernameField, "username");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
@@ -58,12 +50,7 @@ public class RegistrationScreen {
         passwordButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
         passwordButton.setPrefWidth(72);
         passwordButton.setDefaultButton(true);
-        passwordButton.setStyle("""
-            -fx-background-color: #4fa3a5;
-            -fx-text-fill: white;
-            -fx-font-size: 11pt;
-            -fx-background-radius: 5;
-        """);
+        ElementSetup.buttonSetup(passwordButton, "5", "11");
         passwordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -91,12 +78,7 @@ public class RegistrationScreen {
         Button regButton = new Button("CREATE ACCOUNT");
         regButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
         regButton.setDefaultButton(true);
-        regButton.setStyle("""
-            -fx-background-color: #4fa3a5;
-            -fx-text-fill: white;
-            -fx-font-size: 18pt;
-            -fx-background-radius: 10;
-        """);
+        ElementSetup.buttonSetup(regButton, "10", "18");
         regButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -108,7 +90,6 @@ public class RegistrationScreen {
         });
 
         HBox passwordBox = new HBox(passwordField, passwordVisible, passwordButton);
-        passwordBox.setPadding(new Insets(0, 0, 0, 0));
         passwordBox.setSpacing(10);
 
         VBox regBox = new VBox(nameField, surnameField, emailField, usernameField, passwordBox);
@@ -119,7 +100,7 @@ public class RegistrationScreen {
         VBox root = new VBox(header, regBox, regButton);
         root.setSpacing(60);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #f5f5dc;");
+        root.setStyle("-fx-background-color: #D9E6FF;");
 
         return new Scene(root, 500, 600);
     }
