@@ -4,11 +4,23 @@ import jakarta.persistence.*;
 @Table(name = "groups")
 
 public class Group {
-    public long getGroup_id() {
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long group_id;
+private String name;
+private String description;
+private Long created_by;
+private String created_at;
+
+public Group() {}
+
+
+    public Long getGroup_id() {
         return group_id;
     }
 
-    public void setGroup_id(long group_id) {
+    public void setGroup_id(Long group_id) {
         this.group_id = group_id;
     }
 
@@ -28,11 +40,11 @@ public class Group {
         this.description = description;
     }
 
-    public long getCreated_by() {
+    public Long getCreated_by() {
         return created_by;
     }
 
-    public void setCreated_by(long created_by) {
+    public void setCreated_by(Long created_by) {
         this.created_by = created_by;
     }
 
@@ -44,14 +56,6 @@ public class Group {
         this.created_at = created_at;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long group_id;
-    private String name;
-    private String description;
-    private long created_by;
-    private String created_at;
 
-        public Group() {}
 
 }

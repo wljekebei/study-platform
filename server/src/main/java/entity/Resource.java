@@ -4,27 +4,40 @@ import jakarta.persistence.*;
 @Table(name = "resources")
 
 public class Resource {
-    public long getResource_id() {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long resource_id;
+    private Long group_id;
+    private Long uploaded_by;
+    private String title;
+    private String type;
+    private String path_or_url;
+    private String uploaded_at;
+    public Resource() {}
+
+    public Long getResource_id() {
         return resource_id;
     }
 
-    public void setResource_id(long resource_id) {
+    public void setResource_id(Long resource_id) {
         this.resource_id = resource_id;
     }
 
-    public long getGroup_id() {
+    public Long getGroup_id() {
         return group_id;
     }
 
-    public void setGroup_id(long group_id) {
+    public void setGroup_id(Long group_id) {
         this.group_id = group_id;
     }
 
-    public long getUploaded_by() {
+    public Long getUploaded_by() {
         return uploaded_by;
     }
 
-    public void setUploaded_by(long uploaded_by) {
+    public void setUploaded_by(Long uploaded_by) {
         this.uploaded_by = uploaded_by;
     }
 
@@ -59,16 +72,5 @@ public class Resource {
     public void setUploaded_at(String uploaded_at) {
         this.uploaded_at = uploaded_at;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long resource_id;
-    private long group_id;
-    private long uploaded_by;
-    private String title;
-    private String type;
-    private String path_or_url;
-    private String uploaded_at;
-        public Resource() {}
 
 }

@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 public class Task{
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
-private long task_id;
-private long group_id;
-private long created_by;
+private Long task_id;
+private Long group_id;
+private Long created_by;
 private String title;
 private String description;
 private String status;
@@ -20,19 +20,19 @@ private String created_at;
     public Long getTask_id(){
         return task_id;
     }
-    public void setTask_id(long task_id){
+    public void setTask_id(Long task_id){
         this.task_id = task_id;
     }
-    public long getGroup_id(){
+    public Long getGroup_id(){
         return group_id;
     }
-    public void setGroup_id(long group_id){
+    public void setGroup_id(Long group_id){
         this.group_id = group_id;
     }
-    public long getCreated_by(){
+    public Long getCreated_by(){
         return created_by;
     }
-    public void setCreated_by(long created_by){
+    public void setCreated_by(Long created_by){
         this.created_by = created_by;
     }
     public String getTitle(){

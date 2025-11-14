@@ -1,15 +1,26 @@
 package entity;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "memberships")
 public class Membership {
-    public long getMembership_id() {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long membership_id;
+    private Long user_id;
+    private Long group_id;
+    private String role;
+    private String joined_at;
+
+    public Membership(){}
+
+    public Long getMembership_id() {
         return membership_id;
     }
 
-    public void setMembership_id(long membership_id) {
+    public void setMembership_id(Long membership_id) {
         this.membership_id = membership_id;
     }
 
@@ -29,7 +40,7 @@ public class Membership {
         this.role = role;
     }
 
-    public long getGroup_id() {
+    public Long getGroup_id() {
         return group_id;
     }
 
@@ -37,22 +48,12 @@ public class Membership {
         this.group_id = group_id;
     }
 
-    public long getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long membership_id;
-    private long user_id;
-    private long group_id;
-    private String role;
-    private String joined_at;
-
-        public Membership(){}
 
 }
