@@ -1,0 +1,9 @@
+package entity;
+import jakarta.persistence.*;
+@Entity
+@Table(name = "USERS") // или GROUPS / TASKS / RESOURCES / MEMBERSHIPS / ACTIVITY_LOG
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+}
