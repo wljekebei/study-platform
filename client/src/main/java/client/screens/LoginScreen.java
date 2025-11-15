@@ -1,6 +1,7 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,21 +21,25 @@ import java.io.IOException;
 
 public class LoginScreen {
     public static Scene getScene() {
-        Label header = new Label("LOGIN");
+        Label header = new Label("SIGN IN");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
 
+        Label errorLabel = new Label();
+        errorLabel.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
+        errorLabel.setStyle("-fx-text-fill: red;");
+
         TextField usernameField = new TextField();
-        ElementSetup.tfSetup(usernameField, "email / username");
+        ElementSetup.tfSetup(usernameField, "Email / Username");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
-        passwordField.setPromptText("password");
+        passwordField.setPromptText("Password");
         passwordField.setPrefWidth(188);
         passwordField.setFocusTraversable(false);
 
         TextField passwordVisible = new TextField();
         passwordVisible.setFont(Font.font("Arial", 18));
-        passwordVisible.setPromptText("password");
+        passwordVisible.setPromptText("Password");
         passwordVisible.setPrefWidth(188);
         passwordVisible.setFocusTraversable(false);
         passwordVisible.setManaged(false);
@@ -68,7 +73,7 @@ public class LoginScreen {
             }
         });
 
-        Button loginButton = new Button("LOGIN");
+        Button loginButton = new Button("LOG IN");
         loginButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
         loginButton.setDefaultButton(true);
         ElementSetup.buttonSetup(loginButton, "5", "18");
@@ -82,15 +87,32 @@ public class LoginScreen {
             }
         });
 
+        Label signUpLink = new Label("Don't have an account?  Sign up");
+        signUpLink.setFont(Font.font("Arial", 15));
+        signUpLink.setStyle("""
+            -fx-text-fill: #4D7CFE;
+            -fx-underline: true;
+            -fx-cursor: hand;
+        """);
+
+        signUpLink.setOnMouseClicked(e -> {
+            SceneManager.toRegistration();
+        });
+
+
         HBox passwordBox = new HBox(passwordField, passwordVisible, passwordButton);
         passwordBox.setSpacing(10);
 
-        VBox logBox = new VBox(usernameField, passwordBox);
+        VBox logBox = new VBox(usernameField, passwordBox, signUpLink);
         logBox.setSpacing(20);
         logBox.setPadding(new Insets(0, 70, 0, 70));
         logBox.setAlignment(Pos.CENTER);
 
-        VBox root = new VBox(header, logBox, loginButton);
+        VBox upBox = new VBox(header, errorLabel, logBox);
+        upBox.setSpacing(10);
+        upBox.setAlignment(Pos.CENTER);
+
+        VBox root = new VBox(upBox, loginButton);
         root.setSpacing(60);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color: #D9E6FF;");

@@ -1,6 +1,7 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,26 +22,87 @@ public class RegistrationScreen {
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
 
         TextField nameField = new TextField();
-        ElementSetup.tfSetup(nameField, "first name");
+        ElementSetup.tfSetup(nameField, "First name");
 
         TextField surnameField = new TextField();
-        ElementSetup.tfSetup(surnameField, "second name");
+        ElementSetup.tfSetup(surnameField, "Second name");
         
         TextField emailField = new TextField();
-        ElementSetup.tfSetup(emailField, "email");
+        ElementSetup.tfSetup(emailField, "Email");
 
         TextField usernameField = new TextField();
-        ElementSetup.tfSetup(usernameField, "username");
+        ElementSetup.tfSetup(usernameField, "Username");
 
+        PwdFields pwdFields = RegistrationScreen.CreatePwdBox("Password");
+
+        PwdFields repFields = RegistrationScreen.CreatePwdBox("Repeat password");
+
+        Label infoLabel = new Label("Log In");
+        infoLabel.setFont(Font.font("Arial", 15));
+        infoLabel.setStyle("""
+            -fx-text-fill: #4D7CFE;
+            -fx-underline: true;
+            -fx-cursor: hand;
+        """);
+
+        infoLabel.setOnMouseClicked(e -> {
+            SceneManager.toLogin();
+        });
+
+        Button regButton = new Button("CREATE ACCOUNT");
+        regButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
+        regButton.setDefaultButton(true);
+        ElementSetup.buttonSetup(regButton, "10", "18");
+        regButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (pwdFields.pwdVisible.getText().equals(repFields.pwdVisible.getText()) || pwdFields.pwdVisible.getText().equals(repFields.pwdField.getText())) {
+                    infoLabel.setText("Logged in succesfully!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                } else if (pwdFields.pwdField.getText().equals(repFields.pwdVisible.getText()) || pwdFields.pwdField.getText().equals(repFields.pwdField.getText())) {
+                    infoLabel.setText("Logged in succesfully!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                } else {
+                    infoLabel.setText("Passwords are different!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                }
+
+                if (!(emailField.getText().contains("@") && emailField.getText().contains("."))) {
+                    infoLabel.setText("Email address is incorrect!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                }
+
+                // ADD LOGIC FOR REGISTRATION
+                // ADD LOGIC FOR REGISTRATION
+
+                // if created account correctly
+                // scenemanager.showMainScene
+            }
+        });
+
+        VBox regBox = new VBox(nameField, surnameField, emailField, usernameField, pwdFields.pwdBox, repFields.pwdBox, infoLabel);
+        regBox.setSpacing(20);
+        regBox.setPadding(new Insets(0, 100, 0, 100));
+        regBox.setAlignment(Pos.CENTER);
+
+        VBox root = new VBox(header, regBox, regButton);
+        root.setSpacing(40);
+        root.setAlignment(Pos.CENTER);
+        root.setStyle("-fx-background-color: #D9E6FF;");
+
+        return new Scene(root, 500, 600);
+    }
+
+    static PwdFields CreatePwdBox(String hintText) {
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
-        passwordField.setPromptText("password");
+        passwordField.setPromptText(hintText);
         passwordField.setPrefWidth(228);
         passwordField.setFocusTraversable(false);
 
         TextField passwordVisible = new TextField();
         passwordVisible.setFont(Font.font("Arial", 18));
-        passwordVisible.setPromptText("password");
+        passwordVisible.setPromptText(hintText);
         passwordVisible.setPrefWidth(228);
         passwordVisible.setFocusTraversable(false);
         passwordVisible.setManaged(false);
@@ -74,34 +136,23 @@ public class RegistrationScreen {
             }
         });
 
-
-        Button regButton = new Button("CREATE ACCOUNT");
-        regButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
-        regButton.setDefaultButton(true);
-        ElementSetup.buttonSetup(regButton, "10", "18");
-        regButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                // ADD LOGIC FOR REGISTRATION
-
-                // if created account correctly
-                // scenemanager.showMainScene
-            }
-        });
-
         HBox passwordBox = new HBox(passwordField, passwordVisible, passwordButton);
         passwordBox.setSpacing(10);
 
-        VBox regBox = new VBox(nameField, surnameField, emailField, usernameField, passwordBox);
-        regBox.setSpacing(20);
-        regBox.setPadding(new Insets(0, 100, 0, 100));
-        regBox.setAlignment(Pos.CENTER);
+        PwdFields pwdFields = new PwdFields(passwordField, passwordVisible, passwordBox);
 
-        VBox root = new VBox(header, regBox, regButton);
-        root.setSpacing(60);
-        root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #D9E6FF;");
+        return pwdFields;
+    }
+}
 
-        return new Scene(root, 500, 600);
+class PwdFields {
+    PasswordField pwdField;
+    TextField pwdVisible;
+    HBox pwdBox;
+
+    public PwdFields(PasswordField pwdField, TextField pwdVisible, HBox pwdBox) {
+        this.pwdField = pwdField;
+        this.pwdVisible = pwdVisible;
+        this.pwdBox = pwdBox;
     }
 }
