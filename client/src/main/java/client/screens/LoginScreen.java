@@ -83,7 +83,7 @@ public class LoginScreen {
                 // ADD LOGIC FOR LOGGING IN
 
                 // if logged in correctly
-                // scenemanager.showMainScene
+                SceneManager.toGroupsScreen();
             }
         });
 

@@ -56,20 +56,22 @@ public class RegistrationScreen {
         regButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (pwdFields.pwdVisible.getText().equals(repFields.pwdVisible.getText()) || pwdFields.pwdVisible.getText().equals(repFields.pwdField.getText())) {
-                    infoLabel.setText("Logged in succesfully!");
-                    infoLabel.setStyle("-fx-text-fill: red;");
-                } else if (pwdFields.pwdField.getText().equals(repFields.pwdVisible.getText()) || pwdFields.pwdField.getText().equals(repFields.pwdField.getText())) {
-                    infoLabel.setText("Logged in succesfully!");
-                    infoLabel.setStyle("-fx-text-fill: red;");
-                } else {
-                    infoLabel.setText("Passwords are different!");
-                    infoLabel.setStyle("-fx-text-fill: red;");
-                }
+                String pwd1 = pwdFields.pwdField.isVisible()
+                        ? pwdFields.pwdField.getText()
+                        : pwdFields.pwdVisible.getText();
+
+                String pwd2 = repFields.pwdField.isVisible()
+                        ? repFields.pwdField.getText()
+                        : repFields.pwdVisible.getText();
 
                 if (!(emailField.getText().contains("@") && emailField.getText().contains("."))) {
                     infoLabel.setText("Email address is incorrect!");
                     infoLabel.setStyle("-fx-text-fill: red;");
+                } else if (!(pwd1.equals(pwd2))) {
+                    infoLabel.setText("Passwords are different!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                } else {
+                    SceneManager.toGroupsScreen();
                 }
 
                 // ADD LOGIC FOR REGISTRATION
