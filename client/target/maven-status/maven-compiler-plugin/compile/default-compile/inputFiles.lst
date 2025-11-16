@@ -1,7 +1,14 @@
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\components\ElementSetup.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\Main.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\ActivityLog.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Group.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Membership.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Resource.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Task.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\User.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\GroupsScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\JoinScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\LoginScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RegistrationScreen.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\util\MockDB.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\util\SceneManager.java
