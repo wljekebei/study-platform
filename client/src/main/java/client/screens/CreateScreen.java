@@ -1,6 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.Group;
+import client.models.User;
+import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,10 +19,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class CreateScreen {
     public static Scene getScene() {
         Label header = new Label("CREATE GROUP");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+
+        Label errorLabel = new Label();
+        errorLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+        errorLabel.setStyle("-fx-text-fill: red;");
 
         TextField nameField = new TextField();
         ElementSetup.tfSetup(nameField, "Group Name");
@@ -39,12 +50,28 @@ public class CreateScreen {
         createButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // creating logic
-                // SceneManager.toGroup
+                if (nameField.getText().length() > 10) {
+                    errorLabel.setText("Group name can contain max. 10 characters");
+                } else if (nameField.getText().isEmpty()) {
+                    errorLabel.setText("Group name can not be empty");
+                } else {
+                    // creating logic
+                    MockDB.groups.add(new Group(
+                            5L,
+                            List.of(
+                                    new User(1L, "Kolay", "k@a.com", "abcde")
+                            ),
+                            LocalDateTime.now().toString(),
+                            1L,
+                            description.getText(),
+                            nameField.getText()
+                    ));
+                    // SceneManager.toGroup
 
-                // REMOVE
-                SceneManager.toGroupsScreen();
-                // REMOVE ^
+                    // REMOVE
+                    SceneManager.toGroupsScreen();
+                    // REMOVE ^
+                }
             }
         });
 
@@ -68,9 +95,13 @@ public class CreateScreen {
         buttonsBox.setPadding(new Insets(0, 0, 0, 10));
         buttonsBox.setSpacing(50);
 
-        VBox root = new VBox(header, nameDesc, buttonsBox);
+        VBox labelNButtons = new VBox(errorLabel, buttonsBox);
+        labelNButtons.setAlignment(Pos.CENTER);
+        labelNButtons.setSpacing(10);
+
+        VBox root = new VBox(header, nameDesc, labelNButtons);
         root.setAlignment(Pos.CENTER);
-        root.setSpacing(50);
+        root.setSpacing(40);
         root.setPadding(new Insets(30, 30, 30, 30));
         root.setStyle("-fx-background-color: #D9E6FF;");
 
