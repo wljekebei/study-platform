@@ -6,14 +6,14 @@ import jakarta.persistence.*;
 public class Task{
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long task_id;
-private Long group_id;
-private Long created_by;
-private String title;
-private String description;
-private String status;
-private String deadline;
-private String created_at;
+    private Long task_id;
+    private Long group_id;
+    private Long created_by;
+    private String title;
+    private String description;
+    private String status;
+    private String deadline;
+    private String created_at;
 
     public Task(){}
 
