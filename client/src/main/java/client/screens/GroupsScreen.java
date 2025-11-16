@@ -61,7 +61,7 @@ public class GroupsScreen {
         createButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // ScreenManager.toCreate
+                SceneManager.toCreate();
             }
         });
 

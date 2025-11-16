@@ -1,9 +1,6 @@
 package client.util;
 
-import client.screens.GroupsScreen;
-import client.screens.JoinScreen;
-import client.screens.LoginScreen;
-import client.screens.RegistrationScreen;
+import client.screens.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -35,6 +32,12 @@ public class SceneManager {
     public static void toJoin() {
         stage.setScene(JoinScreen.getScene());
         stage.setTitle("Join Group");
+        stage.show();
+    }
+
+    public static void toCreate() {
+        stage.setScene(CreateScreen.getScene());
+        stage.setTitle("Create Group");
         stage.show();
     }
 }

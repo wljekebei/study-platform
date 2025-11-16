@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -38,10 +39,27 @@ public class JoinScreen {
             }
         });
 
-        VBox root = new VBox(header, idField, joinButton);
+        Button backButton = new Button("BACK");
+        backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
+        backButton.setDefaultButton(false);
+        ElementSetup.buttonSetup(backButton, "10", "16");
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toGroupsScreen();
+            }
+        });
+
+        HBox buttonsBox = new HBox(backButton, joinButton);
+        buttonsBox.setAlignment(Pos.CENTER);
+        buttonsBox.setSpacing(50);
+
+        VBox root = new VBox(header, idField, buttonsBox);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(50);
         root.setPadding(new Insets(30, 30, 30, 30));
+        root.setStyle("-fx-background-color: #D9E6FF;");
+
         return new Scene(root, 300, 300);
     }
 }
