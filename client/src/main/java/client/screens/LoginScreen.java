@@ -76,7 +76,7 @@ public class LoginScreen {
         Button loginButton = new Button("LOG IN");
         loginButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
         loginButton.setDefaultButton(true);
-        ElementSetup.buttonSetup(loginButton, "5", "18");
+        ElementSetup.buttonSetup(loginButton, "10", "18");
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
