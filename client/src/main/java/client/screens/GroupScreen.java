@@ -1,8 +1,13 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.Group;
+import client.models.Task;
+import client.models.User;
+import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,24 +19,19 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GroupScreen {
+    private static List<Task> tasks = MockDB.getTasks();
 
-    public static Scene getScene(
-            String groupName,
-            int groupId,
-            String description,
-            List<UserEntry> users,
-            List<TaskEntry> tasks
-    ) {
+    public static Scene getScene(Group group) {
 
         // ---------- HEADER (Название + ID) ----------
-        Label title = new Label(groupName);
+        Label title = new Label(group.getName());
         title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 
-        Label id = new Label("ID: " + groupId);
+        Label id = new Label("ID: " + group.getGroup_id());
         id.setFont(Font.font("Arial", 20));
         id.setStyle("-fx-text-fill: gray;");
 
@@ -40,7 +40,7 @@ public class GroupScreen {
         nameBox.setAlignment(Pos.CENTER_LEFT);
 
         // ---------- DESCRIPTION ----------
-        Label descLabel = new Label(description);
+        Label descLabel = new Label(group.getDescription());
         descLabel.setFont(Font.font("Arial", 18));
 
         Pane descPane = wrapBox(descLabel);
@@ -49,19 +49,22 @@ public class GroupScreen {
         VBox userList = new VBox();
         userList.setSpacing(10);
 
-        users = new ArrayList<>(users);
-        users.sort((a, b) -> {
-            List<String> order = List.of("owner", "admin", "member");
-            return Integer.compare(order.indexOf(a.role), order.indexOf(b.role));
-        });
+        List<User> users = group.getMembers();
 
-        for (UserEntry u : users) {
-            Label name = new Label(u.username);
+        // SORT BY ROLES FROM MEMBERSHIPS TABLE
+//        users.sort((a, b) -> {
+//            List<String> order = List.of("owner", "admin", "member");
+//            return Integer.compare(order.indexOf(a.role), order.indexOf(b.role));
+//        });
+        // SORT BY ROLES FROM MEMBERSHIPS TABLE
+
+        for (User u : users) {
+            Label name = new Label(u.getName());
             name.setFont(Font.font("Arial", 18));
 
-            if (u.role.equals("owner")) name.setStyle("-fx-text-fill: #1F75FF;");
-            else if (u.role.equals("admin")) name.setStyle("-fx-text-fill: #00AA00;");
-            else name.setStyle("-fx-text-fill: black;");
+//            if (u.role.equals("owner")) name.setStyle("-fx-text-fill: #1F75FF;");
+//            else if (u.role.equals("admin")) name.setStyle("-fx-text-fill: #00AA00;");
+//            else name.setStyle("-fx-text-fill: black;");
 
             userList.getChildren().add(name);
         }
@@ -82,29 +85,33 @@ public class GroupScreen {
 
 
         // ---------- TASK TABLE ----------
-        TableView<TaskEntry> taskTable = new TableView<>();
+        TableView<Task> taskTable = new TableView<>();
 
-        TableColumn<TaskEntry, String> colTitle = new TableColumn<>("TITLE");
-        colTitle.setCellValueFactory(c -> c.getValue().taskTitleProperty());
+        TableColumn<Task, String> colTitle = new TableColumn<>("TITLE");
+        colTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitle()));
 
-        TableColumn<TaskEntry, String> colDesc = new TableColumn<>("DESCRIPTION");
-        colDesc.setCellValueFactory(c -> c.getValue().taskDescProperty());
+        TableColumn<Task, String> colDesc = new TableColumn<>("DESCRIPTION");
+        colDesc.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
 
-        TableColumn<TaskEntry, String> colDeadline = new TableColumn<>("DEADLINE");
-        colDeadline.setCellValueFactory(c -> c.getValue().deadlineProperty());
+        TableColumn<Task, String> colDeadline = new TableColumn<>("DEADLINE");
+        colDeadline.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDeadline()));
 
-        TableColumn<TaskEntry, String> colStatus = new TableColumn<>("STATUS");
-        colStatus.setCellValueFactory(c -> c.getValue().statusProperty());
+        TableColumn<Task, String> colStatus = new TableColumn<>("STATUS");
+        colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
+
+        List<Task> filteredTasks = tasks.stream()
+                .filter(t -> Objects.equals(t.getGroup_id(), group.getGroup_id()))
+                .toList();
 
         taskTable.getColumns().addAll(colTitle, colDesc, colDeadline, colStatus);
-        taskTable.getItems().addAll(tasks);
+        taskTable.getItems().setAll(filteredTasks);
 
         taskTable.setRowFactory(tv -> {
-            TableRow<TaskEntry> row = new TableRow<>();
+            TableRow<Task> row = new TableRow<>();
 
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getClickCount() == 2) { // двойной клик
-                    TaskEntry task = row.getItem();
+                    Task task = row.getItem();
                     openTaskConfig(task);
                 }
             });
@@ -112,8 +119,8 @@ public class GroupScreen {
             return row;
         });
 
-        colTitle.setPrefWidth(120);      // Ширина колонки TASK
-        colDesc.setPrefWidth(442);
+        colTitle.setPrefWidth(142);      // Ширина колонки TASK
+        colDesc.setPrefWidth(420);
         colDeadline.setPrefWidth(80);  // Ширина DEADLINE
         colStatus.setPrefWidth(90);    // Ширина STATUS
 
@@ -260,39 +267,13 @@ public class GroupScreen {
         VBox box = new VBox(node);
         box.setPadding(new Insets(15));
         box.setStyle("""
-            -fx-background-color: #C5D6FF;
-            -fx-background-radius: 12;
-        """);
+                    -fx-background-color: #C5D6FF;
+                    -fx-background-radius: 12;
+                """);
         return box;
     }
 
-    // ---------- DATA CLASSES ----------
-    public static class UserEntry {
-        public String username;
-        public String role; // owner / admin / member
-        public UserEntry(String u, String r) { username = u; role = r; }
-    }
-
-    public static class TaskEntry {
-        private javafx.beans.property.SimpleStringProperty taskTitle;
-        private javafx.beans.property.SimpleStringProperty taskDesc;
-        private javafx.beans.property.SimpleStringProperty deadline;
-        private javafx.beans.property.SimpleStringProperty status;
-
-        public TaskEntry(String t, String desc, String d, String s) {
-            taskTitle = new javafx.beans.property.SimpleStringProperty(t);
-            taskDesc = new javafx.beans.property.SimpleStringProperty(desc);
-            deadline = new javafx.beans.property.SimpleStringProperty(d);
-            this.status = new javafx.beans.property.SimpleStringProperty(s);
-        }
-
-        public javafx.beans.property.StringProperty taskTitleProperty() { return taskTitle; }
-        public javafx.beans.property.StringProperty taskDescProperty() { return taskDesc; }
-        public javafx.beans.property.StringProperty deadlineProperty() { return deadline; }
-        public javafx.beans.property.StringProperty statusProperty() { return status; }
-    }
-
-    private static void openTaskConfig(TaskEntry task) {
+    private static void openTaskConfig(Task task) {
         SceneManager.toTaskConfig();
         // Тут вызываешь свою сцену
 //        SceneManager.toTaskConfigScreen(

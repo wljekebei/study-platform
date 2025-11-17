@@ -17,6 +17,7 @@ public class ElementSetup {
             -fx-text-fill: white;
             -fx-font-size: %s;
             -fx-background-radius: %s;
+            -fx-cursor: hand;
         """.formatted(fontSize + "pt", bgRadius));
     } // fs 11 & 18
 }

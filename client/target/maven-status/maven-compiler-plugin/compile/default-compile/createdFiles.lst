@@ -4,7 +4,6 @@ client\models\User.class
 client\screens\LoginScreen.class
 client\screens\AddTaskScreen.class
 client\screens\GroupsScreen$1.class
-client\screens\GroupScreen$TaskEntry.class
 client\screens\GroupsScreen.class
 client\screens\TaskConfigScreen.class
 client\models\Membership.class
@@ -12,7 +11,6 @@ client\models\Group.class
 client\screens\LoginScreen$2.class
 client\screens\RemoveTaskScreen.class
 client\screens\AddTaskScreen$1.class
-client\screens\GroupScreen$UserEntry.class
 client\util\MockDB.class
 client\screens\RegistrationScreen.class
 client\models\ActivityLog.class

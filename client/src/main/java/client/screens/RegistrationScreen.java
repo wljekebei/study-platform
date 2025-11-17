@@ -20,12 +20,6 @@ public class RegistrationScreen {
     public static Scene getScene() {
         Label header = new Label("SIGN UP");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
-
-        TextField nameField = new TextField();
-        ElementSetup.tfSetup(nameField, "First name");
-
-        TextField surnameField = new TextField();
-        ElementSetup.tfSetup(surnameField, "Second name");
         
         TextField emailField = new TextField();
         ElementSetup.tfSetup(emailField, "Email");
@@ -82,7 +76,7 @@ public class RegistrationScreen {
             }
         });
 
-        VBox regBox = new VBox(nameField, surnameField, emailField, usernameField, pwdFields.pwdBox, repFields.pwdBox, infoLabel);
+        VBox regBox = new VBox(emailField, usernameField, pwdFields.pwdBox, repFields.pwdBox, infoLabel);
         regBox.setSpacing(20);
         regBox.setPadding(new Insets(0, 100, 0, 100));
         regBox.setAlignment(Pos.CENTER);
@@ -92,7 +86,7 @@ public class RegistrationScreen {
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color: #D9E6FF;");
 
-        return new Scene(root, 500, 600);
+        return new Scene(root, 500, 500);
     }
 
     static PwdFields CreatePwdBox(String hintText) {

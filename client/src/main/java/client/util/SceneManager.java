@@ -1,5 +1,6 @@
 package client.util;
 
+import client.models.Group;
 import client.screens.*;
 import javafx.stage.Stage;
 
@@ -54,6 +55,12 @@ public class SceneManager {
 
     public static void toRemoveTask() {
         stage.setScene(RemoveTaskScreen.getScene());
+        stage.setTitle("Remove Task");
+        stage.show();
+    }
+
+    public static void toGroup(Group group) {
+        stage.setScene(GroupScreen.getScene(group));
         stage.setTitle("Remove Task");
         stage.show();
     }

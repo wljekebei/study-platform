@@ -32,7 +32,7 @@ public class GroupsScreen {
         groupsGrid.getChildren().clear();
         index = 0;
         for (Group group : groups) {
-            addGroupBox(createGroupBox(group.getName(), group.getMembers()));
+            addGroupBox(createGroupBox(group));
         }
 
         Label header = new Label("GROUPS");
@@ -88,12 +88,12 @@ public class GroupsScreen {
         groupsGrid.add(groupBox, column, row);
     }
 
-    public static VBox createGroupBox(String name, List<User> members) {
+    public static VBox createGroupBox(Group group) {
         int fontSize = 38; // set limit at 10 symbols for group name !!
-        if (name.length() > 8) fontSize = 20;
-        else if (name.length() > 5) fontSize = 25;
+        if (group.getName().length() > 8) fontSize = 20;
+        else if (group.getName().length() > 5) fontSize = 25;
 
-        Label groupName = new Label(name);
+        Label groupName = new Label(group.getName());
         groupName.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));
         groupName.setPrefWidth(200);
         groupName.setMinHeight(40);
@@ -105,7 +105,7 @@ public class GroupsScreen {
         """);
 
         groupName.setOnMouseClicked(e -> {
-            // SceneManager.toGroup();
+            SceneManager.toGroup(group);
         });
 
 
@@ -117,13 +117,13 @@ public class GroupsScreen {
         memberBox.setAlignment(Pos.CENTER_LEFT);
 
         int i = 0;
-        for(User member : members) {
+        for(User member : group.getMembers()) {
             if (i < 3) {
                 Label memberLabel = new Label(member.getName());
                 memberLabel.setFont(Font.font("Arial", 18));
                 memberBox.getChildren().add(memberLabel);
             } else {
-                Label othersLabel = new Label("Others(" + (members.size() - 3) + ")");
+                Label othersLabel = new Label("Others(" + (group.getMembers().size() - 3) + ")");
                 othersLabel.setFont(Font.font("Arial", 18));
                 memberBox.getChildren().add(othersLabel);
                 break;

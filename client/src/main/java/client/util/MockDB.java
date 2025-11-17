@@ -41,8 +41,8 @@ public class MockDB {
 
     static {
         tasks.add(new Task(
+                123L,
                 1L,
-                10L,
                 3L,
                 "Finish UI Layout",
                 "Complete the final version of the group screen layout.",
@@ -52,8 +52,8 @@ public class MockDB {
         ));
 
         tasks.add(new Task(
-                2L,
-                10L,
+                223L,
+                1L,
                 5L,
                 "Database Setup",
                 "Create tables for users, groups, tasks and relations.",
@@ -63,8 +63,8 @@ public class MockDB {
         ));
 
         tasks.add(new Task(
-                3L,
-                10L,
+                323L,
+                1L,
                 3L,
                 "Add Scroll Styling",
                 "Improve design of scrollbars for the task table and user list.",
@@ -72,6 +72,29 @@ public class MockDB {
                 "2025-11-15",
                 "2025-11-10"
         ));
+
+        tasks.add(new Task(
+                324L,
+                2L,
+                5L,
+                "Implement Login Validation",
+                "Add server-side and client-side validation for login and registration forms.",
+                "In progress",
+                "2025-12-01",
+                "2025-11-16"
+        ));
+
+        tasks.add(new Task(
+                325L,
+                2L,
+                11L,
+                "Optimize Group Loading",
+                "Improve the loading speed of groups by caching memberships and tasks.",
+                "Open",
+                "2025-12-10",
+                "2025-11-17"
+        ));
+
     }
 
 
