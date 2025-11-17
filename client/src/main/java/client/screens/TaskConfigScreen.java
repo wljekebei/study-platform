@@ -1,6 +1,7 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.Group;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class TaskConfigScreen {
-    public static Scene getScene() {
+    public static Scene getScene(Group group) {
         Label header = new Label("CONFIGURATE TASK");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 
@@ -42,12 +43,8 @@ public class TaskConfigScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // back to group, saving info logic
-                // SceneManager.toGroup
-
-                // REMOVE
-                SceneManager.toGroupsScreen();
-                // REMOVE ^
+                // saving info logic
+                SceneManager.toGroup(group);
             }
         });
 
@@ -58,8 +55,7 @@ public class TaskConfigScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // SM.toGroup()
-                SceneManager.toGroupsScreen();
+                SceneManager.toGroup(group);
             }
         });
 

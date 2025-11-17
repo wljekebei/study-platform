@@ -27,6 +27,7 @@ client\screens\JoinScreen.class
 client\screens\RemoveTaskScreen$1.class
 client\models\Task.class
 client\screens\RemoveTaskScreen$2.class
+client\screens\GroupScreen$3.class
 client\models\Resource.class
 client\screens\TaskConfigScreen$1.class
 client\screens\JoinScreen$1.class

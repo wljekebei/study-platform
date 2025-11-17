@@ -1,8 +1,11 @@
 package client.util;
 
 import client.models.Group;
+import client.models.Task;
 import client.screens.*;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class SceneManager {
     private static Stage stage; // static - exists once in all program
@@ -41,20 +44,20 @@ public class SceneManager {
         stage.show();
     }
 
-    public static void toTaskConfig() {
-        stage.setScene(TaskConfigScreen.getScene());
+    public static void toTaskConfig(Group group) {
+        stage.setScene(TaskConfigScreen.getScene(group));
         stage.setTitle("Task Configuration");
         stage.show();
     }
 
-    public static void toAddTask() {
-        stage.setScene(AddTaskScreen.getScene());
+    public static void toAddTask(Group group) {
+        stage.setScene(AddTaskScreen.getScene(group));
         stage.setTitle("New Task");
         stage.show();
     }
 
-    public static void toRemoveTask() {
-        stage.setScene(RemoveTaskScreen.getScene());
+    public static void toRemoveTask(Group group, List<Task> tasks) {
+        stage.setScene(RemoveTaskScreen.getScene(group, tasks));
         stage.setTitle("Remove Task");
         stage.show();
     }

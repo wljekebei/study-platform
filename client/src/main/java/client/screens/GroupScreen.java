@@ -112,7 +112,7 @@ public class GroupScreen {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getClickCount() == 2) { // двойной клик
                     Task task = row.getItem();
-                    openTaskConfig(task);
+                    openTaskConfig(task, group);
                 }
             });
 
@@ -185,7 +185,7 @@ public class GroupScreen {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toAddTask();
+                SceneManager.toAddTask(group);
             }
         });
 
@@ -194,15 +194,30 @@ public class GroupScreen {
         rmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toRemoveTask();
+                SceneManager.toRemoveTask(group, filteredTasks);
             }
         });
+
+        Button backButton = new Button("BACK");
+        backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
+        backButton.setDefaultButton(false);
+        ElementSetup.buttonSetup(backButton, "10", "11");
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toGroupsScreen();
+            }
+        });
+
+        HBox nameNBackBox = new HBox(backButton, nameBox);
+        nameNBackBox.setSpacing(30);
+        nameNBackBox.setAlignment(Pos.CENTER_LEFT);
 
         HBox buttonBox = new HBox(addButton, rmButton, resButton);
         buttonBox.setSpacing(26);
 
         // ---------- LEFT SIDE ----------
-        VBox left = new VBox(nameBox, descPane, buttonBox);
+        VBox left = new VBox(nameNBackBox, descPane, buttonBox);
         left.setSpacing(20);               // Было 47 — делаем ближе
         left.setPrefWidth(520);            // Чуть шире, чтобы TASKS влезали красиво
 
@@ -273,13 +288,7 @@ public class GroupScreen {
         return box;
     }
 
-    private static void openTaskConfig(Task task) {
-        SceneManager.toTaskConfig();
-        // Тут вызываешь свою сцену
-//        SceneManager.toTaskConfigScreen(
-//                task.taskNameProperty().get(),
-//                task.deadlineProperty().get(),
-//                task.statusProperty().get()
-//        );
+    private static void openTaskConfig(Task task, Group group) {
+        SceneManager.toTaskConfig(group);
     }
 }

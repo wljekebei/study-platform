@@ -1,6 +1,8 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.Group;
+import client.models.Task;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,19 +12,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.List;
+
 public class RemoveTaskScreen {
-    public static Scene getScene() {
+    public static Scene getScene(Group group, List<Task> tasks) {
         Label header = new Label("REMOVE TASK");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 35));
 
         ComboBox<String> tasksChoice = new ComboBox<>();
-        tasksChoice.getItems().addAll(); // ADD LOGIC FOR ADDING ALL TASKS
+        for (Task task : tasks) {
+            tasksChoice.getItems().add(task.getTitle());
+        }
         tasksChoice.setPrefWidth(250);
         tasksChoice.setStyle("""
                 -fx-background-color: #4D7CFE;
@@ -38,12 +43,8 @@ public class RemoveTaskScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // back to group, saving info logic
-                // SceneManager.toGroup
-
-                // REMOVE
-                SceneManager.toGroupsScreen();
-                // REMOVE ^
+                // saving info logic
+                SceneManager.toGroup(group);
             }
         });
 
@@ -55,7 +56,7 @@ public class RemoveTaskScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // SM.toGroup()
-                SceneManager.toGroupsScreen();
+                SceneManager.toGroup(group);
             }
         });
 
