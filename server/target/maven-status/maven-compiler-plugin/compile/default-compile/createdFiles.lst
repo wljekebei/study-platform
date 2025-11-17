@@ -10,10 +10,14 @@ poch/service/ResourceService.class
 poch/service/GroupService.class
 poch/entity/Membership.class
 poch/controller/ActivityLogController.class
+poch/dto/UserLoginDTO.class
 poch/controller/UserController.class
+poch/dto/UserRegisterDTO.class
 poch/entity/Group.class
 poch/controller/TaskController.class
+poch/controller/AuthController.class
 poch/repository/GroupRepository.class
+poch/dto/UserResponseDTO.class
 poch/repository/ResourceRepository.class
 poch/service/TaskService.class
 poch/repository/UserRepository.class
