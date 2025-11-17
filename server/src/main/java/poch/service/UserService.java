@@ -1,5 +1,6 @@
 package poch.service;
 
+import poch.dto.UserUpdateDTO;
 import poch.entity.User;
 import org.springframework.stereotype.Service;
 import poch.repository.UserRepository;
@@ -82,4 +83,16 @@ public class UserService {
         dto.email = user.getEmail();
         return dto;
     }
+
+    public UserResponseDTO updateProfile(Long id, UserUpdateDTO dto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(dto.name);
+        user.setEmail(dto.email);
+
+        user = userRepository.save(user);
+        return mapToResponse(user);
+    }
+
 }

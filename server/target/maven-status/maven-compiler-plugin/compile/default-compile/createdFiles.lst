@@ -1,5 +1,6 @@
 poch/repository/MembershipRepository.class
 poch/entity/User.class
+poch/dto/UserUpdateDTO.class
 poch/entity/Resource.class
 poch/repository/ActivityLogRepository.class
 poch/entity/Task.class

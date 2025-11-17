@@ -6,6 +6,7 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/Task.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserLoginDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/ServerApplication.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserUpdateDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/TaskService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/repository/GroupRepository.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/repository/ActivityLogRepository.java
