@@ -13,6 +13,7 @@ client\screens\RemoveTaskScreen.class
 client\screens\AddTaskScreen$1.class
 client\util\MockDB.class
 client\screens\RegistrationScreen.class
+client\screens\AccountScreen.class
 client\models\ActivityLog.class
 client\screens\GroupScreen$2.class
 client\screens\TaskConfigScreen$2.class
@@ -22,6 +23,7 @@ client\screens\GroupsScreen$2.class
 client\screens\CreateScreen$1.class
 client\screens\LoginScreen$1.class
 client\screens\GroupScreen.class
+client\screens\AccountScreen$1.class
 client\screens\PwdFields.class
 client\screens\JoinScreen.class
 client\screens\RemoveTaskScreen$1.class
@@ -33,7 +35,9 @@ client\screens\TaskConfigScreen$1.class
 client\screens\JoinScreen$1.class
 client\screens\AddTaskScreen$2.class
 client\components\ElementSetup.class
+client\services\Session.class
 client\screens\RegistrationScreen$1.class
+client\screens\GroupsScreen$3.class
 client\Main.class
 client\screens\GroupScreen$1.class
 client\screens\CreateScreen.class

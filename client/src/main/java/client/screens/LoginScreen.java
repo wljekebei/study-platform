@@ -1,6 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.User;
+import client.services.Session;
+import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,8 +31,8 @@ public class LoginScreen {
         errorLabel.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
         errorLabel.setStyle("-fx-text-fill: red;");
 
-        TextField usernameField = new TextField();
-        ElementSetup.tfSetup(usernameField, "Email / Username");
+        TextField emailField = new TextField();
+        ElementSetup.tfSetup(emailField, "Email");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
@@ -80,10 +83,15 @@ public class LoginScreen {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // ADD LOGIC FOR LOGGING IN
-
-                // if logged in correctly
-                SceneManager.toGroupsScreen();
+                User user = findUserByEmail(emailField.getText());
+                if(user == null) {
+                    errorLabel.setText("User not found.");
+                } else if (!(user.getPassword_hash().equals(passwordField.getText())) && !(user.getPassword_hash().equals(passwordVisible.getText()))) {
+                    errorLabel.setText("Incorrect password.");
+                } else {
+                    Session.setUser(user);
+                    SceneManager.toGroupsScreen();
+                }
             }
         });
 
@@ -103,7 +111,7 @@ public class LoginScreen {
         HBox passwordBox = new HBox(passwordField, passwordVisible, passwordButton);
         passwordBox.setSpacing(10);
 
-        VBox logBox = new VBox(usernameField, passwordBox, signUpLink);
+        VBox logBox = new VBox(emailField, passwordBox, signUpLink);
         logBox.setSpacing(20);
         logBox.setPadding(new Insets(0, 70, 0, 70));
         logBox.setAlignment(Pos.CENTER);
@@ -119,4 +127,14 @@ public class LoginScreen {
 
         return new Scene(root, 400, 400);
     }
+
+    public static User findUserByEmail(String email) {
+        for (User u : MockDB.getUsers()) {
+            if (u.getEmail().equals(email)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
 }

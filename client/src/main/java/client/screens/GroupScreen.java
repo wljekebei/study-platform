@@ -112,7 +112,7 @@ public class GroupScreen {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getClickCount() == 2) { // двойной клик
                     Task task = row.getItem();
-                    openTaskConfig(task, group);
+                    SceneManager.toTaskConfig(task, group);
                 }
             });
 
@@ -275,9 +275,5 @@ public class GroupScreen {
                     -fx-background-radius: 12;
                 """);
         return box;
-    }
-
-    private static void openTaskConfig(Task task, Group group) {
-        SceneManager.toTaskConfig(group);
     }
 }

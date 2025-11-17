@@ -3,6 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.User;
+import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -61,7 +62,7 @@ public class CreateScreen {
                     MockDB.groups.add(new Group(
                             5L,
                             List.of(
-                                    new User(1L, "Kolay", "k@a.com", "abcde")
+                                    Session.getUser()
                             ),
                             LocalDateTime.now().toString(),
                             1L,

@@ -2,6 +2,7 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
+import client.models.Task;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,21 +18,25 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class TaskConfigScreen {
-    public static Scene getScene(Group group) {
+    public static Scene getScene(Task task, Group group) {
         Label header = new Label("CONFIGURATE TASK");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 
         TextField titleField = new TextField();
         ElementSetup.tfSetup(titleField, "Title");
+        titleField.setText(task.getTitle());
 
         TextField descField = new TextField();
         ElementSetup.tfSetup(descField, "Description");
+        descField.setText(task.getDescription());
 
         TextField deadlineField = new TextField(); // max 10 chars
         ElementSetup.tfSetup(deadlineField, "Deadline");
+        deadlineField.setText(task.getDeadline());
 
         TextField progressField = new TextField(); // max 10 chars
         ElementSetup.tfSetup(progressField, "Progress");
+        progressField.setText(task.getStatus());
 
         deadlineField.setMaxWidth(160);
         progressField.setMaxWidth(160);
@@ -43,7 +48,10 @@ public class TaskConfigScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // saving info logic
+                task.setTitle(titleField.getText());
+                task.setDescription(descField.getText());
+                task.setDeadline(deadlineField.getText());
+                task.setStatus(progressField.getText());
                 SceneManager.toGroup(group);
             }
         });

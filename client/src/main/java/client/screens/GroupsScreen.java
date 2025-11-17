@@ -3,6 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.User;
+import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -24,9 +25,10 @@ import java.util.List;
 
 public class GroupsScreen {
     private static GridPane groupsGrid = new GridPane();
-    private static int maxHorGroups = 3;
+    private static final int maxHorGroups = 3;
     private static int index = 0;
     private static List<Group> groups = MockDB.getGroups();
+    private static final User user = Session.getUser();
 
     public static Scene getScene() {
         groupsGrid.getChildren().clear();
@@ -64,10 +66,24 @@ public class GroupsScreen {
             }
         });
 
-        HBox buttonBox = new HBox(joinButton, createButton);
-        buttonBox.setSpacing(386);
+        Button accButton = new Button("MY ACCOUNT");
+        accButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
+        accButton.setDefaultButton(false);
+        ElementSetup.buttonSetup(accButton, "10", "16");
+        accButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toAccount(user);
+            }
+        });
 
-        VBox root = new VBox(header, groupsGrid, buttonBox);
+        HBox buttonBox = new HBox(joinButton, createButton);
+        buttonBox.setSpacing(20);
+
+        HBox allButtonsBox = new HBox(accButton, buttonBox);
+        allButtonsBox.setSpacing(200);
+
+        VBox root = new VBox(header, groupsGrid, allButtonsBox);
         root.setSpacing(40);
         root.setAlignment(Pos.TOP_CENTER);
         root.setPadding(new Insets(10, 20, 10, 20));

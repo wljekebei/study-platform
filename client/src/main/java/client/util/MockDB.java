@@ -10,15 +10,50 @@ import java.util.List;
 public class MockDB {
     public static List<Group> groups = new ArrayList<>();
     public static List<Task> tasks = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
+
+    static {
+        users.add(new User(
+                101L,
+                "admin",
+                "@.",
+                "1"
+        ));
+
+        users.add(new User(
+                102L,
+                "Kolay",
+                "kolay228@example.com",
+                "abcd9876"
+        ));
+
+        users.add(new User(
+                103L,
+                "Vasyl",
+                "fllesruoy@gmail.com",
+                "qwerty555"
+        ));
+
+        users.add(new User(
+                104L,
+                "HEIKO228",
+                "xheiko@stuba.sk",
+                "pass9087"
+        ));
+
+        users.add(new User(
+                105L,
+                "dimka",
+                "savin512@example.com",
+                "secure7788"
+        ));
+    }
 
     static {
         groups.add(new Group(
                 1L,
                 List.of(
-                        new User(1L, "Kolay", "k@a.com", "abcde"),
-                        new User(2L, "Vasyl", "v@a.com", "abcf"),
-                        new User(3L, "Random", "r@a.com", "bcdef"),
-                        new User(4L, "Timur", "t@a.com", "acdef")
+                        users.get(0), users.get(2), users.get(3), users.get(4)
                 ),
                 "2024-01-01",
                 1L,
@@ -29,8 +64,7 @@ public class MockDB {
         groups.add(new Group(
                 2L,
                 List.of(
-                        new User(10L, "HEIKO228", "h@a.com", "abcef"),
-                        new User(11L, "Andrianka", "a@a.com", "abdef")
+                       users.get(0), users.get(1), users.get(4)
                 ),
                 "2024-01-01",
                 3L,
@@ -97,7 +131,6 @@ public class MockDB {
 
     }
 
-
     public static List<Group> getGroups() {
         return groups;
     }
@@ -112,5 +145,13 @@ public class MockDB {
 
     public static void setTasks(List<Task> tasks) {
         MockDB.tasks = tasks;
+    }
+
+    public static List<User> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(List<User> users) {
+        MockDB.users = users;
     }
 }

@@ -2,6 +2,7 @@ package client.util;
 
 import client.models.Group;
 import client.models.Task;
+import client.models.User;
 import client.screens.*;
 import javafx.stage.Stage;
 
@@ -44,8 +45,8 @@ public class SceneManager {
         stage.show();
     }
 
-    public static void toTaskConfig(Group group) {
-        stage.setScene(TaskConfigScreen.getScene(group));
+    public static void toTaskConfig(Task task, Group group) {
+        stage.setScene(TaskConfigScreen.getScene(task, group));
         stage.setTitle("Task Configuration");
         stage.show();
     }
@@ -65,6 +66,12 @@ public class SceneManager {
     public static void toGroup(Group group) {
         stage.setScene(GroupScreen.getScene(group));
         stage.setTitle("Remove Task");
+        stage.show();
+    }
+
+    public static void toAccount(User user) {
+        stage.setScene(AccountScreen.getScene(user));
+        stage.setTitle("Account Configuration");
         stage.show();
     }
 }

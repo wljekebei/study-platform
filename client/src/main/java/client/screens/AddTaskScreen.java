@@ -2,6 +2,10 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
+import client.models.Task;
+import client.models.User;
+import client.services.Session;
+import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.time.LocalDateTime;
 
 public class AddTaskScreen {
     public static Scene getScene(Group group) {
@@ -38,7 +44,18 @@ public class AddTaskScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // saving info logic
+                MockDB.getTasks().add(
+                        new Task(
+                                (long) (Math.random() * 100 + 1),
+                                group.getGroup_id(),
+                                Session.getUser().getUser_id(),
+                                titleField.getText(),
+                                descField.getText(),
+                                "Open",
+                                deadlineField.getText(),
+                                LocalDateTime.now().toString()
+                        )
+                );
                 SceneManager.toGroup(group);
             }
         });

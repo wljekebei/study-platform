@@ -1,6 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.models.User;
+import client.services.Session;
+import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -64,15 +67,25 @@ public class RegistrationScreen {
                 } else if (!(pwd1.equals(pwd2))) {
                     infoLabel.setText("Passwords are different!");
                     infoLabel.setStyle("-fx-text-fill: red;");
+                } else if (usernameField.getText().isEmpty()) {
+                    infoLabel.setText("Username can not be empty!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                } else if (pwd1.isBlank()) {
+                    infoLabel.setText("Password can not be empty!");
+                    infoLabel.setStyle("-fx-text-fill: red;");
                 } else {
+                    MockDB.getUsers().add(
+                            new User(
+                                    (long) (Math.random() * 100 + 1),
+                                    usernameField.getText(),
+                                    emailField.getText(),
+                                    "abcdefh"
+                            )
+                    );
+
+                    Session.setUser(MockDB.getUsers().get((MockDB.getUsers().size()-1)));
                     SceneManager.toGroupsScreen();
                 }
-
-                // ADD LOGIC FOR REGISTRATION
-                // ADD LOGIC FOR REGISTRATION
-
-                // if created account correctly
-                // scenemanager.showMainScene
             }
         });
 
