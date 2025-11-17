@@ -27,7 +27,7 @@ public class GroupScreen {
 
     public static Scene getScene(Group group) {
 
-        // ---------- HEADER (Название + ID) ----------
+        // HEADER
         Label title = new Label(group.getName());
         title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 
@@ -39,13 +39,13 @@ public class GroupScreen {
         nameBox.setSpacing(20);
         nameBox.setAlignment(Pos.CENTER_LEFT);
 
-        // ---------- DESCRIPTION ----------
+        // DESCRIPTION
         Label descLabel = new Label(group.getDescription());
         descLabel.setFont(Font.font("Arial", 18));
 
         Pane descPane = wrapBox(descLabel);
 
-        // ---------- USERS LIST (scrollable) ----------
+        // USERS
         VBox userList = new VBox();
         userList.setSpacing(10);
 
@@ -84,7 +84,7 @@ public class GroupScreen {
         Pane usersPane = wrapBox(usersBlock);
 
 
-        // ---------- TASK TABLE ----------
+        // TASKS
         TableView<Task> taskTable = new TableView<>();
 
         TableColumn<Task, String> colTitle = new TableColumn<>("TITLE");
@@ -140,7 +140,6 @@ public class GroupScreen {
         taskTable.skinProperty().addListener((obs, oldSkin, newSkin) -> {
             Platform.runLater(() -> {
 
-                // Фон всей шапки таблицы
                 Node header = taskTable.lookup(".column-header-background");
                 if (header != null) {
                     header.setStyle("""
@@ -149,7 +148,6 @@ public class GroupScreen {
             """);
                 }
 
-                // Цвет текста всех названий колонок
                 taskTable.lookupAll(".table-column > .label").forEach(label ->
                         label.setStyle("""
                     -fx-text-fill: black;
@@ -157,11 +155,9 @@ public class GroupScreen {
                 """)
                 );
 
-                // Каждая отдельная колонка (контейнер)
                 taskTable.lookupAll(".column-header").forEach(col ->
                         col.setStyle("""
                     -fx-background-color: #B6C9FF;
-                    -fx-border-color: transparent;
                 """)
                 );
             });
@@ -216,16 +212,13 @@ public class GroupScreen {
         HBox buttonBox = new HBox(addButton, rmButton, resButton);
         buttonBox.setSpacing(26);
 
-        // ---------- LEFT SIDE ----------
         VBox left = new VBox(nameNBackBox, descPane, buttonBox);
         left.setSpacing(20);               // Было 47 — делаем ближе
         left.setPrefWidth(520);            // Чуть шире, чтобы TASKS влезали красиво
 
-        // ---------- USERS SIDE ----------
         usersPane.setPrefWidth(220);       // Делаем шире Users
         usersPane.setMinWidth(220);
 
-        // ---------- TOP PART ----------
         HBox topRoot = new HBox(left, usersPane);
         topRoot.setSpacing(50);            // Нормальный отступ между левым блоком и USERS
         topRoot.setPadding(new Insets(20, 20, 0, 20));
@@ -236,7 +229,6 @@ public class GroupScreen {
         bottomRoot.setAlignment(Pos.TOP_LEFT);
         bottomRoot.setPadding(new Insets(0, 20, 20, 20));
 
-        // ---------- ROOT ----------
         VBox root = new VBox(topRoot, bottomRoot);
         root.setSpacing(30);
         root.setStyle("-fx-background-color: #D9E6FF;");
@@ -244,10 +236,8 @@ public class GroupScreen {
         Platform.runLater(() -> {
             ScrollBar bar = (ScrollBar) userScroll.lookup(".scroll-bar:vertical");
             if (bar != null) {
-                // Прячем фон полосы
                 bar.setStyle("-fx-background-color: transparent;");
 
-                // Меняем сам ползунок
                 Node thumb = bar.lookup(".thumb");
                 if (thumb != null) {
                     thumb.setStyle("-fx-background-color: #6B8EFF; -fx-background-radius: 5;");
@@ -277,7 +267,6 @@ public class GroupScreen {
         return new Scene(root, 800, 600);
     }
 
-    // helper to wrap block in rounded background pane
     private static Pane wrapBox(javafx.scene.Node node) {
         VBox box = new VBox(node);
         box.setPadding(new Insets(15));
