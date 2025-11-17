@@ -3,7 +3,6 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
-import client.models.User;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
@@ -48,7 +47,7 @@ public class AddTaskScreen {
                         new Task(
                                 (long) (Math.random() * 100 + 1),
                                 group.getGroup_id(),
-                                Session.getUser().getUser_id(),
+                                Session.getUser().getId(),
                                 titleField.getText(),
                                 descField.getText(),
                                 "Open",

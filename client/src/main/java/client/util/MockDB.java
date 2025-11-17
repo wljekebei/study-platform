@@ -16,36 +16,31 @@ public class MockDB {
         users.add(new User(
                 101L,
                 "admin",
-                "@.",
-                "1"
+                "@."
         ));
 
         users.add(new User(
                 102L,
                 "Kolay",
-                "kolay228@example.com",
-                "abcd9876"
+                "kolay228@example.com"
         ));
 
         users.add(new User(
                 103L,
                 "Vasyl",
-                "fllesruoy@gmail.com",
-                "qwerty555"
+                "fllesruoy@gmail.com"
         ));
 
         users.add(new User(
                 104L,
                 "HEIKO228",
-                "xheiko@stuba.sk",
-                "pass9087"
+                "xheiko@stuba.sk"
         ));
 
         users.add(new User(
                 105L,
                 "dimka",
-                "savin512@example.com",
-                "secure7788"
+                "savin512@example.com"
         ));
     }
 

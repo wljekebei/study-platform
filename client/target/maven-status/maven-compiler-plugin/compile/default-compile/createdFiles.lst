@@ -1,4 +1,5 @@
 client\screens\CreateScreen$2.class
+client\services\AuthAPI.class
 client\util\SceneManager.class
 client\models\User.class
 client\screens\LoginScreen.class
@@ -11,6 +12,7 @@ client\models\Group.class
 client\screens\LoginScreen$2.class
 client\screens\RemoveTaskScreen.class
 client\screens\AddTaskScreen$1.class
+client\services\Http.class
 client\util\MockDB.class
 client\screens\RegistrationScreen.class
 client\screens\AccountScreen.class
@@ -25,6 +27,8 @@ client\screens\LoginScreen$1.class
 client\screens\GroupScreen.class
 client\screens\AccountScreen$1.class
 client\screens\PwdFields.class
+client\dto\LoginRequest.class
+client\dto\RegisterRequest.class
 client\screens\JoinScreen.class
 client\screens\RemoveTaskScreen$1.class
 client\models\Task.class

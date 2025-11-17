@@ -1,4 +1,6 @@
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\components\ElementSetup.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\LoginRequest.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\RegisterRequest.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\Main.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\ActivityLog.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Group.java
@@ -16,6 +18,8 @@ C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\L
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RegistrationScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RemoveTaskScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\TaskConfigScreen.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\AuthAPI.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\Http.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\Session.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\util\MockDB.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\util\SceneManager.java
