@@ -1,7 +1,6 @@
 package client.util;
 
 import client.screens.*;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneManager {
@@ -38,6 +37,24 @@ public class SceneManager {
     public static void toCreate() {
         stage.setScene(CreateScreen.getScene());
         stage.setTitle("Create Group");
+        stage.show();
+    }
+
+    public static void toTaskConfig() {
+        stage.setScene(TaskConfigScreen.getScene());
+        stage.setTitle("Task Configuration");
+        stage.show();
+    }
+
+    public static void toAddTask() {
+        stage.setScene(AddTaskScreen.getScene());
+        stage.setTitle("New Task");
+        stage.show();
+    }
+
+    public static void toRemoveTask() {
+        stage.setScene(RemoveTaskScreen.getScene());
+        stage.setTitle("Remove Task");
         stage.show();
     }
 }

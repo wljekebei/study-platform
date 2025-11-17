@@ -1,6 +1,7 @@
 package client.util;
 
 import client.models.Group;
+import client.models.Task;
 import client.models.User;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class MockDB {
     public static List<Group> groups = new ArrayList<>();
+    public static List<Task> tasks = new ArrayList<>();
 
     static {
         groups.add(new Group(
@@ -37,11 +39,55 @@ public class MockDB {
         ));
     }
 
+    static {
+        tasks.add(new Task(
+                1L,
+                10L,
+                3L,
+                "Finish UI Layout",
+                "Complete the final version of the group screen layout.",
+                "In progress",
+                "2025-11-20",
+                "2025-11-12"
+        ));
+
+        tasks.add(new Task(
+                2L,
+                10L,
+                5L,
+                "Database Setup",
+                "Create tables for users, groups, tasks and relations.",
+                "Open",
+                "2025-11-25",
+                "2025-11-13"
+        ));
+
+        tasks.add(new Task(
+                3L,
+                10L,
+                3L,
+                "Add Scroll Styling",
+                "Improve design of scrollbars for the task table and user list.",
+                "Done",
+                "2025-11-15",
+                "2025-11-10"
+        ));
+    }
+
+
     public static List<Group> getGroups() {
         return groups;
     }
 
     public static void setGroups(List<Group> groups) {
         MockDB.groups = groups;
+    }
+
+    public static List<Task> getTasks() {
+        return tasks;
+    }
+
+    public static void setTasks(List<Task> tasks) {
+        MockDB.tasks = tasks;
     }
 }

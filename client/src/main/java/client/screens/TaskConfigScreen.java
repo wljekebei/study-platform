@@ -15,22 +15,34 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class JoinScreen {
+public class TaskConfigScreen {
     public static Scene getScene() {
-        Label header = new Label("JOIN GROUP");
-        header.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        Label header = new Label("CONFIGURATE TASK");
+        header.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 
-        TextField idField = new TextField();
-        ElementSetup.tfSetup(idField, "Group ID");
+        TextField titleField = new TextField();
+        ElementSetup.tfSetup(titleField, "Title");
 
-        Button joinButton = new Button("JOIN");
-        joinButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
-        joinButton.setDefaultButton(true);
-        ElementSetup.buttonSetup(joinButton, "10", "16");
-        joinButton.setOnAction(new EventHandler<ActionEvent>() {
+        TextField descField = new TextField();
+        ElementSetup.tfSetup(descField, "Description");
+
+        TextField deadlineField = new TextField(); // max 10 chars
+        ElementSetup.tfSetup(deadlineField, "Deadline");
+
+        TextField progressField = new TextField(); // max 10 chars
+        ElementSetup.tfSetup(progressField, "Progress");
+
+        deadlineField.setMaxWidth(160);
+        progressField.setMaxWidth(160);
+
+        Button confButton = new Button("CONFIRM");
+        confButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
+        confButton.setDefaultButton(true);
+        ElementSetup.buttonSetup(confButton, "10", "16");
+        confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // joining logic
+                // back to group, saving info logic
                 // SceneManager.toGroup
 
                 // REMOVE
@@ -46,20 +58,25 @@ public class JoinScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                // SM.toGroup()
                 SceneManager.toGroupsScreen();
             }
         });
 
-        HBox buttonsBox = new HBox(backButton, joinButton);
+        HBox buttonsBox = new HBox(backButton, confButton);
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(50);
 
-        VBox root = new VBox(header, idField, buttonsBox);
+        VBox fieldBox = new VBox(titleField, descField, deadlineField, progressField);
+        fieldBox.setAlignment(Pos.CENTER);
+        fieldBox.setSpacing(10);
+
+        VBox root = new VBox(header, fieldBox, buttonsBox);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(50);
         root.setPadding(new Insets(30, 30, 30, 30));
         root.setStyle("-fx-background-color: #D9E6FF;");
 
-        return new Scene(root, 300, 300);
+        return new Scene(root, 400, 500);
     }
 }

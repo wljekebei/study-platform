@@ -54,6 +54,8 @@ public class CreateScreen {
                     errorLabel.setText("Group name can contain max. 10 characters");
                 } else if (nameField.getText().isEmpty()) {
                     errorLabel.setText("Group name can not be empty");
+                } else if (description.getText().length() > 45) {
+                    errorLabel.setText("Description can contain max. 45 characters");
                 } else {
                     // creating logic
                     MockDB.groups.add(new Group(

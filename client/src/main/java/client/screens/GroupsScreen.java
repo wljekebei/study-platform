@@ -39,7 +39,6 @@ public class GroupsScreen {
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
 
         groupsGrid.setAlignment(Pos.CENTER);
-//        groupsGrid.setPadding(new Insets(0, 40, 0, 40));
         groupsGrid.setHgap(50);
         groupsGrid.setVgap(50);
 
@@ -64,26 +63,6 @@ public class GroupsScreen {
                 SceneManager.toCreate();
             }
         });
-
-        // REMOVE
-
-//        VBox acssBox = createGroupBox("ACSS", List.of("Kolay", "Vasyl", "wljekebei", "Timur", "Masha", "kokot228"));
-//        VBox tsiktBox = createGroupBox("TSIKT", List.of("HEIKO228", "Andrianka"));
-//        VBox mat3Box = createGroupBox("MAT33333", List.of("Vasyl", "Misha Titov", "Liza"));
-//        VBox osdBox = createGroupBox("OSD", List.of("Taras", "Slava", "HEIKO228", "Andrew"));
-//        VBox tsiktBox1 = createGroupBox("TSIKT", List.of("HEIKO228", "Andrianka"));
-//        VBox mat3Box1 = createGroupBox("MAT33333", List.of("Vasyl", "Misha Titov", "Liza"));
-//        VBox osdBox1 = createGroupBox("OSD", List.of("Taras", "Slava", "HEIKO228", "Andrew"));
-//
-//        addGroupBox(acssBox);
-//        addGroupBox(tsiktBox);
-//        addGroupBox(mat3Box);
-//        addGroupBox(osdBox);
-//        addGroupBox(tsiktBox1);
-//        addGroupBox(mat3Box1);
-//        addGroupBox(osdBox1);
-
-        // REMOVE ^
 
         HBox buttonBox = new HBox(joinButton, createButton);
         buttonBox.setSpacing(386);
