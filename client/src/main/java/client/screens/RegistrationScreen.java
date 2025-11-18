@@ -78,8 +78,7 @@ public class RegistrationScreen {
                             new User(
                                     (long) (Math.random() * 100 + 1),
                                     usernameField.getText(),
-                                    emailField.getText(),
-                                    "abcdefh"
+                                    emailField.getText()
                             )
                     );
 

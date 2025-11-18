@@ -1,6 +1,7 @@
 package client.util;
 
 import client.models.Group;
+import client.models.Resource;
 import client.models.Task;
 import client.models.User;
 
@@ -11,41 +12,37 @@ public class MockDB {
     public static List<Group> groups = new ArrayList<>();
     public static List<Task> tasks = new ArrayList<>();
     public static List<User> users = new ArrayList<>();
+    public static List<Resource> resources = new ArrayList<>();
 
     static {
         users.add(new User(
                 101L,
                 "admin",
-                "@.",
-                "1"
+                "@."
         ));
 
         users.add(new User(
                 102L,
                 "Kolay",
-                "kolay228@example.com",
-                "abcd9876"
+                "kolay228@example.com"
         ));
 
         users.add(new User(
                 103L,
                 "Vasyl",
-                "fllesruoy@gmail.com",
-                "qwerty555"
+                "fllesruoy@gmail.com"
         ));
 
         users.add(new User(
                 104L,
                 "HEIKO228",
-                "xheiko@stuba.sk",
-                "pass9087"
+                "xheiko@stuba.sk"
         ));
 
         users.add(new User(
                 105L,
                 "dimka",
-                "savin512@example.com",
-                "secure7788"
+                "savin512@example.com"
         ));
     }
 
@@ -131,6 +128,89 @@ public class MockDB {
 
     }
 
+    static {
+        resources.add(new Resource(
+                1L, 1L, 10L,
+                "Lecture Notes 1",
+                "file",
+                "/files/lecture1.pdf",
+                "2025-01-10 14:22"
+        ));
+
+        resources.add(new Resource(
+                2L, 1L, 11L,
+                "Group Schedule",
+                "file",
+                "/files/schedule.xlsx",
+                "2025-01-12 09:30"
+        ));
+
+        resources.add(new Resource(
+                3L, 2L, 12L,
+                "Project Requirements",
+                "file",
+                "/files/project.docx",
+                "2025-01-14 17:45"
+        ));
+
+        resources.add(new Resource(
+                4L, 2L, 10L,
+                "UI Design PNG",
+                "file",
+                "/files/design.png",
+                "2025-01-15 11:00"
+        ));
+
+        resources.add(new Resource(
+                5L, 1L, 13L,
+                "JavaFX Tutorial",
+                "link",
+                "https://openjfx.io/",
+                "2025-01-16 09:10"
+        ));
+
+        resources.add(new Resource(
+                6L, 1L, 14L,
+                "Spring Boot Docs",
+                "link",
+                "https://spring.io/projects/spring-boot",
+                "2025-01-16 09:12"
+        ));
+
+        resources.add(new Resource(
+                7L, 3L, 12L,
+                "Intro to Git",
+                "link",
+                "https://www.atlassian.com/git/tutorials",
+                "2025-01-17 18:30"
+        ));
+
+        resources.add(new Resource(
+                8L, 3L, 11L,
+                "Database Normalization",
+                "link",
+                "https://www.geeksforgeeks.org/normalization-in-dbms/",
+                "2025-01-18 10:55"
+        ));
+
+        resources.add(new Resource(
+                9L, 2L, 14L,
+                "Kotlin for Beginners",
+                "link",
+                "https://kotlinlang.org/docs/home.html",
+                "2025-01-19 21:10"
+        ));
+
+        resources.add(new Resource(
+                10L, 1L, 10L,
+                "Java Concurrency Guide",
+                "link",
+                "https://docs.oracle.com/javase/tutorial/essential/concurrency/",
+                "2025-01-20 08:25"
+        ));
+    }
+
+
     public static List<Group> getGroups() {
         return groups;
     }
@@ -153,5 +233,13 @@ public class MockDB {
 
     public static void setUsers(List<User> users) {
         MockDB.users = users;
+    }
+
+    public static List<Resource> getResources() {
+        return resources;
+    }
+
+    public static void setResources(List<Resource> resources) {
+        MockDB.resources = resources;
     }
 }

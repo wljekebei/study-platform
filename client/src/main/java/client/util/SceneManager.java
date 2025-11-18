@@ -74,4 +74,10 @@ public class SceneManager {
         stage.setTitle("Account Configuration");
         stage.show();
     }
+
+    public static void toResources(Group group) {
+        stage.setScene(ResourcesScreen.getScene(group));
+        stage.setTitle("Resources");
+        stage.show();
+    }
 }

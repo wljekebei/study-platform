@@ -8,6 +8,7 @@ client\screens\GroupsScreen.class
 client\screens\TaskConfigScreen.class
 client\models\Membership.class
 client\models\Group.class
+client\screens\GroupScreen$4.class
 client\screens\LoginScreen$2.class
 client\screens\RemoveTaskScreen.class
 client\screens\AddTaskScreen$1.class
@@ -29,6 +30,7 @@ client\screens\JoinScreen.class
 client\screens\RemoveTaskScreen$1.class
 client\models\Task.class
 client\screens\RemoveTaskScreen$2.class
+client\screens\ResourcesScreen.class
 client\screens\GroupScreen$3.class
 client\models\Resource.class
 client\screens\TaskConfigScreen$1.class

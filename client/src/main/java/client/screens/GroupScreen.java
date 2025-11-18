@@ -175,6 +175,12 @@ public class GroupScreen {
 
         Button resButton = new Button("RESOURCES");
         ElementSetup.buttonSetup(resButton, "12", "16");
+        resButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toResources(group);
+            }
+        });
 
         Button addButton = new Button("ADD TASK");
         ElementSetup.buttonSetup(addButton, "12", "16");
@@ -267,7 +273,7 @@ public class GroupScreen {
         return new Scene(root, 800, 600);
     }
 
-    private static Pane wrapBox(javafx.scene.Node node) {
+    static Pane wrapBox(javafx.scene.Node node) {
         VBox box = new VBox(node);
         box.setPadding(new Insets(15));
         box.setStyle("""

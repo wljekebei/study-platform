@@ -86,8 +86,8 @@ public class LoginScreen {
                 User user = findUserByEmail(emailField.getText());
                 if(user == null) {
                     errorLabel.setText("User not found.");
-                } else if (!(user.getPassword_hash().equals(passwordField.getText())) && !(user.getPassword_hash().equals(passwordVisible.getText()))) {
-                    errorLabel.setText("Incorrect password.");
+//                } else if (!(user.getPassword_hash().equals(passwordField.getText())) && !(user.getPassword_hash().equals(passwordVisible.getText()))) {
+//                    errorLabel.setText("Incorrect password.");
                 } else {
                     Session.setUser(user);
                     SceneManager.toGroupsScreen();
