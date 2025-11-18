@@ -41,6 +41,7 @@ public class GroupScreen {
 
         // DESCRIPTION
         Label descLabel = new Label(group.getDescription());
+        if (group.getDescription().isEmpty()) descLabel.setText(group.getName() + " group");
         descLabel.setFont(Font.font("Arial", 18));
 
         Pane descPane = wrapBox(descLabel);
@@ -211,14 +212,29 @@ public class GroupScreen {
             }
         });
 
-        HBox nameNBackBox = new HBox(backButton, nameBox);
-        nameNBackBox.setSpacing(30);
-        nameNBackBox.setAlignment(Pos.CENTER_LEFT);
+        Button confButton = new Button("EDIT");
+        confButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
+        confButton.setDefaultButton(false);
+        ElementSetup.buttonSetup(confButton, "10", "11");
+        confButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toGroupConfig(group);
+            }
+        });
+
+        HBox topButtonsBox = new HBox(backButton, confButton);
+        topButtonsBox.setSpacing(10);
+        topButtonsBox.setAlignment(Pos.CENTER_LEFT);
+
+        HBox nameNButtonsBox = new HBox(topButtonsBox, nameBox);
+        nameNButtonsBox.setSpacing(30);
+        nameNButtonsBox.setAlignment(Pos.CENTER_LEFT);
 
         HBox buttonBox = new HBox(addButton, rmButton, resButton);
         buttonBox.setSpacing(26);
 
-        VBox left = new VBox(nameNBackBox, descPane, buttonBox);
+        VBox left = new VBox(nameNButtonsBox, descPane, buttonBox);
         left.setSpacing(20);               // Было 47 — делаем ближе
         left.setPrefWidth(520);            // Чуть шире, чтобы TASKS влезали красиво
 

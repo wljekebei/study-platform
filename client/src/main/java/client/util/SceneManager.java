@@ -92,4 +92,10 @@ public class SceneManager {
         stage.setTitle("Remove Recource");
         stage.show();
     }
+
+    public static void toGroupConfig(Group group) {
+        stage.setScene(GroupConfigScreen.getScene(group));
+        stage.setTitle("Group Configuration");
+        stage.show();
+    }
 }

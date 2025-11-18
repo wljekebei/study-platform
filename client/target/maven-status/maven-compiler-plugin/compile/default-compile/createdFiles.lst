@@ -10,6 +10,7 @@ client\screens\RemoveTaskScreen.class
 client\screens\AddTaskScreen$1.class
 client\screens\RegistrationScreen.class
 client\screens\AccountScreen.class
+client\screens\GroupScreen$5.class
 client\screens\AddResourceScreen.class
 client\screens\JoinScreen$2.class
 client\screens\AccountScreen$1.class
@@ -42,6 +43,7 @@ client\screens\AddResourceScreen$1.class
 client\screens\CreateScreen$1.class
 client\screens\LoginScreen$1.class
 client\screens\GroupScreen.class
+client\screens\GroupConfigScreen.class
 client\screens\PwdFields.class
 client\screens\JoinScreen.class
 client\screens\RemoveTaskScreen$2.class

@@ -33,18 +33,19 @@ public class LoginScreen {
 
         TextField emailField = new TextField();
         ElementSetup.tfSetup(emailField, "Email");
+        emailField.setFocusTraversable(true);
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
         passwordField.setPromptText("Password");
         passwordField.setPrefWidth(188);
-        passwordField.setFocusTraversable(false);
+        passwordField.setFocusTraversable(true);
 
         TextField passwordVisible = new TextField();
         passwordVisible.setFont(Font.font("Arial", 18));
         passwordVisible.setPromptText("Password");
         passwordVisible.setPrefWidth(188);
-        passwordVisible.setFocusTraversable(false);
+        passwordVisible.setFocusTraversable(true);
         passwordVisible.setManaged(false);
         passwordVisible.setVisible(false);
 
