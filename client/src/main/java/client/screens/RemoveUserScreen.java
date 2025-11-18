@@ -1,5 +1,5 @@
 package client.screens;
-
+// how can we go back to being friends when we just shared a bed, how can you look at me and pretend im someone youve never met, the devil in your eyes wont deny...
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
