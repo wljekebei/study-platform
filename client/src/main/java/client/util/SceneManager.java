@@ -86,4 +86,10 @@ public class SceneManager {
         stage.setTitle("Add Recource");
         stage.show();
     }
+
+    public static void toRmResource(Group group) {
+        stage.setScene(RemoveResourceScreen.getScene(group));
+        stage.setTitle("Remove Recource");
+        stage.show();
+    }
 }

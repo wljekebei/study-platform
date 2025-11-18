@@ -16,6 +16,7 @@ client\screens\AccountScreen$1.class
 client\screens\RemoveTaskScreen$1.class
 client\models\Task.class
 client\screens\ResourcesScreen.class
+client\screens\RemoveResourceScreen$1.class
 client\screens\ResourcesScreen$2.class
 client\models\Resource.class
 client\screens\TaskConfigScreen$1.class
@@ -26,7 +27,10 @@ client\screens\CreateScreen$2.class
 client\util\SceneManager.class
 client\screens\LoginScreen.class
 client\screens\AddTaskScreen.class
+client\screens\RemoveResourceScreen.class
 client\screens\TaskConfigScreen.class
+client\screens\RemoveResourceScreen$2.class
+client\screens\ResourcesScreen$3.class
 client\util\MockDB.class
 client\screens\AddResourceScreen$2.class
 client\models\ActivityLog.class

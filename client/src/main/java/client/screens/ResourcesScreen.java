@@ -60,8 +60,12 @@ public class ResourcesScreen {
         rmButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         rmButton.setDefaultButton(false);
         ElementSetup.buttonSetup(rmButton, "10", "16");
-
-        backButton.setOnAction(a -> SceneManager.toGroup(group));
+        rmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toRmResource(group);
+            }
+        });
 
         HBox buttonsBox = new HBox(backButton, addButton, rmButton);
         buttonsBox.setAlignment(Pos.CENTER);

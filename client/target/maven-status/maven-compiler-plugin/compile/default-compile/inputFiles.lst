@@ -7,6 +7,7 @@ C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Re
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\Task.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\models\User.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\AccountScreen.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\AddResourceScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\AddTaskScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\CreateScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\GroupScreen.java
@@ -14,6 +15,7 @@ C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\G
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\JoinScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\LoginScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RegistrationScreen.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RemoveResourceScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\RemoveTaskScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\ResourcesScreen.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\screens\TaskConfigScreen.java
