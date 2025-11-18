@@ -17,7 +17,7 @@ public class Main  extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SceneManager.init(stage);
-        stage.setScene(GroupsScreen.getScene());
+        stage.setScene(LoginScreen.getScene());
         stage.setTitle("Login");
         stage.show();
 //        Scene scene = GroupScreen.getScene(

@@ -80,4 +80,10 @@ public class SceneManager {
         stage.setTitle("Resources");
         stage.show();
     }
+
+    public static void toAddResource(Group group) {
+        stage.setScene(AddResourceScreen.getScene(group));
+        stage.setTitle("Add Recource");
+        stage.show();
+    }
 }

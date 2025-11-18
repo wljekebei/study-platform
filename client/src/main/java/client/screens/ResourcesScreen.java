@@ -6,6 +6,8 @@ import client.models.Resource;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -35,11 +37,24 @@ public class ResourcesScreen {
         backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         backButton.setDefaultButton(false);
         ElementSetup.buttonSetup(backButton, "10", "16");
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toGroup(group);
+            }
+        });
 
         Button addButton = new Button("ADD");
         addButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         addButton.setDefaultButton(false);
         ElementSetup.buttonSetup(addButton, "10", "16");
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toAddResource(group);
+            }
+        });
+
 
         Button rmButton = new Button("REMOVE");
         rmButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
@@ -87,7 +102,7 @@ public class ResourcesScreen {
             item.setSpacing(4);
             item.setPadding(new Insets(4, 4, 4, 4));
 
-            if (r.getType().equals("link")) {
+            if (r.getType().equalsIgnoreCase("link")) {
                 linksBox.getChildren().add(item);
             } else {
                 filesBox.getChildren().add(item);
