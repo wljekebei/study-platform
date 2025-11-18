@@ -12,7 +12,7 @@ public class Group {
     private Long groupId;
 
     @Column(name = "created_by")
-    private Long createdBy; // <-- Человеческое название
+    private Long createdBy;
 
     @Column(name = "name")
     private String name;
@@ -20,7 +20,9 @@ public class Group {
     @Column(name = "description")
     private String description;
 
-    // --- GETTERS / SETTERS ---
+    @Column(name = "created_at")
+    private java.time.LocalDateTime createdAt;
+
 
     public Long getGroupId() {
         return groupId;
@@ -53,4 +55,12 @@ public class Group {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }

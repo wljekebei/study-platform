@@ -3,6 +3,9 @@ package poch.service;
 import org.springframework.stereotype.Service;
 import poch.entity.Membership;
 import poch.repository.MembershipRepository;
+import poch.dto.JoinGroupDTO;
+import java.time.LocalDateTime;
+
 
 import java.util.List;
 
@@ -29,5 +32,24 @@ public class MembershipService {
 
     public void delete(Long id) {
         membershipRepository.deleteById(id);
+    }
+    public Membership joinGroup(JoinGroupDTO dto) {
+
+        List<Membership> exist = membershipRepository.findByUserId(dto.userId)
+                .stream()
+                .filter(m -> m.getGroupId().equals(dto.groupId))
+                .toList();
+
+        if (!exist.isEmpty()) {
+            throw new RuntimeException("User already in this group");
+        }
+
+        Membership m = new Membership();
+        m.setUserId(dto.userId);
+        m.setGroupId(dto.groupId);
+        m.setRole(dto.role);
+        m.setJoinedAt(LocalDateTime.now());
+
+        return membershipRepository.save(m);
     }
 }

@@ -1,5 +1,7 @@
 package poch.controller;
-
+import poch.dto.GroupCreateDTO;
+import poch.dto.GroupUpdateDTO;
+import poch.dto.GroupResponseDTO;
 import org.springframework.web.bind.annotation.*;
 import poch.entity.Group;
 import poch.service.GroupService;
@@ -29,5 +31,24 @@ public class GroupController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         groupService.delete(id);
+    }
+    @GetMapping
+    public List<GroupResponseDTO> getAll() {
+        return groupService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public GroupResponseDTO getById(@PathVariable Long id) {
+        return groupService.getById(id);
+    }
+
+    @PostMapping("/create")
+    public GroupResponseDTO create(@RequestBody GroupCreateDTO dto) {
+        return groupService.create(dto);
+    }
+
+    @PutMapping("/{id}")
+    public GroupResponseDTO update(@PathVariable Long id, @RequestBody GroupUpdateDTO dto) {
+        return groupService.update(id, dto);
     }
 }

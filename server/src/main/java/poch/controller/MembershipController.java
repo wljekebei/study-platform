@@ -3,6 +3,7 @@ package poch.controller;
 import org.springframework.web.bind.annotation.*;
 import poch.entity.Membership;
 import poch.service.MembershipService;
+import poch.dto.JoinGroupDTO;
 
 import java.util.List;
 
@@ -34,5 +35,9 @@ public class MembershipController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         membershipService.delete(id);
+    }
+    @PostMapping("/join")
+    public Membership join(@RequestBody JoinGroupDTO dto) {
+        return membershipService.joinGroup(dto);
     }
 }
