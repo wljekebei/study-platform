@@ -98,4 +98,10 @@ public class SceneManager {
         stage.setTitle("Group Configuration");
         stage.show();
     }
+
+    public static void toRmUser(Group group) {
+        stage.setScene(RemoveUserScreen.getScene(group));
+        stage.setTitle("Remove User");
+        stage.show();
+    }
 }

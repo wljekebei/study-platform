@@ -20,8 +20,8 @@ import static client.util.MockDB.groups;
 
 public class GroupConfigScreen {
     public static Scene getScene(Group group) {
-        Label header = new Label("CONFIGURATE TASK");
-        header.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+        Label header = new Label("CONFIGURATE GROUP");
+        header.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         Label errorLabel = new Label();
         errorLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
@@ -69,7 +69,7 @@ public class GroupConfigScreen {
         ElementSetup.buttonSetup(remUserButton, "10", "16");
         remUserButton.setPrefWidth(180);  // FIXED WIDTH
         remUserButton.setOnAction(a -> {
-            // SceneManager.toRemoveUser(group);
+            SceneManager.toRmUser(group);
         });
 
         Button delButton = new Button("DELETE GROUP");
