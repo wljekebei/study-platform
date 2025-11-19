@@ -36,7 +36,7 @@ public class GroupConfigScreen {
         descField.setFocusTraversable(false);
         descField.setText(group.getDescription());
         descField.setWrapText(true);
-        descField.setPrefHeight(80);
+        descField.setPrefHeight(70);
 
         descField.setStyle("""
                 -fx-font-size: 18;

@@ -15,6 +15,7 @@ client\screens\GroupScreen$5.class
 client\screens\AddResourceScreen.class
 client\screens\RemoveUserScreen$1.class
 client\screens\JoinScreen$2.class
+client\screens\GroupScreen$7.class
 client\screens\AccountScreen$1.class
 client\screens\RemoveTaskScreen$1.class
 client\models\Task.class

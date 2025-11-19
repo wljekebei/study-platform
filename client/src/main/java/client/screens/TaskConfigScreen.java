@@ -9,9 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -26,20 +24,39 @@ public class TaskConfigScreen {
         ElementSetup.tfSetup(titleField, "Title");
         titleField.setText(task.getTitle());
 
-        TextField descField = new TextField();
-        ElementSetup.tfSetup(descField, "Description");
+        TextArea descField = new TextArea();
+        descField.setStyle("""
+                -fx-font-size: 18;
+                """);
         descField.setText(task.getDescription());
+        descField.setWrapText(true);
+        descField.setPrefHeight(70);
 
-        TextField deadlineField = new TextField(); // max 10 chars
-        ElementSetup.tfSetup(deadlineField, "Deadline");
-        deadlineField.setText(task.getDeadline());
+        DatePicker deadlinePicker = new DatePicker();
+        deadlinePicker.setPromptText("Deadline");
+        deadlinePicker.setFocusTraversable(false);
+        deadlinePicker.setStyle("-fx-font-size: 18");
 
-        TextField progressField = new TextField(); // max 10 chars
-        ElementSetup.tfSetup(progressField, "Progress");
-        progressField.setText(task.getStatus());
+        try {
+            deadlinePicker.setValue(java.time.LocalDate.parse(task.getDeadline()));
+        } catch (Exception ignored) {}
 
-        deadlineField.setMaxWidth(160);
-        progressField.setMaxWidth(160);
+
+        ComboBox<String> statusChoice = new ComboBox<>();
+        statusChoice.getItems().add("Open");
+        statusChoice.getItems().add("In progress");
+        statusChoice.getItems().add("Done");
+        statusChoice.setValue(task.getStatus());
+        statusChoice.setPrefWidth(250);
+        statusChoice.setStyle("""
+                -fx-background-color: #4D7CFE;
+                -fx-text-fill: white;
+                -fx-font-size: 18;
+                -fx-background-radius: 8;
+                """);
+
+        statusChoice.setMaxWidth(160);
+        deadlinePicker.setMaxWidth(160);
 
         Button confButton = new Button("CONFIRM");
         confButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
@@ -50,8 +67,10 @@ public class TaskConfigScreen {
             public void handle(ActionEvent actionEvent) {
                 task.setTitle(titleField.getText());
                 task.setDescription(descField.getText());
-                task.setDeadline(deadlineField.getText());
-                task.setStatus(progressField.getText());
+                if (deadlinePicker.getValue() != null) {
+                    task.setDeadline(deadlinePicker.getValue().toString());
+                }
+                task.setStatus(statusChoice.getValue());
                 SceneManager.toGroup(group);
             }
         });
@@ -71,7 +90,7 @@ public class TaskConfigScreen {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(50);
 
-        VBox fieldBox = new VBox(titleField, descField, deadlineField, progressField);
+        VBox fieldBox = new VBox(titleField, descField, deadlinePicker, statusChoice);
         fieldBox.setAlignment(Pos.CENTER);
         fieldBox.setSpacing(10);
 

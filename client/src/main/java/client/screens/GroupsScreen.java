@@ -33,7 +33,15 @@ public class GroupsScreen {
     public static Scene getScene() {
         groupsGrid.getChildren().clear();
         index = 0;
-        for (Group group : groups) {
+        List<Group> userGroups = new ArrayList<>();
+
+        for (Group g : groups) {
+            if (g.getMembers() != null && g.getMembers().contains(user)) {
+                userGroups.add(g);
+            }
+        }
+
+        for (Group group : userGroups) {
             addGroupBox(createGroupBox(group));
         }
 

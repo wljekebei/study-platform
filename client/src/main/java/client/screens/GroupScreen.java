@@ -4,6 +4,7 @@ import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
 import client.models.User;
+import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.application.Platform;
@@ -19,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -216,12 +218,34 @@ public class GroupScreen {
         confButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         confButton.setDefaultButton(false);
         ElementSetup.buttonSetup(confButton, "10", "11");
-        confButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroupConfig(group);
-            }
-        });
+
+        if (Session.getUser().getUser_id().equals(group.getCreated_by())) {
+            confButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    SceneManager.toGroupConfig(group);
+                }
+            });
+        } else {
+            confButton.setText("LEAVE");
+            confButton.setStyle("""
+                        -fx-background-color: red;
+                        -fx-text-fill: white;
+                        -fx-font-size: 15;
+                        -fx-background-radius: 10;
+                        -fx-cursor: hand;
+                    """);
+            confButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    List<User> newMembers = new ArrayList<>(group.getMembers());
+                    newMembers.remove(Session.getUser());
+                    group.setMembers(newMembers);
+                    SceneManager.toGroupsScreen();
+                }
+            });
+        }
+
 
         Button statsButton = new Button("STATS");
         statsButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));

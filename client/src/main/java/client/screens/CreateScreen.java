@@ -65,7 +65,7 @@ public class CreateScreen {
                                     Session.getUser()
                             ),
                             LocalDateTime.now().toString(),
-                            1L,
+                            Session.getUser().getUser_id(),
                             description.getText(),
                             nameField.getText()
                     ));
