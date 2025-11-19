@@ -55,7 +55,6 @@ public class ResourcesScreen {
             }
         });
 
-
         Button rmButton = new Button("REMOVE");
         rmButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         rmButton.setDefaultButton(false);
@@ -85,7 +84,7 @@ public class ResourcesScreen {
             path.setFont(Font.font("Arial", 15));
             path.setWrapText(true);
 
-            if (r.getType().equals("link")) {
+            if (r.getType().equalsIgnoreCase("link")) {
                 path.setStyle("""
                     -fx-text-fill: #2A52BE;
                     -fx-underline: true;
@@ -99,16 +98,25 @@ public class ResourcesScreen {
                         ex.printStackTrace();
                     }
                 });
-            }
 
-
-            VBox item = new VBox(title, path);
-            item.setSpacing(4);
-            item.setPadding(new Insets(4, 4, 4, 4));
-
-            if (r.getType().equalsIgnoreCase("link")) {
+                VBox item = new VBox(title, path);
+                item.setSpacing(4);
+                item.setPadding(new Insets(4, 4, 4, 4));
                 linksBox.getChildren().add(item);
+
             } else {
+                Button downloadButton = new Button("DOWNLOAD");
+                downloadButton.setFont(Font.font("Arial", FontWeight.NORMAL, 8));
+                ElementSetup.buttonSetup(downloadButton, "6", "8");
+
+                downloadButton.setOnAction(e -> {
+                    // download logic
+                });
+
+                VBox item = new VBox(title, path, downloadButton);
+                item.setSpacing(4);
+                item.setPadding(new Insets(4, 4, 4, 4));
+
                 filesBox.getChildren().add(item);
             }
         }
@@ -174,9 +182,7 @@ public class ResourcesScreen {
         return scene;
     }
 
-
     private static void customizeScrollbar(ScrollPane sp) {
-
         ScrollBar bar = (ScrollBar) sp.lookup(".scroll-bar:vertical");
 
         if (bar != null) {

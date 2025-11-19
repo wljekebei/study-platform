@@ -105,8 +105,8 @@ public class SceneManager {
         stage.show();
     }
 
-    public static void toUserStats() {
-        stage.setScene(UserStatsScreen.getScene());
+    public static void toUserStats(User user, Group group) {
+        stage.setScene(UserStatsScreen.getScene(user, group));
         stage.setTitle("User Stats");
         stage.show();
     }

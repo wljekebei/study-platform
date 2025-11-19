@@ -64,6 +64,11 @@ public class GroupScreen {
         for (User u : users) {
             Label name = new Label(u.getName());
             name.setFont(Font.font("Arial", 18));
+            name.setStyle("-fx-cursor: hand");
+
+            name.setOnMouseClicked(e -> {
+                SceneManager.toUserStats(u, group);
+            });
 
 //            if (u.role.equals("owner")) name.setStyle("-fx-text-fill: #1F75FF;");
 //            else if (u.role.equals("admin")) name.setStyle("-fx-text-fill: #00AA00;");

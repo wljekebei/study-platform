@@ -46,7 +46,7 @@ public class CreateScreen {
 
         Button createButton = new Button("CREATE");
         createButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
-        createButton.setDefaultButton(false);
+        createButton.setDefaultButton(true);
         ElementSetup.buttonSetup(createButton, "10", "18");
         createButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

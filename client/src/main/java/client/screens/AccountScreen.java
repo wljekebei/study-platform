@@ -2,6 +2,7 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.User;
+import client.services.Session;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -72,7 +73,7 @@ public class AccountScreen {
         statsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toUserStats();
+                SceneManager.toUserStats(Session.getUser(), null);
             }
         });
 

@@ -45,6 +45,9 @@ public class GroupsScreen {
             addGroupBox(createGroupBox(group));
         }
 
+        Label emptyLabel = new Label("CREATE OR JOIN GROUP AND\n      IT WILL APPEAR HERE!");
+        emptyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+
         Label header = new Label("GROUPS");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
 
@@ -91,7 +94,7 @@ public class GroupsScreen {
         HBox allButtonsBox = new HBox(accButton, buttonBox);
         allButtonsBox.setSpacing(200);
 
-        VBox root = new VBox(header, groupsGrid, allButtonsBox);
+        VBox root = new VBox(header, ((!userGroups.isEmpty()) ? groupsGrid : emptyLabel), allButtonsBox);
         root.setSpacing(40);
         root.setAlignment(Pos.TOP_CENTER);
         root.setPadding(new Insets(10, 20, 10, 20));
@@ -114,8 +117,8 @@ public class GroupsScreen {
 
     public static VBox createGroupBox(Group group) {
         int fontSize = 38; // set limit at 10 symbols for group name !!
-        if (group.getName().length() > 8) fontSize = 20;
-        else if (group.getName().length() > 5) fontSize = 25;
+        if (group.getName().length() > 7) fontSize = 20;
+        else if (group.getName().length() > 4) fontSize = 25;
 
         Label groupName = new Label(group.getName());
         groupName.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));

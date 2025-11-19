@@ -1,4 +1,5 @@
 client\models\User.class
+client\screens\UserStatsScreen$1.class
 client\screens\GroupsScreen$1.class
 client\screens\GroupsScreen.class
 client\screens\ResourcesScreen$1.class

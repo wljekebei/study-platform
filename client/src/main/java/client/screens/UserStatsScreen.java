@@ -7,6 +7,8 @@ import client.models.User;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,8 +25,7 @@ import java.util.Objects;
 
 public class UserStatsScreen {
 
-    public static Scene getScene() {
-        User user = Session.getUser();
+    public static Scene getScene(User user, Group group) {
 
         List<Group> groups = MockDB.getGroups();
         List<Group> userGroups = new ArrayList<>();
@@ -64,7 +65,7 @@ public class UserStatsScreen {
         // EDIT
         int uploadedResources = 0;
 
-        Label header = new Label("MY STATS");
+        Label header = new Label("STATS");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 
         Label userLabel = new Label(user.getName());
@@ -79,19 +80,27 @@ public class UserStatsScreen {
         backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         backButton.setDefaultButton(false);
         ElementSetup.buttonSetup(backButton, "10", "12");
-        backButton.setOnAction(e -> SceneManager.toGroupsScreen());
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (user.equals(Session.getUser())) SceneManager.toGroupsScreen();
+                else SceneManager.toGroup(group);
+            }
+        });
 
         HBox topBox = new HBox(backButton, titleBox);
         topBox.setSpacing(20);
         topBox.setAlignment(Pos.CENTER_LEFT);
 
         // stats
+        VBox lastLoginBox = createStatBox("LAST LOGIN", "2025-01-12 14:33");
+        lastLoginBox.getChildren().get(1).setStyle("-fx-font-size: 20; -fx-font-weight: BOLD");
         VBox groupsBox = createStatBox("GROUPS", String.valueOf(totalGroups));
         VBox tasksBox = createStatBox("TASKS", String.valueOf(totalTasks));
         VBox resBox = createStatBox("RESOURCES", String.valueOf(uploadedResources));
 
-        HBox statsBoxes = new HBox(groupsBox, tasksBox, resBox);
-        statsBoxes.setSpacing(25);
+        HBox statsBoxes = new HBox(lastLoginBox, groupsBox, tasksBox, resBox);
+        statsBoxes.setSpacing(20);
         statsBoxes.setAlignment(Pos.CENTER);
 
         // done / not done

@@ -28,6 +28,7 @@ public class TaskConfigScreen {
         descField.setStyle("""
                 -fx-font-size: 18;
                 """);
+        descField.setPromptText("Description");
         descField.setText(task.getDescription());
         descField.setWrapText(true);
         descField.setPrefHeight(70);

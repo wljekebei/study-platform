@@ -12,9 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,12 +28,18 @@ public class AddTaskScreen {
         TextField titleField = new TextField();
         ElementSetup.tfSetup(titleField, "Title");
 
-        TextField descField = new TextField();
-        ElementSetup.tfSetup(descField, "Description");
+        TextArea descField = new TextArea();
+        descField.setStyle("""
+                -fx-font-size: 18;
+                """);
+        descField.setPromptText("Description");
+        descField.setWrapText(true);
+        descField.setPrefHeight(70);
 
-        TextField deadlineField = new TextField(); // max 10 chars
-        ElementSetup.tfSetup(deadlineField, "Deadline");
-        deadlineField.setMaxWidth(160);
+        DatePicker deadlinePicker = new DatePicker();
+        deadlinePicker.setPromptText("Deadline");
+        deadlinePicker.setFocusTraversable(false);
+        deadlinePicker.setStyle("-fx-font-size: 18");
 
         Button confButton = new Button("CREATE TASK");
         confButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
@@ -44,6 +48,13 @@ public class AddTaskScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                String deadline;
+                if (deadlinePicker.getValue() != null) {
+                    deadline = deadlinePicker.getValue().toString();
+                } else {
+                    deadline = "";
+                }
+
                 MockDB.getTasks().add(
                         new Task(
                                 (long) (Math.random() * 100 + 1),
@@ -52,7 +63,7 @@ public class AddTaskScreen {
                                 titleField.getText(),
                                 descField.getText(),
                                 "Open",
-                                deadlineField.getText(),
+                                deadline,
                                 LocalDateTime.now().toString()
                         )
                 );
@@ -75,7 +86,7 @@ public class AddTaskScreen {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(50);
 
-        VBox fieldBox = new VBox(titleField, descField, deadlineField);
+        VBox fieldBox = new VBox(titleField, descField, deadlinePicker);
         fieldBox.setAlignment(Pos.CENTER);
         fieldBox.setSpacing(15);
 
