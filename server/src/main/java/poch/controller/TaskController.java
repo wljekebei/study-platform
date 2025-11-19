@@ -1,6 +1,7 @@
 package poch.controller;
 
 import org.springframework.web.bind.annotation.*;
+import poch.dto.UpdateTaskDTO;
 import poch.entity.Task;
 import poch.service.TaskService;
 
@@ -40,4 +41,25 @@ public class TaskController {
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
     }
+
+    @PutMapping("/{id}")
+    public Task update(@PathVariable Long id, @RequestBody UpdateTaskDTO dto) {
+        return taskService.updateTask(
+                id,
+                dto.title,
+                dto.description,
+                dto.deadline,
+                dto.status
+        );
+    }
+    @GetMapping("/upcoming")
+    public List<Task> getUpcoming(@RequestParam int days) {
+        return taskService.getUpcomingTasks(days);
+    }
+
+    @GetMapping("/overdue")
+    public List<Task> getOverdue() {
+        return taskService.getOverdueTasks();
+    }
+
 }

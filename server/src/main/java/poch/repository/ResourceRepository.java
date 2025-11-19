@@ -10,4 +10,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     List<Resource> findByGroupId(Long groupId);
 
     List<Resource> findByUploadedBy(Long uploadedBy);
+
+
 }

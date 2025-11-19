@@ -2,9 +2,11 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/UserService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserRegisterDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/ActivityLog.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/TaskStatus.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/GroupController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/Task.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupCreateDTO.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UpdateTaskDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserLoginDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupUpdateDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/ServerApplication.java
