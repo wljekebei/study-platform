@@ -32,7 +32,9 @@ client\util\SceneManager.class
 client\screens\LoginScreen.class
 client\screens\AddTaskScreen.class
 client\screens\RemoveResourceScreen.class
+client\screens\AccountScreen$2.class
 client\screens\TaskConfigScreen.class
+client\screens\UserStatsScreen.class
 client\screens\RemoveResourceScreen$2.class
 client\screens\ResourcesScreen$3.class
 client\util\MockDB.class

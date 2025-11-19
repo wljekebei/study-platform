@@ -104,4 +104,10 @@ public class SceneManager {
         stage.setTitle("Remove User");
         stage.show();
     }
+
+    public static void toUserStats() {
+        stage.setScene(UserStatsScreen.getScene());
+        stage.setTitle("User Stats");
+        stage.show();
+    }
 }

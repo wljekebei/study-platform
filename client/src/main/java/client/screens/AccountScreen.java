@@ -20,7 +20,7 @@ import javafx.scene.text.FontWeight;
 public class AccountScreen {
     public static Scene getScene(User user) {
         Label header = new Label("EDIT DATA");
-        header.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+        header.setFont(Font.font("Arial", FontWeight.BOLD, 38));
 
         Label errorLabel = new Label();
         errorLabel.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
@@ -65,7 +65,22 @@ public class AccountScreen {
             }
         });
 
-        VBox root = new VBox(header, tfBox, saveButton);
+        Button statsButton = new Button("STATS");
+        statsButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
+        statsButton.setDefaultButton(true);
+        ElementSetup.buttonSetup(statsButton, "10", "18");
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toUserStats();
+            }
+        });
+
+        HBox buttonBox = new HBox(statsButton, saveButton);
+        buttonBox.setSpacing(40);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        VBox root = new VBox(header, tfBox, buttonBox);
         root.setSpacing(20);
         root.setPadding(new Insets(20, 20, 20, 20));
         root.setAlignment(Pos.CENTER);
