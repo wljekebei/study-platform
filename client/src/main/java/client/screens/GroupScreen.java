@@ -20,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -114,18 +115,49 @@ public class GroupScreen {
         taskTable.getColumns().addAll(colTitle, colDesc, colDeadline, colStatus);
         taskTable.getItems().setAll(filteredTasks);
 
-        taskTable.setRowFactory(tv -> {
-            TableRow<Task> row = new TableRow<>();
+        taskTable.setRowFactory(tv -> new TableRow<Task>() {
+            {
+                // двойной клик как раньше
+                setOnMouseClicked(event -> {
+                    if (!isEmpty() && event.getClickCount() == 2) {
+                        Task task = getItem();
+                        SceneManager.toTaskConfig(task, group);
+                    }
+                });
+            }
 
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getClickCount() == 2) { // двойной клик
-                    Task task = row.getItem();
-                    SceneManager.toTaskConfig(task, group);
+            @Override
+            protected void updateItem(Task task, boolean empty) {
+                super.updateItem(task, empty);
+
+                if (empty || task == null) {
+                    setStyle("");
+                    return;
                 }
-            });
 
-            return row;
+                String status = task.getStatus();
+                if (status != null && status.equalsIgnoreCase("done")) {
+                    setStyle("");
+                    return;
+                }
+
+                try {
+                    LocalDate today = LocalDate.now();
+                    LocalDate deadline = LocalDate.parse(task.getDeadline());
+
+                    if (deadline.isBefore(today)) {
+                        setStyle("-fx-background-color: #ffb3b3;");
+                    } else if (!deadline.isAfter(today.plusDays(3))) {
+                        setStyle("-fx-background-color: #fff4b3;");
+                    } else {
+                        setStyle("");
+                    }
+                } catch (Exception e) {
+                    setStyle("");
+                }
+            }
         });
+
 
         colTitle.setPrefWidth(142);      // Ширина колонки TASK
         colDesc.setPrefWidth(420);
