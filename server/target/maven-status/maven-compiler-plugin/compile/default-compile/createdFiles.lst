@@ -3,6 +3,7 @@ poch/entity/User.class
 poch/dto/UserUpdateDTO.class
 poch/entity/Resource.class
 poch/repository/ActivityLogRepository.class
+poch/dto/LinkRequestDTO.class
 poch/dto/GroupUpdateDTO.class
 poch/entity/TaskStatus.class
 poch/entity/Task.class

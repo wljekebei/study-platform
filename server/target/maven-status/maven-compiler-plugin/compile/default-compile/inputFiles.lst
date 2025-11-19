@@ -23,6 +23,7 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/ResourceController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/AuthController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/Membership.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/LinkRequestDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/ActivityLogController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupResponseDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/repository/ResourceRepository.java

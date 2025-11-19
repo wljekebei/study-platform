@@ -4,7 +4,13 @@ import org.springframework.stereotype.Service;
 import poch.entity.Resource;
 import poch.repository.ResourceRepository;
 
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 import java.util.List;
+
 
 @Service
 public class ResourceService {
@@ -33,6 +39,37 @@ public class ResourceService {
 
     public void delete(Long id) {
         resourceRepository.deleteById(id);
+    }
+    public Resource addLink(Long groupId, Long uploadedBy, String title, String url) {
+        Resource r = new Resource();
+        r.setGroupId(groupId);
+        r.setUploadedBy(uploadedBy);
+        r.setTitle(title);
+        r.setType("LINK");
+        r.setPathOrUrl(url);
+        r.setUploadedAt(LocalDateTime.now().toString());
+
+        return resourceRepository.save(r);
+    }
+
+    public Resource uploadFile(Long groupId, Long uploadedBy, String title, MultipartFile file) throws IOException {
+
+        String uploadDir = "uploads/";
+        File folder = new File(uploadDir);
+        if (!folder.exists()) folder.mkdirs();
+
+        String filePath = uploadDir + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        file.transferTo(new File(filePath));
+
+        Resource r = new Resource();
+        r.setGroupId(groupId);
+        r.setUploadedBy(uploadedBy);
+        r.setTitle(title);
+        r.setType("FILE");
+        r.setPathOrUrl(filePath);
+        r.setUploadedAt(LocalDateTime.now().toString());
+
+        return resourceRepository.save(r);
     }
 }
 
