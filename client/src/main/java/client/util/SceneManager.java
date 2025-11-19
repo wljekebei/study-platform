@@ -110,4 +110,10 @@ public class SceneManager {
         stage.setTitle("User Stats");
         stage.show();
     }
+
+    public static void toGroupStats(Group group) {
+        stage.setScene(GroupStatsScreen.getScene(group));
+        stage.setTitle("User Stats");
+        stage.show();
+    }
 }

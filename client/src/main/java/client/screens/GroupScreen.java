@@ -223,7 +223,18 @@ public class GroupScreen {
             }
         });
 
-        HBox topButtonsBox = new HBox(backButton, confButton);
+        Button statsButton = new Button("STATS");
+        statsButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
+        statsButton.setDefaultButton(false);
+        ElementSetup.buttonSetup(statsButton, "10", "11");
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.toGroupStats(group);
+            }
+        });
+
+        HBox topButtonsBox = new HBox(backButton, confButton, statsButton);
         topButtonsBox.setSpacing(10);
         topButtonsBox.setAlignment(Pos.CENTER_LEFT);
 
