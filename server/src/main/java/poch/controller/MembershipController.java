@@ -40,4 +40,15 @@ public class MembershipController {
     public Membership join(@RequestBody JoinGroupDTO dto) {
         return membershipService.joinGroup(dto);
     }
+
+    @PostMapping("/leave")
+    public void leave(@RequestParam Long userId, @RequestParam Long groupId) {
+        membershipService.leaveGroup(userId, groupId);
+    }
+
+    @DeleteMapping("/group/{groupId}/user/{userId}")
+    public void kick(@PathVariable Long groupId, @PathVariable Long userId) {
+        membershipService.kickUser(userId, groupId);
+    }
 }
+
