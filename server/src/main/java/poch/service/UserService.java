@@ -9,19 +9,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import poch.dto.UserRegisterDTO;
 import poch.dto.UserLoginDTO;
 import poch.dto.UserResponseDTO;
+import poch.service.ActivityLogService; // 🔥 добавили импорт
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
 
+    private final ActivityLogService activityLogService;
+
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder,
+                       ActivityLogService activityLogService) {   // 🔥 добавили сюда
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.activityLogService = activityLogService;            // 🔥 сохраняем сюда
     }
 
     public List<User> getAllUsers() {
@@ -44,9 +48,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-
     public UserResponseDTO register(UserRegisterDTO dto) {
-
 
         if (userRepository.findByEmail(dto.email).isPresent()) {
             throw new RuntimeException("Email already taken");
@@ -55,23 +57,28 @@ public class UserService {
         User user = new User();
         user.setName(dto.name);
         user.setEmail(dto.email);
-        user.setPasswordHash(passwordEncoder.encode(dto.password)); // хешируем
+        user.setPasswordHash(passwordEncoder.encode(dto.password));
 
         User saved = userRepository.save(user);
 
         return mapToResponse(saved);
     }
 
-
     public UserResponseDTO login(UserLoginDTO dto) {
 
         User user = userRepository.findByEmail(dto.email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-
         if (!passwordEncoder.matches(dto.password, user.getPasswordHash())) {
             throw new RuntimeException("Wrong password");
         }
+
+
+        activityLogService.log(
+                user.getId(),
+                "LOGIN",
+                "User logged in"
+        );
 
         return mapToResponse(user);
     }

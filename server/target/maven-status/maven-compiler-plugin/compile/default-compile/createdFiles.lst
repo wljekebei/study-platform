@@ -1,5 +1,6 @@
 poch/repository/MembershipRepository.class
 poch/entity/User.class
+poch/dto/UserStatsDTO.class
 poch/dto/UserUpdateDTO.class
 poch/entity/Resource.class
 poch/repository/ActivityLogRepository.class
@@ -7,6 +8,8 @@ poch/dto/LinkRequestDTO.class
 poch/dto/GroupUpdateDTO.class
 poch/entity/TaskStatus.class
 poch/entity/Task.class
+poch/service/UserStatsService.class
+poch/service/GroupStatsService.class
 poch/controller/ResourceController.class
 poch/controller/GroupController.class
 poch/service/UserService.class
@@ -18,6 +21,7 @@ poch/dto/JoinGroupDTO.class
 poch/dto/UserLoginDTO.class
 poch/controller/UserController.class
 poch/dto/UpdateTaskDTO.class
+poch/dto/GroupStatsDTO.class
 poch/dto/UserRegisterDTO.class
 poch/dto/GroupCreateDTO.class
 poch/entity/Group.class
@@ -26,12 +30,14 @@ poch/controller/AuthController.class
 poch/repository/GroupRepository.class
 poch/dto/GroupResponseDTO.class
 poch/dto/UserResponseDTO.class
+poch/controller/GroupStatsController.class
 poch/repository/ResourceRepository.class
 poch/service/TaskService.class
 poch/repository/UserRepository.class
 poch/controller/MembershipController.class
 poch/repository/TaskRepository.class
 poch/ServerApplication.class
+poch/controller/UserStatsController.class
 poch/service/MembershipService.class
 poch/service/ActivityLogService.class
 poch/entity/ActivityLog.class
