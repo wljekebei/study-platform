@@ -1,15 +1,12 @@
 package client.services;
 
-import client.dto.LoginRequest;
-import client.dto.RegisterRequest;
 import client.dto.UserUpdateRequest;
 import client.models.User;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
-public class UsersAPI {
+public class UserAPI {
 
     private static final String BASE = "http://localhost:8080/users";
 
