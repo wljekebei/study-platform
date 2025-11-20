@@ -2,6 +2,7 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.User;
+import client.services.AuthAPI;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
@@ -23,7 +24,7 @@ public class RegistrationScreen {
     public static Scene getScene() {
         Label header = new Label("SIGN UP");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 52));
-        
+
         TextField emailField = new TextField();
         ElementSetup.tfSetup(emailField, "Email");
 
@@ -74,16 +75,33 @@ public class RegistrationScreen {
                     infoLabel.setText("Password can not be empty!");
                     infoLabel.setStyle("-fx-text-fill: red;");
                 } else {
-                    MockDB.getUsers().add(
-                            new User(
-                                    (long) (Math.random() * 100 + 1),
-                                    usernameField.getText(),
-                                    emailField.getText()
-                            )
-                    );
+//                    MockDB.getUsers().add(
+//                            new User(
+//                                    (long) (Math.random() * 100 + 1),
+//                                    usernameField.getText(),
+//                                    emailField.getText(),
+//                                    "abcdefh"
+//                            )
+//                    );
+//
+//                    Session.setUser(MockDB.getUsers().get((MockDB.getUsers().size()-1)));
+//                    SceneManager.toGroupsScreen();
+                    try {
+                        User u = AuthAPI.register(
+                                usernameField.getText(),
+                                emailField.getText(),
+                                pwd1
+                        );
 
-                    Session.setUser(MockDB.getUsers().get((MockDB.getUsers().size()-1)));
-                    SceneManager.toGroupsScreen();
+                        Session.setUser(u);  // если есть сессия
+                        SceneManager.toGroupsScreen();
+
+                    } catch (Exception ex) {
+                        infoLabel.setText("Registration failed: " + ex.getMessage());
+                        infoLabel.setStyle("-fx-text-fill: red;");
+                    }
+
+
                 }
             }
         });

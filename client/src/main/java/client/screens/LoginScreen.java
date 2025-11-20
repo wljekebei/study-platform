@@ -2,6 +2,7 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.User;
+import client.services.AuthAPI;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
@@ -33,19 +34,18 @@ public class LoginScreen {
 
         TextField emailField = new TextField();
         ElementSetup.tfSetup(emailField, "Email");
-        emailField.setFocusTraversable(true);
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
         passwordField.setPromptText("Password");
         passwordField.setPrefWidth(188);
-        passwordField.setFocusTraversable(true);
+        passwordField.setFocusTraversable(false);
 
         TextField passwordVisible = new TextField();
         passwordVisible.setFont(Font.font("Arial", 18));
         passwordVisible.setPromptText("Password");
         passwordVisible.setPrefWidth(188);
-        passwordVisible.setFocusTraversable(true);
+        passwordVisible.setFocusTraversable(false);
         passwordVisible.setManaged(false);
         passwordVisible.setVisible(false);
 
@@ -84,14 +84,31 @@ public class LoginScreen {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                User user = findUserByEmail(emailField.getText());
-                if(user == null) {
-                    errorLabel.setText("User not found.");
-//                } else if (!(user.getPassword_hash().equals(passwordField.getText())) && !(user.getPassword_hash().equals(passwordVisible.getText()))) {
-//                    errorLabel.setText("Incorrect password.");
-                } else {
-                    Session.setUser(user);
+//                User user = findUserByEmail(emailField.getText());
+//                if(user == null) {
+//                    errorLabel.setText("User not found.");
+////                } else if () {
+////                    errorLabel.setText("Incorrect password.");
+//                } else {
+                String pwd = passwordField.isVisible()
+                        ? passwordField.getText()
+                        : passwordVisible.getText();
+
+                if (emailField.getText().isBlank() || pwd.isBlank()) {
+                    errorLabel.setText("Email and password can not be empty!");
+                }
+
+                try {
+                    User u = AuthAPI.login(
+                            emailField.getText(),
+                            pwd
+                    );
+
+                    Session.setUser(u);
                     SceneManager.toGroupsScreen();
+
+                } catch (Exception ex) {
+                    errorLabel.setText("Login failed: " + ex.getMessage());
                 }
             }
         });
@@ -129,13 +146,13 @@ public class LoginScreen {
         return new Scene(root, 400, 400);
     }
 
-    public static User findUserByEmail(String email) {
-        for (User u : MockDB.getUsers()) {
-            if (u.getEmail().equals(email)) {
-                return u;
-            }
-        }
-        return null;
-    }
+//    public static User findUserByEmail(String email) {
+//        for (User u : MockDB.getUsers()) {
+//            if (u.getEmail().equals(email)) {
+//                return u;
+//            }
+//        }
+//        return null;
+//    }
 
 }
