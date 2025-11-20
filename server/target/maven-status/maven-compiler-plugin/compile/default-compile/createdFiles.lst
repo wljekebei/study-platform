@@ -22,6 +22,7 @@ poch/dto/UserLoginDTO.class
 poch/controller/UserController.class
 poch/dto/UpdateTaskDTO.class
 poch/dto/GroupStatsDTO.class
+poch/controller/NotificationController.class
 poch/dto/NotificationDTO.class
 poch/dto/UserRegisterDTO.class
 poch/dto/GroupCreateDTO.class

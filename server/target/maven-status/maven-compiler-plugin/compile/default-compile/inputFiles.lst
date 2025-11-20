@@ -10,6 +10,7 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UpdateTaskDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserStatsDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserLoginDTO.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/NotificationController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupUpdateDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/ServerApplication.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UserUpdateDTO.java

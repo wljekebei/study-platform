@@ -1,7 +1,7 @@
 package poch.dto;
 
 public class NotificationDTO {
-    public String type;   // TASK_CREATED, RESOURCE_ADDED, MEMBER_JOINED
+    public String type;
     public String message;
     public Long groupId;
 

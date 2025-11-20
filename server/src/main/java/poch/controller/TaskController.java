@@ -34,7 +34,7 @@ public class TaskController {
 
     @PostMapping
     public Task create(@RequestBody Task task) {
-        return taskService.save(task);
+        return taskService.createTask(task);
     }
 
     @DeleteMapping("/{id}")
