@@ -1,6 +1,8 @@
 package client.services;
 
+import client.dto.UserResponse;
 import client.dto.UserUpdateRequest;
+import client.models.Group;
 import client.models.User;
 
 import java.nio.charset.StandardCharsets;
@@ -10,9 +12,9 @@ public class UserAPI {
 
     private static final String BASE = "http://localhost:8080/users";
 
-    public static User update(Long id, String email, String password) throws Exception {
+    public static UserResponse update(Long id, String email, String password) throws Exception {
         UserUpdateRequest req = new UserUpdateRequest(email, password);
-        return Http.put(BASE + "/" + id, req, User.class);
+        return Http.put(BASE + "/" + id, req, UserResponse.class);
     }
 
     public static List<User> getAll() throws Exception {
@@ -21,6 +23,10 @@ public class UserAPI {
 
     public static User getById(Long id) throws Exception {
         return Http.get(BASE + "/" + id, User.class);
+    }
+
+    public static List<Group> getUserGroups(Long id) throws Exception {
+        return Http.getList(BASE + "/" + id + "/groups", new com.fasterxml.jackson.core.type.TypeReference<List<Group>>() {});
     }
 
     public static User getByEmail(String email) throws Exception {
