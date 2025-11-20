@@ -55,14 +55,24 @@ public class GroupConfigScreen {
             } else {
                 group.setName(nameField.getText());
                 group.setDescription(descField.getText());
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
         Button backButton = new Button("BACK");
         backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         ElementSetup.buttonSetup(backButton, "10", "16");
-        backButton.setOnAction(a -> SceneManager.toGroup(group));
+        backButton.setOnAction(a -> {
+            try {
+                SceneManager.toGroup(group);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         Button remUserButton = new Button("REMOVE USER");
         remUserButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));

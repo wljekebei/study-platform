@@ -2,6 +2,8 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
+import client.services.GroupAPI;
+import client.services.MembershipAPI;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
@@ -56,22 +58,14 @@ public class CreateScreen {
                 } else if (description.getText().length() > 45) {
                     errorLabel.setText("Description can contain max. 45 characters");
                 } else {
-                    // creating logic
-                    MockDB.groups.add(new Group(
-                            5L,
-                            List.of(
-                                    Session.getUser()
-                            ),
-                            LocalDateTime.now().toString(),
-                            Session.getUser().getId(),
-                            description.getText(),
-                            nameField.getText()
-                    ));
-                    // SceneManager.toGroup
-
-                    // REMOVE
-                    SceneManager.toGroupsScreen();
-                    // REMOVE ^
+                    try {
+                        Group created = GroupAPI.create(nameField.getText(), description.getText(), Session.getUser().getId());
+                        MembershipAPI.join(Session.getUser().getId(), created.getGroupId(), "admin");
+                        SceneManager.toGroup(created);
+                    } catch (Exception e) {
+                        errorLabel.setText("Error");
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });

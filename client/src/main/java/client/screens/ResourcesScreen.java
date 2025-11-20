@@ -40,7 +40,11 @@ public class ResourcesScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

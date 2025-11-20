@@ -44,7 +44,11 @@ public class RemoveTaskScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // saving info logic
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -56,7 +60,11 @@ public class RemoveTaskScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // SM.toGroup()
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

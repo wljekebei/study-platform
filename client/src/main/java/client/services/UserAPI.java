@@ -1,7 +1,7 @@
 package client.services;
 
 import client.dto.UserResponse;
-import client.dto.UserUpdateRequest;
+import client.dto.UserUpdate;
 import client.models.Group;
 import client.models.User;
 
@@ -12,8 +12,8 @@ public class UserAPI {
 
     private static final String BASE = "http://localhost:8080/users";
 
-    public static UserResponse update(Long id, String email, String password) throws Exception {
-        UserUpdateRequest req = new UserUpdateRequest(email, password);
+    public static UserResponse update(Long id, String name, String email) throws Exception {
+        UserUpdate req = new UserUpdate(name, email);
         return Http.put(BASE + "/" + id, req, UserResponse.class);
     }
 

@@ -2,10 +2,13 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
+import client.models.Membership;
 import client.models.Task;
 import client.models.User;
+import client.services.MembershipAPI;
 import client.services.Session;
-import client.util.MockDB;
+import client.services.TaskAPI;
+import client.services.UserAPI;
 import client.util.SceneManager;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,20 +24,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class GroupScreen {
-    private static List<Task> tasks = MockDB.getTasks();
 
-    public static Scene getScene(Group group) {
+    public static Scene getScene(Group group) throws Exception {
 
         // HEADER
         Label title = new Label(group.getName());
         title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 
-        Label id = new Label("ID: " + group.getGroup_id());
+        Label id = new Label("ID: " + group.getGroupId());
         id.setFont(Font.font("Arial", 20));
         id.setStyle("-fx-text-fill: gray;");
 
@@ -53,7 +53,14 @@ public class GroupScreen {
         VBox userList = new VBox();
         userList.setSpacing(10);
 
-        List<User> users = group.getMembers();
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
+        List<User> users = new java.util.ArrayList<>();
+
+        for (Membership m : memberships) {
+            User u = UserAPI.getById(m.getUserId());
+            users.add(u);
+        }
+
 
         // SORT BY ROLES FROM MEMBERSHIPS TABLE
 //        users.sort((a, b) -> {
@@ -68,7 +75,11 @@ public class GroupScreen {
             name.setStyle("-fx-cursor: hand");
 
             name.setOnMouseClicked(e -> {
-                SceneManager.toUserStats(u, group);
+                try {
+                    SceneManager.toUserStats(u, group);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             });
 
 //            if (u.role.equals("owner")) name.setStyle("-fx-text-fill: #1F75FF;");
@@ -108,12 +119,10 @@ public class GroupScreen {
         TableColumn<Task, String> colStatus = new TableColumn<>("STATUS");
         colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
 
-        List<Task> filteredTasks = tasks.stream()
-                .filter(t -> Objects.equals(t.getGroup_id(), group.getGroup_id()))
-                .toList();
+        List<Task> tasks = TaskAPI.getByGroup(group.getGroupId());
 
         taskTable.getColumns().addAll(colTitle, colDesc, colDeadline, colStatus);
-        taskTable.getItems().setAll(filteredTasks);
+        taskTable.getItems().setAll(tasks);
 
         taskTable.setRowFactory(tv -> new TableRow<Task>() {
             {
@@ -236,7 +245,7 @@ public class GroupScreen {
         rmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toRemoveTask(group, filteredTasks);
+                SceneManager.toRemoveTask(group, tasks);
             }
         });
 
@@ -247,7 +256,11 @@ public class GroupScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroupsScreen();
+                try {
+                    SceneManager.toGroupsScreen();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -256,7 +269,7 @@ public class GroupScreen {
         confButton.setDefaultButton(false);
         ElementSetup.buttonSetup(confButton, "10", "11");
 
-        if (Session.getUser().getId().equals(group.getCreated_by())) {
+        if (Session.getUser().getId().equals(group.getCreatedBy())) {
             confButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -275,10 +288,16 @@ public class GroupScreen {
             confButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    List<User> newMembers = new ArrayList<>(group.getMembers());
-                    newMembers.remove(Session.getUser());
-                    group.setMembers(newMembers);
-                    SceneManager.toGroupsScreen();
+                    try {
+                        MembershipAPI.leave(Session.getUser().getId(), group.getGroupId());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        SceneManager.toGroupsScreen();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             });
         }
@@ -291,7 +310,11 @@ public class GroupScreen {
         statsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroupStats(group);
+                try {
+                    SceneManager.toGroupStats(group);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

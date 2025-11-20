@@ -57,7 +57,7 @@ public class AddTaskScreen {
                 MockDB.getTasks().add(
                         new Task(
                                 (long) (Math.random() * 100 + 1),
-                                group.getGroup_id(),
+                                group.getGroupId(),
                                 Session.getUser().getId(),
                                 titleField.getText(),
                                 descField.getText(),
@@ -66,7 +66,10 @@ public class AddTaskScreen {
                                 LocalDateTime.now().toString()
                         )
                 );
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception ignored) {
+                }
             }
         });
 
@@ -77,7 +80,11 @@ public class AddTaskScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

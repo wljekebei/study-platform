@@ -34,12 +34,14 @@ public class LoginScreen {
 
         TextField emailField = new TextField();
         ElementSetup.tfSetup(emailField, "Email");
+        emailField.setFocusTraversable(true);
+
 
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Arial", 18));
         passwordField.setPromptText("Password");
         passwordField.setPrefWidth(188);
-        passwordField.setFocusTraversable(false);
+        passwordField.setFocusTraversable(true);
 
         TextField passwordVisible = new TextField();
         passwordVisible.setFont(Font.font("Arial", 18));
@@ -52,7 +54,7 @@ public class LoginScreen {
         Button passwordButton = new Button("SHOW");
         passwordButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
         passwordButton.setPrefWidth(72);
-        passwordButton.setDefaultButton(true);
+        passwordButton.setDefaultButton(false);
         ElementSetup.buttonSetup(passwordButton, "5", "11");
         passwordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -102,7 +104,8 @@ public class LoginScreen {
                     SceneManager.toGroupsScreen();
 
                 } catch (Exception ex) {
-                    errorLabel.setText("Login failed: " + ex.getMessage());
+                    errorLabel.setText("Login failed");
+                    throw new RuntimeException(ex);
                 }
             }
         });

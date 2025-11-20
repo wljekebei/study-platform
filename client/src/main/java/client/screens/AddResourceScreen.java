@@ -113,7 +113,7 @@ public class AddResourceScreen {
                 MockDB.getResources().add(
                         new Resource(
                                 52L,
-                                group.getGroup_id(),
+                                group.getGroupId(),
                                 Session.getUser().getId(),
                                 titleField.getText(),
                                 storedType,

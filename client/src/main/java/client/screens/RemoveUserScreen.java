@@ -2,9 +2,12 @@ package client.screens;
 // how can we go back to being friends when we just shared a bed, how can you look at me and pretend im someone youve never met, the devil in your eyes wont deny...
 import client.components.ElementSetup;
 import client.models.Group;
+import client.models.Membership;
 import client.models.Task;
 import client.models.User;
+import client.services.MembershipAPI;
 import client.services.Session;
+import client.services.UserAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,15 +25,18 @@ import javafx.scene.text.FontWeight;
 import java.util.List;
 
 public class RemoveUserScreen {
-    public static Scene getScene(Group group) {
+    public static Scene getScene(Group group) throws Exception {
         Label header = new Label("REMOVE USER");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 35));
 
         ComboBox<String> userChoice = new ComboBox<>();
 
-        for (User user : group.getMembers()) {
-            userChoice.getItems().add(user.getName());
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
+
+        for (Membership m : memberships) {
+            userChoice.getItems().add(UserAPI.getById(m.getUserId()).getName());
         }
+
         userChoice.setPrefWidth(250);
         userChoice.setStyle("""
                 -fx-background-color: #4D7CFE;
@@ -47,7 +53,11 @@ public class RemoveUserScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // saving info logic (only admin/owner)
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -59,7 +69,11 @@ public class RemoveUserScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // SM.toGroup()
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

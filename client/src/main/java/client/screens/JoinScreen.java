@@ -1,6 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.services.GroupAPI;
+import client.services.MembershipAPI;
+import client.services.Session;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +26,10 @@ public class JoinScreen {
         TextField idField = new TextField();
         ElementSetup.tfSetup(idField, "Group ID");
 
+        Label errorLabel = new Label();
+        errorLabel.setFont(Font.font("Arial", FontWeight.MEDIUM, 18));
+        errorLabel.setStyle("-fx-text-fill: red;");
+
         Button joinButton = new Button("JOIN");
         joinButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         joinButton.setDefaultButton(true);
@@ -30,12 +37,13 @@ public class JoinScreen {
         joinButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // joining logic
-                // SceneManager.toGroup
-
-                // REMOVE
-                SceneManager.toGroupsScreen();
-                // REMOVE ^
+                try {
+                    MembershipAPI.join(Session.getUser().getId(), Long.parseLong(idField.getText()), "user");
+                    SceneManager.toGroup(GroupAPI.getById(Long.parseLong(idField.getText())));
+                } catch (Exception e) {
+                    errorLabel.setText("Error");
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -54,7 +62,11 @@ public class JoinScreen {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(50);
 
-        VBox root = new VBox(header, idField, buttonsBox);
+        VBox idNErrorBox = new VBox(idField, errorLabel);
+        idNErrorBox.setSpacing(10);
+        idNErrorBox.setAlignment(Pos.CENTER);
+
+        VBox root = new VBox(header, idNErrorBox, buttonsBox);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(50);
         root.setPadding(new Insets(30, 30, 30, 30));

@@ -126,7 +126,11 @@ public class GroupsScreen {
         """);
 
         groupName.setOnMouseClicked(e -> {
-            SceneManager.toGroup(group);
+            try {
+                SceneManager.toGroup(group);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
 
@@ -137,7 +141,7 @@ public class GroupsScreen {
         VBox memberBox = new VBox();
         memberBox.setAlignment(Pos.CENTER_LEFT);
 
-        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroup_id());
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
         int i = 0;
         for(Membership m : memberships) {
             if (i < 3) {

@@ -3,6 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.User;
 import client.services.Session;
+import client.services.UserAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,7 +34,7 @@ public class AccountScreen {
         usernameField.setFocusTraversable(false);
 
         TextField emailField = new TextField();
-        ElementSetup.tfSetup(usernameField, "Change Email");
+        ElementSetup.tfSetup(emailField, "Change Email");
         emailField.setText(user.getEmail());
         emailField.setFocusTraversable(false);
 
@@ -59,9 +60,15 @@ public class AccountScreen {
                 } else if (!(emailField.getText().contains("@") && emailField.getText().contains("."))) {
                     errorLabel.setText("Email address is incorrect!");
                 } else {
-                    user.setName(usernameField.getText());
-                    user.setEmail(emailField.getText());
-                    SceneManager.toGroupsScreen();
+                    try {
+                        Session.getUser().setName(usernameField.getText());
+                        Session.getUser().setEmail(emailField.getText());
+                        UserAPI.update(Session.getUser().getId(), usernameField.getText(), emailField.getText());
+                        SceneManager.toGroupsScreen();
+                    } catch (Exception e) {
+                        errorLabel.setText("Error");
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });

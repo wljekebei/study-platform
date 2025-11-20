@@ -82,8 +82,14 @@ public class Http {
         int code = conn.getResponseCode();
         InputStream is = code == 200 ? conn.getInputStream() : conn.getErrorStream();
 
+        if (code != 200) {
+            String body = new String(is.readAllBytes());
+            throw new RuntimeException("GET " + url + " failed with code " + code + "\n" + body);
+        }
+
         return mapper.readValue(is, typeRef);
     }
+
 
     public static void delete(String url) throws Exception {
 

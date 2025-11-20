@@ -72,7 +72,11 @@ public class TaskConfigScreen {
                     task.setDeadline(deadlinePicker.getValue().toString());
                 }
                 task.setStatus(statusChoice.getValue());
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -83,7 +87,11 @@ public class TaskConfigScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                SceneManager.toGroup(group);
+                try {
+                    SceneManager.toGroup(group);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

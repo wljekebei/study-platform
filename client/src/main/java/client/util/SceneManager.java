@@ -28,7 +28,11 @@ public class SceneManager {
     }
 
     public static void toGroupsScreen() {
-        stage.setScene(GroupsScreen.getScene());
+        try {
+            stage.setScene(GroupsScreen.getScene());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         stage.setTitle("My Groups");
         stage.show();
     }
@@ -63,7 +67,7 @@ public class SceneManager {
         stage.show();
     }
 
-    public static void toGroup(Group group) {
+    public static void toGroup(Group group) throws Exception {
         stage.setScene(GroupScreen.getScene(group));
         stage.setTitle("Remove Task");
         stage.show();
@@ -100,19 +104,31 @@ public class SceneManager {
     }
 
     public static void toRmUser(Group group) {
-        stage.setScene(RemoveUserScreen.getScene(group));
+        try {
+            stage.setScene(RemoveUserScreen.getScene(group));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         stage.setTitle("Remove User");
         stage.show();
     }
 
     public static void toUserStats(User user, Group group) {
-        stage.setScene(UserStatsScreen.getScene(user, group));
+        try {
+            stage.setScene(UserStatsScreen.getScene(user, group));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         stage.setTitle("User Stats");
         stage.show();
     }
 
     public static void toGroupStats(Group group) {
-        stage.setScene(GroupStatsScreen.getScene(group));
+        try {
+            stage.setScene(GroupStatsScreen.getScene(group));
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
         stage.setTitle("User Stats");
         stage.show();
     }

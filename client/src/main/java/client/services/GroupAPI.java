@@ -20,13 +20,13 @@ public class GroupAPI {
         return Http.getList(BASE, new com.fasterxml.jackson.core.type.TypeReference<List<GroupResponse>>() {});
     }
 
-    public static GroupResponse getById(Long id) throws Exception {
-        return Http.get(BASE + "/" + id, GroupResponse.class);
+    public static Group getById(Long id) throws Exception {
+        return Http.get(BASE + "/" + id, Group.class);
     }
 
-    public static GroupResponse create(String name, String description, Long createdBy) throws Exception {
+    public static Group create(String name, String description, Long createdBy) throws Exception {
         GroupCreate req = new GroupCreate(name, description, createdBy);
-        return Http.post(BASE + "/create", req, GroupResponse.class);
+        return Http.post(BASE + "/create", req, Group.class);
     }
 
     public static GroupResponse update(Long id, String name, String description) throws Exception {

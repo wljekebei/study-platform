@@ -1,9 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
-import client.models.Group;
-import client.models.Task;
-import client.models.Resource;
+import client.models.*;
+import client.services.MembershipAPI;
+import client.services.UserAPI;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
@@ -27,7 +27,7 @@ public class GroupStatsScreen {
     private static List<Task> tasks = MockDB.getTasks();
     private static List<Resource> resources = MockDB.getResources();
 
-    public static Scene getScene(Group group) {
+    public static Scene getScene(Group group) throws Exception {
         Label header = new Label("GROUP STATS");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 35));
 
@@ -43,17 +43,23 @@ public class GroupStatsScreen {
         backButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         backButton.setDefaultButton(false);
         ElementSetup.buttonSetup(backButton, "10", "12");
-        backButton.setOnAction(e -> SceneManager.toGroup(group));
+        backButton.setOnAction(e -> {
+            try {
+                SceneManager.toGroup(group);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         HBox topBox = new HBox(backButton, titleBox);
         topBox.setSpacing(20);
         topBox.setAlignment(Pos.CENTER_LEFT);
-
-        int memberCount = group.getMembers().size();
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
+        int memberCount = memberships.size();
 
         List<Task> groupTasks = new ArrayList<>();
         for (Task t : tasks) {
-            if (Objects.equals(t.getGroup_id(), group.getGroup_id())) {
+            if (Objects.equals(t.getGroup_id(), group.getGroupId())) {
                 groupTasks.add(t);
             }
         }
@@ -77,7 +83,7 @@ public class GroupStatsScreen {
         int fileResources = 0;
 
         for (Resource r : resources) {
-            if (!Objects.equals(r.getGroup_id(), group.getGroup_id())) continue;
+            if (!Objects.equals(r.getGroup_id(), group.getGroupId())) continue;
 
             String type = r.getType();
             if (type == null) continue;

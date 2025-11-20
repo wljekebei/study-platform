@@ -5,6 +5,7 @@ import client.models.Group;
 import client.models.Task;
 import client.models.User;
 import client.services.Session;
+import client.services.UserAPI;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -25,16 +26,9 @@ import java.util.Objects;
 
 public class UserStatsScreen {
 
-    public static Scene getScene(User user, Group group) {
+    public static Scene getScene(User user, Group group) throws Exception {
 
-        List<Group> groups = MockDB.getGroups();
-        List<Group> userGroups = new ArrayList<>();
-
-        for (Group g : groups) {
-            if (g.getMembers().contains(user)) {
-                userGroups.add(g);
-            }
-        }
+        List<Group> userGroups = UserAPI.getUserGroups(Session.getUser().getId());
 
 
         List<Task> allTasks = MockDB.getTasks();
@@ -42,7 +36,7 @@ public class UserStatsScreen {
 
         for (Task t : allTasks) {
             for (Group g : userGroups) {
-                if (Objects.equals(t.getGroup_id(), g.getGroup_id())) {
+                if (Objects.equals(t.getGroup_id(), g.getGroupId())) {
                     userTasks.add(t);
                     break;
                 }
@@ -84,7 +78,13 @@ public class UserStatsScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (user.equals(Session.getUser())) SceneManager.toGroupsScreen();
-                else SceneManager.toGroup(group);
+                else {
+                    try {
+                        SceneManager.toGroup(group);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         });
 
@@ -131,7 +131,7 @@ public class UserStatsScreen {
             long count = 0;
 
             for (Task t : userTasks) {
-                if (Objects.equals(t.getGroup_id(), g.getGroup_id())) {
+                if (Objects.equals(t.getGroup_id(), g.getGroupId())) {
                     count++;
                 }
             }

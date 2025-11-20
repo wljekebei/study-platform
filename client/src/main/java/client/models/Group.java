@@ -1,33 +1,38 @@
 package client.models;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Group {
-    private Long group_id;
+
+    @JsonAlias({ "id", "groupId", "group_id" })
+    private Long groupId;
     private String name;
     private String description;
-    private Long created_by;
+    private Long createdBy;
     private String createdAt;
-    private List<User> members;
 
     public Group() {
     }
 
-    public Group(Long group_id, List<User> members, String createdAt, Long created_by, String description, String name) {
-        this.group_id = group_id;
-        this.members = members;
+    public Group(Long groupId, List<User> members, String createdAt, Long createdBy, String description, String name) {
+        this.groupId = groupId;
         this.createdAt = createdAt;
-        this.created_by = created_by;
+        this.createdBy = createdBy;
         this.description = description;
         this.name = name;
     }
 
-    public Long getGroup_id() {
-        return group_id;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setGroup_id(Long group_id) {
-        this.group_id = group_id;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getName() {
@@ -46,12 +51,12 @@ public class Group {
         this.description = description;
     }
 
-    public Long getCreated_by() {
-        return created_by;
+    public Long getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreated_by(Long created_by) {
-        this.created_by = created_by;
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getCreatedAt() {
@@ -62,11 +67,4 @@ public class Group {
         this.createdAt = createdAt;
     }
 
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
 }
