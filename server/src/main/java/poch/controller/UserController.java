@@ -2,9 +2,11 @@ package poch.controller;
 
 import poch.dto.UserResponseDTO;
 import poch.dto.UserUpdateDTO;
+import poch.entity.Group;
 import poch.entity.User;
 import org.springframework.web.bind.annotation.*;
 import poch.service.UserService;
+import poch.service.MembershipService;
 
 import java.util.List;
 
@@ -13,9 +15,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final MembershipService membershipService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          MembershipService membershipService) {
         this.userService = userService;
+        this.membershipService = membershipService;
     }
 
     @GetMapping
@@ -26,6 +31,12 @@ public class UserController {
     @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
         return userService.getUserById(id);
+    }
+
+
+    @GetMapping("/{id}/groups")
+    public List<Group> getUserGroups(@PathVariable Long id) {
+        return membershipService.getGroupsOfUser(id);
     }
 
     @GetMapping("/email/{email}")
@@ -42,6 +53,7 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
+
     @PutMapping("/{id}")
     public UserResponseDTO update(
             @PathVariable Long id,
@@ -49,6 +61,4 @@ public class UserController {
     ) {
         return userService.updateProfile(id, dto);
     }
-
-
 }
