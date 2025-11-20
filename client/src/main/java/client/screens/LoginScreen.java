@@ -84,12 +84,6 @@ public class LoginScreen {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-//                User user = findUserByEmail(emailField.getText());
-//                if(user == null) {
-//                    errorLabel.setText("User not found.");
-////                } else if () {
-////                    errorLabel.setText("Incorrect password.");
-//                } else {
                 String pwd = passwordField.isVisible()
                         ? passwordField.getText()
                         : passwordVisible.getText();

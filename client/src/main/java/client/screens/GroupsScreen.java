@@ -2,9 +2,11 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
+import client.models.Membership;
 import client.models.User;
+import client.services.MembershipAPI;
 import client.services.Session;
-import client.util.MockDB;
+import client.services.UserAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,26 +22,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsScreen {
     private static GridPane groupsGrid = new GridPane();
     private static final int maxHorGroups = 3;
     private static int index = 0;
-    private static List<Group> groups = MockDB.getGroups();
     private static final User user = Session.getUser();
 
-    public static Scene getScene() {
+    public static Scene getScene() throws Exception {
         groupsGrid.getChildren().clear();
         index = 0;
-        List<Group> userGroups = new ArrayList<>();
-
-        for (Group g : groups) {
-            if (g.getMembers() != null && g.getMembers().contains(user)) {
-                userGroups.add(g);
-            }
-        }
+        List<Group> userGroups = UserAPI.getUserGroups(user.getId());
 
         for (Group group : userGroups) {
             addGroupBox(createGroupBox(group));
@@ -115,7 +109,7 @@ public class GroupsScreen {
         groupsGrid.add(groupBox, column, row);
     }
 
-    public static VBox createGroupBox(Group group) {
+    public static VBox createGroupBox(Group group) throws Exception {
         int fontSize = 38; // set limit at 10 symbols for group name !!
         if (group.getName().length() > 7) fontSize = 20;
         else if (group.getName().length() > 4) fontSize = 25;
@@ -143,14 +137,16 @@ public class GroupsScreen {
         VBox memberBox = new VBox();
         memberBox.setAlignment(Pos.CENTER_LEFT);
 
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroup_id());
         int i = 0;
-        for(User member : group.getMembers()) {
+        for(Membership m : memberships) {
             if (i < 3) {
+                User member = UserAPI.getById(m.getUserId());
                 Label memberLabel = new Label(member.getName());
                 memberLabel.setFont(Font.font("Arial", 18));
                 memberBox.getChildren().add(memberLabel);
             } else {
-                Label othersLabel = new Label("Others(" + (group.getMembers().size() - 3) + ")");
+                Label othersLabel = new Label("Others(" + (memberships.size() - 3) + ")");
                 othersLabel.setFont(Font.font("Arial", 18));
                 memberBox.getChildren().add(othersLabel);
                 break;
