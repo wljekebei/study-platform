@@ -1,9 +1,12 @@
 package poch.service;
-
+import poch.entity.Group;
 import org.springframework.stereotype.Service;
-import poch.entity.Membership;
-import poch.repository.MembershipRepository;
 import poch.dto.JoinGroupDTO;
+import poch.dto.NotificationDTO;
+import poch.entity.Membership;
+import poch.repository.GroupRepository;
+import poch.repository.MembershipRepository;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,9 +15,16 @@ import java.util.List;
 public class MembershipService {
 
     private final MembershipRepository membershipRepository;
+    private final NotificationService notificationService;
+    private final GroupRepository groupRepository;
 
-    public MembershipService(MembershipRepository membershipRepository) {
+
+    public MembershipService(MembershipRepository membershipRepository,
+                             NotificationService notificationService,
+                             GroupRepository groupRepository) {
         this.membershipRepository = membershipRepository;
+        this.notificationService = notificationService;
+        this.groupRepository = groupRepository;
     }
 
     public List<Membership> getByUser(Long userId) {
@@ -32,9 +42,14 @@ public class MembershipService {
     public void delete(Long id) {
         membershipRepository.deleteById(id);
     }
+    public List<Group> getGroupsOfUser(Long userId) {
+        List<Long> groupIds = membershipRepository.findGroupIdsByUserId(userId);
+        return groupRepository.findAllById(groupIds);
+    }
+
+
 
     public Membership joinGroup(JoinGroupDTO dto) {
-
 
         Membership exist = membershipRepository.findByUserIdAndGroupId(dto.userId, dto.groupId);
 
@@ -48,9 +63,20 @@ public class MembershipService {
         m.setRole(dto.role);
         m.setJoinedAt(LocalDateTime.now());
 
-        return membershipRepository.save(m);
-    }
+        Membership saved = membershipRepository.save(m);
 
+
+        notificationService.sendToGroup(
+                saved.getGroupId(),
+                new NotificationDTO(
+                        "MEMBER_JOINED",
+                        "Nový člen sa pridal do skupiny",
+                        saved.getGroupId()
+                )
+        );
+
+        return saved;
+    }
 
     public void leaveGroup(Long userId, Long groupId) {
         Membership membership = membershipRepository.findByUserIdAndGroupId(userId, groupId);
@@ -60,10 +86,22 @@ public class MembershipService {
         }
 
         membershipRepository.delete(membership);
-    }
 
+
+        notificationService.sendToGroup(
+                groupId,
+                new NotificationDTO(
+                        "MEMBER_LEFT",
+                        "Člen opustil skupinu",
+                        groupId
+                )
+        );
+    }
 
     public void kickUser(Long userId, Long groupId) {
         leaveGroup(userId, groupId);
+
+
     }
 }
+

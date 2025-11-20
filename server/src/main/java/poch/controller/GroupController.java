@@ -18,11 +18,6 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/creator/{id}")
-    public List<Group> getByCreator(@PathVariable Long id) {
-        return groupService.getByCreator(id);
-    }
-
     @PostMapping
     public Group create(@RequestBody Group group) {
         return groupService.save(group);

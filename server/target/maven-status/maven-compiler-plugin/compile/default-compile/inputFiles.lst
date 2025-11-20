@@ -4,6 +4,7 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/ActivityLog.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/TaskStatus.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/GroupController.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/NotificationService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/Task.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupCreateDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/UpdateTaskDTO.java
@@ -32,10 +33,12 @@
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/GroupResponseDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/repository/ResourceRepository.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/TaskController.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/NotificationDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/ActivityLogService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/ResourceService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/service/GroupStatsService.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/Group.java
+/home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/config/WebSocketConfig.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/dto/JoinGroupDTO.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/controller/UserController.java
 /home/kolay/IdeaProjects/study-platform/server/src/main/java/poch/entity/User.java

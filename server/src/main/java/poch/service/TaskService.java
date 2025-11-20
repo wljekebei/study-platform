@@ -1,21 +1,39 @@
 package poch.service;
 
 import org.springframework.stereotype.Service;
+import poch.dto.NotificationDTO;
 import poch.entity.Task;
 import poch.entity.TaskStatus;
 import poch.repository.TaskRepository;
+
 import java.time.LocalDate;
-
-
 import java.util.List;
 
 @Service
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final NotificationService notificationService;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository,
+                       NotificationService notificationService) {
         this.taskRepository = taskRepository;
+        this.notificationService = notificationService;
+    }
+
+    public Task createTask(Task task) {
+        Task saved = taskRepository.save(task);
+
+        notificationService.sendToGroup(
+                saved.getGroupId(),
+                new NotificationDTO(
+                        "TASK_CREATED",
+                        "Nová úloha: " + saved.getTitle(),
+                        saved.getGroupId()
+                )
+        );
+
+        return saved;
     }
 
     public List<Task> getByGroup(Long groupId) {
@@ -37,6 +55,7 @@ public class TaskService {
     public void delete(Long id) {
         taskRepository.deleteById(id);
     }
+
     public Task updateTask(Long id, String title, String description, String deadline, String status) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
@@ -45,7 +64,19 @@ public class TaskService {
         if (description != null) task.setDescription(description);
         if (deadline != null) task.setDeadline(deadline);
         if (status != null) task.setStatus(TaskStatus.valueOf(status));
-        return taskRepository.save(task);
+
+        Task saved = taskRepository.save(task);
+
+        notificationService.sendToGroup(
+                saved.getGroupId(),
+                new NotificationDTO(
+                        "TASK_UPDATED",
+                        "Úloha bola upravená: " + saved.getTitle(),
+                        saved.getGroupId()
+                )
+        );
+
+        return saved;
     }
 
     public List<Task> getUpcomingTasks(int days) {
@@ -57,5 +88,4 @@ public class TaskService {
         LocalDate today = LocalDate.now();
         return taskRepository.findByDeadlineLessThan(today.toString());
     }
-
 }
