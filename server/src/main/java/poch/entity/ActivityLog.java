@@ -20,7 +20,17 @@ public class ActivityLog {
     @Column(name = "timestamp")
     private String timestamp;
 
-    // GETTERS + SETTERS
+    @Column(name = "details")
+    private String details;
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
 
     public Long getLogId() {
         return logId;

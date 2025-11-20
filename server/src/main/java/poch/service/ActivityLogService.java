@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import poch.entity.ActivityLog;
 import poch.repository.ActivityLogRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,5 +26,14 @@ public class ActivityLogService {
 
     public void delete(Long id) {
         activityLogRepository.deleteById(id);
+    }
+    public void log(Long userId, String action, String details) {
+        ActivityLog log = new ActivityLog();
+        log.setUserId(userId);
+        log.setAction(action);
+        log.setDetails(details);
+        log.setTimestamp(LocalDateTime.now().toString());
+
+        activityLogRepository.save(log);
     }
 }

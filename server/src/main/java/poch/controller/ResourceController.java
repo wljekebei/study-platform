@@ -1,8 +1,12 @@
 package poch.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import poch.dto.LinkRequestDTO;
 import poch.entity.Resource;
 import poch.service.ResourceService;
+import java.io.IOException;
+
 
 import java.util.List;
 
@@ -39,5 +43,25 @@ public class ResourceController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         resourceService.delete(id);
+    }
+    @PostMapping("/link")
+    public Resource addLink(@RequestBody LinkRequestDTO req) {
+        return resourceService.addLink(
+                req.groupId,
+                req.uploadedBy,
+                req.title,
+                req.url
+        );
+    }
+
+
+    @PostMapping("/file")
+    public Resource uploadFile(
+            @RequestParam Long groupId,
+            @RequestParam Long uploadedBy,
+            @RequestParam String title,
+            @RequestParam MultipartFile file
+    ) throws IOException {
+        return resourceService.uploadFile(groupId, uploadedBy, title, file);
     }
 }

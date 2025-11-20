@@ -26,8 +26,9 @@ public class Task {
     @Column(name = "deadline")
     private String deadline;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private TaskStatus status;
 
     // GETTERS + SETTERS
 
@@ -79,11 +80,11 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 }

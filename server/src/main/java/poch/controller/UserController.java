@@ -1,5 +1,7 @@
 package poch.controller;
 
+import poch.dto.UserResponseDTO;
+import poch.dto.UserUpdateDTO;
 import poch.entity.User;
 import org.springframework.web.bind.annotation.*;
 import poch.service.UserService;
@@ -40,4 +42,13 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
+    @PutMapping("/{id}")
+    public UserResponseDTO update(
+            @PathVariable Long id,
+            @RequestBody UserUpdateDTO dto
+    ) {
+        return userService.updateProfile(id, dto);
+    }
+
+
 }

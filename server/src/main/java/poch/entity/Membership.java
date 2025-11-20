@@ -1,7 +1,7 @@
 package poch.entity;
 
 import jakarta.persistence.*;
-
+import java.time.LocalDateTime;
 @Entity
 @Table(name = "membership")
 public class Membership {
@@ -20,7 +20,8 @@ public class Membership {
     @Column(name = "role")
     private String role;
 
-    // GETTERS + SETTERS
+    @Column(name = "joined_at")
+    private LocalDateTime joinedAt;
 
     public Long getMembershipId() {
         return membershipId;
@@ -52,5 +53,13 @@ public class Membership {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public LocalDateTime getJoinedAt() {
+        return joinedAt;
+    }
+
+    public void setJoinedAt(LocalDateTime joinedAt) {
+        this.joinedAt = joinedAt;
     }
 }
