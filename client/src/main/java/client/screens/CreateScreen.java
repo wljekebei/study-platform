@@ -2,7 +2,6 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
-import client.models.User;
 import client.services.Session;
 import client.util.MockDB;
 import client.util.SceneManager;
@@ -20,7 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -65,7 +63,7 @@ public class CreateScreen {
                                     Session.getUser()
                             ),
                             LocalDateTime.now().toString(),
-                            Session.getUser().getUser_id(),
+                            Session.getUser().getId(),
                             description.getText(),
                             nameField.getText()
                     ));

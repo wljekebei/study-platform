@@ -1,45 +1,45 @@
 package client.models;
 
 public class Membership {
-    private Long membership_id;
-    private Long user_id;
-    private Long group_id;
+    private Long membershipId;
+    private Long userId;
+    private Long groupId;
     private String role;
-    private String joined_at;
+    private String joinedAt;
 
     public Membership() {
     }
 
-    public Membership(Long membership_id, Long user_id, Long group_id, String role, String joined_at) {
-        this.membership_id = membership_id;
-        this.user_id = user_id;
-        this.group_id = group_id;
+    public Membership(Long membershipId, Long userId, Long groupId, String role, String joinedAt) {
+        this.membershipId = membershipId;
+        this.userId = userId;
+        this.groupId = groupId;
         this.role = role;
-        this.joined_at = joined_at;
+        this.joinedAt = joinedAt;
     }
 
-    public Long getMembership_id() {
-        return membership_id;
+    public Long getMembershipId() {
+        return membershipId;
     }
 
-    public void setMembership_id(Long membership_id) {
-        this.membership_id = membership_id;
+    public void setMembershipId(Long membershipId) {
+        this.membershipId = membershipId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getGroup_id() {
-        return group_id;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setGroup_id(Long group_id) {
-        this.group_id = group_id;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getRole() {
@@ -50,11 +50,11 @@ public class Membership {
         this.role = role;
     }
 
-    public String getJoined_at() {
-        return joined_at;
+    public String getJoinedAt() {
+        return joinedAt;
     }
 
-    public void setJoined_at(String joined_at) {
-        this.joined_at = joined_at;
+    public void setJoinedAt(String joinedAt) {
+        this.joinedAt = joinedAt;
     }
 }

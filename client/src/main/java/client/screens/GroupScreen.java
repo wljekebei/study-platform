@@ -256,7 +256,7 @@ public class GroupScreen {
         confButton.setDefaultButton(false);
         ElementSetup.buttonSetup(confButton, "10", "11");
 
-        if (Session.getUser().getUser_id().equals(group.getCreated_by())) {
+        if (Session.getUser().getId().equals(group.getCreated_by())) {
             confButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {

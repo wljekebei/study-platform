@@ -3,25 +3,28 @@ package client.models;
 import java.util.Objects;
 
 public class User {
-    private Long user_id;
+    private Long id;
     private String name;
     private String email;
+    private String passwordHash;
+
 
     public User() {
     }
 
-    public User(Long user_id, String name, String email) {
-        this.user_id = user_id;
+    public User(Long id, String name, String email, String passwordHash) {
+        this.id = id;
         this.name = name;
         this.email = email;
+        this.passwordHash = passwordHash;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -40,15 +43,23 @@ public class User {
         this.name = name;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(getUser_id(), user.getUser_id());
+        return Objects.equals(getId(), user.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getUser_id());
+        return Objects.hashCode(getId());
     }
 }

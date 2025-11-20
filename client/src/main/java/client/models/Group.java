@@ -7,16 +7,16 @@ public class Group {
     private String name;
     private String description;
     private Long created_by;
-    private String created_at;
+    private String createdAt;
     private List<User> members;
 
     public Group() {
     }
 
-    public Group(Long group_id, List<User> members, String created_at, Long created_by, String description, String name) {
+    public Group(Long group_id, List<User> members, String createdAt, Long created_by, String description, String name) {
         this.group_id = group_id;
         this.members = members;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
         this.created_by = created_by;
         this.description = description;
         this.name = name;
@@ -54,12 +54,12 @@ public class Group {
         this.created_by = created_by;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<User> getMembers() {

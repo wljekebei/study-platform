@@ -2,18 +2,40 @@ package client.services;
 
 import client.dto.LoginRequest;
 import client.dto.RegisterRequest;
+import client.dto.UserUpdateRequest;
 import client.models.User;
 
-public class UserAPI {
-    private static final String BASE = "http://localhost:8080/auth";
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
-    public static User register(String name, String email, String password) throws Exception {
-        RegisterRequest req = new RegisterRequest(name, email, password);
-        return Http.post(BASE + "/register", req, User.class);
+public class UsersAPI {
+
+    private static final String BASE = "http://localhost:8080/users";
+
+    public static User update(Long id, String email, String password) throws Exception {
+        UserUpdateRequest req = new UserUpdateRequest(email, password);
+        return Http.put(BASE + "/" + id, req, User.class);
     }
 
-    public static User login(String email, String password) throws Exception {
-        LoginRequest req = new LoginRequest(email, password);
-        return Http.post(BASE + "/login", req, User.class);
+    public static List<User> getAll() throws Exception {
+        return Http.getList(BASE, new com.fasterxml.jackson.core.type.TypeReference<List<User>>() {});
+    }
+
+    public static User getById(Long id) throws Exception {
+        return Http.get(BASE + "/" + id, User.class);
+    }
+
+    public static User getByEmail(String email) throws Exception {
+        String encoded = java.net.URLEncoder.encode(email, StandardCharsets.UTF_8);
+        return Http.get(BASE + "/email/" + encoded, User.class);
+    }
+
+    public static User create(User user) throws Exception {
+        return Http.post(BASE, user, User.class);
+    }
+
+    public static void delete(Long id) throws Exception {
+        Http.delete(BASE + "/" + id);
     }
 }

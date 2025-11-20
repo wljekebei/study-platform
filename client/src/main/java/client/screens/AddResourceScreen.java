@@ -114,7 +114,7 @@ public class AddResourceScreen {
                         new Resource(
                                 52L,
                                 group.getGroup_id(),
-                                Session.getUser().getUser_id(),
+                                Session.getUser().getId(),
                                 titleField.getText(),
                                 storedType,
                                 pathOrUrl,
