@@ -1,51 +1,49 @@
 package client.models;
 
 public class Task {
-    private Long task_id;
-    private Long group_id;
-    private Long created_by;
+    private Long taskId;
+    private Long groupId;
+    private Long createdBy;
     private String title;
     private String description;
     private String status;
     private String deadline;
-    private String created_at;
 
     public Task() {
     }
 
-    public Task(Long task_id, Long group_id, Long created_by, String title, String description, String status, String deadline, String created_at) {
-        this.task_id = task_id;
-        this.group_id = group_id;
-        this.created_by = created_by;
+    public Task(Long taskId, Long groupId, Long createdBy, String title, String description, String status, String deadline) {
+        this.taskId = taskId;
+        this.groupId = groupId;
+        this.createdBy = createdBy;
         this.title = title;
         this.description = description;
         this.status = status;
         this.deadline = deadline;
-        this.created_at = created_at;
     }
 
-    public Long getTask_id() {
-        return task_id;
+    public Long getTaskId() {
+        return taskId;
     }
 
-    public void setTask_id(Long task_id) {
-        this.task_id = task_id;
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 
-    public Long getGroup_id() {
-        return group_id;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setGroup_id(Long group_id) {
-        this.group_id = group_id;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
-    public Long getCreated_by() {
-        return created_by;
+    public Long getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreated_by(Long created_by) {
-        this.created_by = created_by;
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getTitle() {
@@ -80,11 +78,4 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
 }

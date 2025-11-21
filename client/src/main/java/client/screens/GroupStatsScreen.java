@@ -3,7 +3,6 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.*;
 import client.services.MembershipAPI;
-import client.services.UserAPI;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
@@ -59,7 +58,7 @@ public class GroupStatsScreen {
 
         List<Task> groupTasks = new ArrayList<>();
         for (Task t : tasks) {
-            if (Objects.equals(t.getGroup_id(), group.getGroupId())) {
+            if (Objects.equals(t.getGroupId(), group.getGroupId())) {
                 groupTasks.add(t);
             }
         }

@@ -36,7 +36,7 @@ public class UserStatsScreen {
 
         for (Task t : allTasks) {
             for (Group g : userGroups) {
-                if (Objects.equals(t.getGroup_id(), g.getGroupId())) {
+                if (Objects.equals(t.getGroupId(), g.getGroupId())) {
                     userTasks.add(t);
                     break;
                 }
@@ -131,7 +131,7 @@ public class UserStatsScreen {
             long count = 0;
 
             for (Task t : userTasks) {
-                if (Objects.equals(t.getGroup_id(), g.getGroupId())) {
+                if (Objects.equals(t.getGroupId(), g.getGroupId())) {
                     count++;
                 }
             }

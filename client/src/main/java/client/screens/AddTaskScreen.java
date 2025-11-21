@@ -4,6 +4,7 @@ import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
 import client.services.Session;
+import client.services.TaskAPI;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -47,28 +48,26 @@ public class AddTaskScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String deadline;
+                String deadline = null;
                 if (deadlinePicker.getValue() != null) {
                     deadline = deadlinePicker.getValue().toString();
-                } else {
-                    deadline = "";
                 }
 
-                MockDB.getTasks().add(
-                        new Task(
-                                (long) (Math.random() * 100 + 1),
-                                group.getGroupId(),
-                                Session.getUser().getId(),
-                                titleField.getText(),
-                                descField.getText(),
-                                "Open",
-                                deadline,
-                                LocalDateTime.now().toString()
-                        )
+                Task task = new Task(
+                        null,
+                        group.getGroupId(),
+                        Session.getUser().getId(),
+                        titleField.getText(),
+                        descField.getText(),
+                        "OPEN",
+                        deadline
                 );
+
                 try {
+                    TaskAPI.create(task);
                     SceneManager.toGroup(group);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
