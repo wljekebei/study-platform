@@ -82,7 +82,7 @@ public class GroupStatsScreen {
         int fileResources = 0;
 
         for (Resource r : resources) {
-            if (!Objects.equals(r.getGroup_id(), group.getGroupId())) continue;
+            if (!Objects.equals(r.getGroupId(), group.getGroupId())) continue;
 
             String type = r.getType();
             if (type == null) continue;

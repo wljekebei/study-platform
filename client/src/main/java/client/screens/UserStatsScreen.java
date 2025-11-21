@@ -1,11 +1,12 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.dto.UserStats;
+import client.models.ActivityLog;
 import client.models.Group;
 import client.models.Task;
 import client.models.User;
-import client.services.Session;
-import client.services.UserAPI;
+import client.services.*;
 import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,36 +31,14 @@ public class UserStatsScreen {
 
     public static Scene getScene(User user, Group group) throws Exception {
 
-        List<Group> userGroups = UserAPI.getUserGroups(Session.getUser().getId());
+        List<Group> userGroups = UserAPI.getUserGroups(user.getId());
 
+        UserStats stats = UserStatsAPI.get(user.getId());
 
-        List<Task> allTasks = MockDB.getTasks();
         List<Task> userTasks = new ArrayList<>();
-
-        for (Task t : allTasks) {
-            for (Group g : userGroups) {
-                if (Objects.equals(t.getGroupId(), g.getGroupId())) {
-                    userTasks.add(t);
-                    break;
-                }
-            }
+        for (Group g : userGroups) {
+            userTasks.addAll(TaskAPI.getByGroup(g.getGroupId()));
         }
-
-
-        int totalGroups = userGroups.size();
-        int totalTasks = userTasks.size();
-        long completedTasks = 0;
-
-        for (Task t : userTasks) {
-            if ("DONE".equalsIgnoreCase(t.getStatus())) {
-                completedTasks++;
-            }
-        }
-
-        long notCompletedTasks = totalTasks - completedTasks;
-
-        // EDIT
-        int uploadedResources = 0;
 
         Label header = new Label("STATS");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 40));
@@ -93,11 +74,22 @@ public class UserStatsScreen {
         topBox.setAlignment(Pos.CENTER_LEFT);
 
         // stats
-        VBox lastLoginBox = createStatBox("LAST LOGIN", "2025-01-12 14:33");
+        List<ActivityLog> logs = ActivityLogAPI.getByUser(user.getId());
+
+        String prettyLastLogin = "-";
+        if (!logs.isEmpty()) {
+            ActivityLog last = logs.get(logs.size() - 1);
+            String lastLogin = last.getTimestamp();
+            LocalDateTime dt = LocalDateTime.parse(lastLogin);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            prettyLastLogin = dt.format(fmt);
+        }
+
+        VBox lastLoginBox = createStatBox("LAST LOGIN", prettyLastLogin);
         lastLoginBox.getChildren().get(1).setStyle("-fx-font-size: 20; -fx-font-weight: BOLD");
-        VBox groupsBox = createStatBox("GROUPS", String.valueOf(totalGroups));
-        VBox tasksBox = createStatBox("TASKS", String.valueOf(totalTasks));
-        VBox resBox = createStatBox("RESOURCES", String.valueOf(uploadedResources));
+        VBox groupsBox = createStatBox("GROUPS", stats.groupsCount.toString());
+        VBox tasksBox = createStatBox("TASKS", stats.totalTasks.toString());
+        VBox resBox = createStatBox("RESOURCES", stats.uploadedResources.toString());
 
         HBox statsBoxes = new HBox(lastLoginBox, groupsBox, tasksBox, resBox);
         statsBoxes.setSpacing(20);
@@ -107,9 +99,9 @@ public class UserStatsScreen {
         PieChart completionChart = new PieChart();
         completionChart.setTitle("TASK COMPLETION");
 
-        if (totalTasks > 0) {
-            completionChart.getData().add(new PieChart.Data("DONE", completedTasks));
-            completionChart.getData().add(new PieChart.Data("NOT DONE", notCompletedTasks));
+        if (stats.totalTasks > 0) {
+            completionChart.getData().add(new PieChart.Data("DONE", stats.tasksDone));
+            completionChart.getData().add(new PieChart.Data("NOT DONE", stats.tasksNotDone));
         }
 
         Pane completionPane = wrapBox(completionChart);

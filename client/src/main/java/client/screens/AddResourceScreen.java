@@ -2,9 +2,8 @@ package client.screens;
 
 import client.components.ElementSetup;
 import client.models.Group;
-import client.models.Resource;
+import client.services.ResourceAPI;
 import client.services.Session;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +26,10 @@ public class AddResourceScreen {
     public static Scene getScene(Group group) {
         Label header = new Label("NEW RESOURCE");
         header.setFont(Font.font("Arial", FontWeight.BOLD, 38));
+
+        Label errorLabel = new Label();
+        errorLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        errorLabel.setStyle("-fx-text-fill: red");
 
         Label typeLabel = new Label("Type:");
         typeLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
@@ -97,31 +100,30 @@ public class AddResourceScreen {
                 if (type == null) type = "Link";
 
                 String storedType = type.toLowerCase();
-                String pathOrUrl = "";
 
-                if (storedType.equals("link")) {
-                    pathOrUrl = linkField.getText();
-                } else if (storedType.equals("file")) {
-                    if (selectedFile[0] != null) {
-                        // for now like that
-                        pathOrUrl = selectedFile[0].getName();
-                    } else {
-                        pathOrUrl = "";
-                    }
-                }
-
-                MockDB.getResources().add(
-                        new Resource(
-                                52L,
+                try {
+                    if (storedType.equals("link")) {
+                        ResourceAPI.addLink(
                                 group.getGroupId(),
                                 Session.getUser().getId(),
                                 titleField.getText(),
-                                storedType,
-                                pathOrUrl,
-                                "14:47"
-                        )
-                );
-                SceneManager.toResources(group);
+                                linkField.getText()
+                        );
+                    } else if (storedType.equals("file")) {
+                        if (selectedFile[0] != null) {
+                            ResourceAPI.uploadFile(
+                                    group.getGroupId(),
+                                    Session.getUser().getId(),
+                                    titleField.getText(),
+                                    selectedFile[0]
+                            );
+                        }
+                    }
+                    SceneManager.toResources(group);
+                } catch (Exception e) {
+                    errorLabel.setText("Error");
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -144,9 +146,9 @@ public class AddResourceScreen {
         typeBox.setAlignment(Pos.CENTER);
         typeBox.setSpacing(10);
 
-        VBox fieldBox = new VBox(typeBox, titleField, linkField, chooseFileButton, fileLabel);
+        VBox fieldBox = new VBox(typeBox, titleField, linkField, chooseFileButton, fileLabel, errorLabel);
         fieldBox.setAlignment(Pos.CENTER);
-        fieldBox.setSpacing(10);
+        fieldBox.setSpacing(8);
 
         VBox root = new VBox(header, fieldBox, buttonsBox);
         root.setAlignment(Pos.CENTER);

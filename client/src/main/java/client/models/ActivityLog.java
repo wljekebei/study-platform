@@ -1,8 +1,8 @@
 package client.models;
 
 public class ActivityLog {
-    private Long log_id;
-    private Long user_id;
+    private Long logId;
+    private Long userId;
     private String action;
     private String timestamp;
     private String details;
@@ -10,28 +10,28 @@ public class ActivityLog {
     public ActivityLog() {
     }
 
-    public ActivityLog(Long user_id, Long log_id, String action, String timestamp, String details) {
-        this.user_id = user_id;
-        this.log_id = log_id;
+    public ActivityLog(Long userId, Long logId, String action, String timestamp, String details) {
+        this.userId = userId;
+        this.logId = logId;
         this.action = action;
         this.timestamp = timestamp;
         this.details = details;
     }
 
-    public Long getLog_id() {
-        return log_id;
+    public Long getLogId() {
+        return logId;
     }
 
-    public void setLog_id(Long log_id) {
-        this.log_id = log_id;
+    public void setLogId(Long logId) {
+        this.logId = logId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getAction() {

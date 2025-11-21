@@ -164,25 +164,21 @@ public class Http {
             String part1 = "--" + boundary + "\r\n"
                     + "Content-Disposition: form-data; name=\"groupId\"\r\n\r\n"
                     + groupId + "\r\n";
-
             os.write(part1.getBytes());
 
             String part2 = "--" + boundary + "\r\n"
                     + "Content-Disposition: form-data; name=\"uploadedBy\"\r\n\r\n"
                     + uploadedBy + "\r\n";
-
             os.write(part2.getBytes());
 
             String part3 = "--" + boundary + "\r\n"
                     + "Content-Disposition: form-data; name=\"title\"\r\n\r\n"
                     + title + "\r\n";
-
             os.write(part3.getBytes());
 
             String header = "--" + boundary + "\r\n"
                     + "Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n"
                     + "Content-Type: application/octet-stream\r\n\r\n";
-
             os.write(header.getBytes());
 
             try (InputStream fis = new java.io.FileInputStream(file)) {
@@ -194,10 +190,24 @@ public class Http {
         }
 
         int code = conn.getResponseCode();
+
         InputStream is = code == 200 ? conn.getInputStream() : conn.getErrorStream();
+
+        if (code != 200) {
+            String body = "";
+            if (is != null) {
+                body = new String(is.readAllBytes());
+            }
+            throw new RuntimeException("UPLOAD " + url + " failed with code " + code + "\n" + body);
+        }
+
+        if (is == null) {
+            throw new RuntimeException("UPLOAD " + url + " returned empty body");
+        }
 
         return mapper.readValue(is, (Class<T>) client.models.Resource.class);
     }
+
 
 
 }

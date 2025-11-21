@@ -406,7 +406,7 @@ public class GroupScreen {
         return box;
     }
 
-    static String getUserRole(Long id, Group group) throws Exception {
+    public static String getUserRole(Long id, Group group) throws Exception {
 //        Long currentUserId = Session.getUser().getId();
 
         List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());

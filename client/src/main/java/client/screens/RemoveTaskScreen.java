@@ -3,6 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
+import client.services.TaskAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -43,11 +44,23 @@ public class RemoveTaskScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // saving info logic
-                try {
-                    SceneManager.toGroup(group);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                String selected = tasksChoice.getValue();
+                if (selected != null) {
+                    Task toDelete = null;
+                    for (Task t : tasks) {
+                        if (selected.equals(t.getTitle())) {
+                            toDelete = t;
+                            break;
+                        }
+                    }
+                    if (toDelete != null) {
+                        try {
+                            TaskAPI.delete(toDelete.getTaskId());
+                            SceneManager.toGroup(group);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
             }
         });
@@ -59,7 +72,6 @@ public class RemoveTaskScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // SM.toGroup()
                 try {
                     SceneManager.toGroup(group);
                 } catch (Exception e) {

@@ -68,19 +68,25 @@ public class ResourceService {
 
     public Resource uploadFile(Long groupId, Long uploadedBy, String title, MultipartFile file) throws IOException {
 
-        String uploadDir = "uploads/";
-        File folder = new File(uploadDir);
-        if (!folder.exists()) folder.mkdirs();
+        String baseDir = System.getProperty("user.home") + File.separator + "collabstudy_uploads";
+        File folder = new File(baseDir);
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                throw new IOException("Cannot create upload directory: " + baseDir);
+            }
+        }
 
-        String filePath = uploadDir + System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        file.transferTo(new File(filePath));
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        File targetFile = new File(folder, fileName);
+
+        file.transferTo(targetFile);
 
         Resource r = new Resource();
         r.setGroupId(groupId);
         r.setUploadedBy(uploadedBy);
         r.setTitle(title);
         r.setType("FILE");
-        r.setPathOrUrl(filePath);
+        r.setPathOrUrl(targetFile.getAbsolutePath());
         r.setUploadedAt(LocalDateTime.now().toString());
 
         Resource saved = resourceRepository.save(r);
@@ -89,7 +95,7 @@ public class ResourceService {
                 saved.getGroupId(),
                 new NotificationDTO(
                         "RESOURCE_ADDED",
-                        "Nový materiál (súbor): " + saved.getTitle(),
+                        "New file: " + saved.getTitle(),
                         saved.getGroupId()
                 )
         );
