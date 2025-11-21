@@ -3,10 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Membership;
-import client.models.Task;
-import client.models.User;
 import client.services.MembershipAPI;
-import client.services.Session;
 import client.services.UserAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -52,9 +49,19 @@ public class RemoveUserScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // saving info logic (only admin/owner)
                 try {
-                    SceneManager.toGroup(group);
+                    String selected = userChoice.getValue();
+                    if (selected != null) {
+                        for (Membership m : memberships) {
+                            if (UserAPI.getById(m.getUserId()).getName().equals(selected)) {
+                                if (!(m.getRole().equalsIgnoreCase("admin"))) {
+                                    MembershipAPI.kick(group.getGroupId(), m.getUserId());
+                                    SceneManager.toGroup(group);
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -68,7 +75,6 @@ public class RemoveUserScreen {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // SM.toGroup()
                 try {
                     SceneManager.toGroup(group);
                 } catch (Exception e) {

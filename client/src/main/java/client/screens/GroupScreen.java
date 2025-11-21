@@ -33,6 +33,11 @@ public class GroupScreen {
         // HEADER
         Label title = new Label(group.getName());
         title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        if (group.getName().length() > 8) {
+            title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+        } else if (group.getName().length() > 4) {
+            title.setFont(Font.font("Arial", FontWeight.BOLD, 34));
+        }
 
         Label id = new Label("ID: " + group.getGroupId());
         id.setFont(Font.font("Arial", 20));
@@ -170,7 +175,7 @@ public class GroupScreen {
 
         colTitle.setPrefWidth(142);      // Ширина колонки TASK
         colDesc.setPrefWidth(420);
-        colDeadline.setPrefWidth(80);  // Ширина DEADLINE
+        colDeadline.setPrefWidth(79);  // Ширина DEADLINE
         colStatus.setPrefWidth(90);    // Ширина STATUS
 
         taskTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);

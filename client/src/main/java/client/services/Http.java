@@ -6,33 +6,43 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class Http {
 
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static final java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+
 
     public static <T> T post(String url, Object body, Class<T> responseType) throws Exception {
+        String requestBody = mapper.writeValueAsString(body);
 
-        URL u = new URL(url);
-        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
 
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/json");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // JSON тела
-        byte[] json = mapper.writeValueAsBytes(body);
+        int status = response.statusCode();
 
-        try (OutputStream os = conn.getOutputStream()) {
-            os.write(json);
+        if (status < 200 || status >= 300) {
+            // ВАЖНО: вот тут ты как раз увидишь HTML-страницу ошибки
+            throw new RuntimeException("POST " + url + " failed with code " + status + "\n" + response.body());
         }
 
-        int code = conn.getResponseCode();
-        InputStream is = code == 200 ? conn.getInputStream() : conn.getErrorStream();
+        if (responseType == Void.class) {
+            return null;
+        }
 
-        return mapper.readValue(is, responseType);
+        return mapper.readValue(response.body(), responseType);
     }
+
+
 
     public static <T> T get(String url, Class<T> responseType) throws Exception {
 

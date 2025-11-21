@@ -1,8 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
+import client.dto.GroupResponse;
 import client.models.Group;
-import client.util.MockDB;
+import client.services.GroupAPI;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,8 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import static client.util.MockDB.groups;
 
 public class GroupConfigScreen {
     public static Scene getScene(Group group) {
@@ -53,9 +52,10 @@ public class GroupConfigScreen {
             } else if (descField.getText().length() > 45) {
                 errorLabel.setText("Description can contain max. 45 characters");
             } else {
-                group.setName(nameField.getText());
-                group.setDescription(descField.getText());
                 try {
+                    GroupResponse updated = GroupAPI.update(group.getGroupId(), nameField.getText(), descField.getText());
+                    group.setName(updated.getName());
+                    group.setDescription(updated.getDescription());
                     SceneManager.toGroup(group);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -77,7 +77,7 @@ public class GroupConfigScreen {
         Button remUserButton = new Button("REMOVE USER");
         remUserButton.setFont(Font.font("Arial", FontWeight.MEDIUM, 16));
         ElementSetup.buttonSetup(remUserButton, "10", "16");
-        remUserButton.setPrefWidth(180);  // FIXED WIDTH
+        remUserButton.setPrefWidth(180);
         remUserButton.setOnAction(a -> {
             SceneManager.toRmUser(group);
         });
@@ -93,7 +93,11 @@ public class GroupConfigScreen {
                 -fx-cursor: hand;
                 """);
         delButton.setOnAction(a -> {
-            groups.remove(group);
+            try {
+                GroupAPI.delete(group.getGroupId());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             SceneManager.toGroupsScreen();
         });
 
