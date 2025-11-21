@@ -64,7 +64,7 @@ public class CreateScreen {
                         SceneManager.toGroup(created);
                     } catch (Exception e) {
                         errorLabel.setText("Error");
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
             }

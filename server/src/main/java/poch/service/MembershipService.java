@@ -54,7 +54,7 @@ public class MembershipService {
         Membership exist = membershipRepository.findByUserIdAndGroupId(dto.userId, dto.groupId);
 
         if (exist != null) {
-            throw new RuntimeException("User already in this group");
+            return exist;
         }
 
         Membership m = new Membership();
@@ -64,7 +64,6 @@ public class MembershipService {
         m.setJoinedAt(LocalDateTime.now());
 
         Membership saved = membershipRepository.save(m);
-
 
         notificationService.sendToGroup(
                 saved.getGroupId(),
@@ -77,6 +76,7 @@ public class MembershipService {
 
         return saved;
     }
+
 
     public void leaveGroup(Long userId, Long groupId) {
         Membership membership = membershipRepository.findByUserIdAndGroupId(userId, groupId);

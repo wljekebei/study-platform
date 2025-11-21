@@ -331,8 +331,15 @@ public class GroupScreen {
         nameNButtonsBox.setSpacing(30);
         nameNButtonsBox.setAlignment(Pos.CENTER_LEFT);
 
-        HBox buttonBox = new HBox(addButton, rmButton, resButton);
-        buttonBox.setSpacing(26);
+        HBox buttonBox = new HBox();
+
+        if (getCurrentUserRole(group).equalsIgnoreCase("admin")) {
+            buttonBox.getChildren().addAll(addButton, rmButton, resButton);
+            buttonBox.setSpacing(26);
+        } else {
+            buttonBox.getChildren().add(resButton);
+            buttonBox.setAlignment(Pos.CENTER);
+        }
 
         VBox left = new VBox(nameNButtonsBox, descPane, buttonBox);
         left.setSpacing(20);               // Было 47 — делаем ближе
@@ -397,5 +404,19 @@ public class GroupScreen {
                     -fx-background-radius: 12;
                 """);
         return box;
+    }
+
+    static String getCurrentUserRole(Group group) throws Exception {
+        Long currentUserId = Session.getUser().getId();
+
+        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
+
+        for (Membership m : memberships) {
+            if (m.getUserId().equals(currentUserId)) {
+                return m.getRole();
+            }
+        }
+
+        return null;
     }
 }
