@@ -87,9 +87,9 @@ public class GroupScreen {
                 }
             });
 
-//            if (u.role.equals("owner")) name.setStyle("-fx-text-fill: #1F75FF;");
-//            else if (u.role.equals("admin")) name.setStyle("-fx-text-fill: #00AA00;");
-//            else name.setStyle("-fx-text-fill: black;");
+            if (getUserRole(u.getId(), group).equalsIgnoreCase("admin"))  {
+                name.setStyle("-fx-text-fill: #1F75FF;");
+            }
 
             userList.getChildren().add(name);
         }
@@ -173,10 +173,10 @@ public class GroupScreen {
         });
 
 
-        colTitle.setPrefWidth(142);      // Ширина колонки TASK
+        colTitle.setPrefWidth(142);
         colDesc.setPrefWidth(420);
-        colDeadline.setPrefWidth(79);  // Ширина DEADLINE
-        colStatus.setPrefWidth(90);    // Ширина STATUS
+        colDeadline.setPrefWidth(79);
+        colStatus.setPrefWidth(90);
 
         taskTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         taskTable.setPrefHeight(290);
@@ -333,7 +333,7 @@ public class GroupScreen {
 
         HBox buttonBox = new HBox();
 
-        if (getCurrentUserRole(group).equalsIgnoreCase("admin")) {
+        if (getUserRole(Session.getUser().getId(), group).equalsIgnoreCase("admin")) {
             buttonBox.getChildren().addAll(addButton, rmButton, resButton);
             buttonBox.setSpacing(26);
         } else {
@@ -406,13 +406,13 @@ public class GroupScreen {
         return box;
     }
 
-    static String getCurrentUserRole(Group group) throws Exception {
-        Long currentUserId = Session.getUser().getId();
+    static String getUserRole(Long id, Group group) throws Exception {
+//        Long currentUserId = Session.getUser().getId();
 
         List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
 
         for (Membership m : memberships) {
-            if (m.getUserId().equals(currentUserId)) {
+            if (m.getUserId().equals(id)) {
                 return m.getRole();
             }
         }
