@@ -75,17 +75,6 @@ public class RegistrationScreen {
                     infoLabel.setText("Password can not be empty!");
                     infoLabel.setStyle("-fx-text-fill: red;");
                 } else {
-//                    MockDB.getUsers().add(
-//                            new User(
-//                                    (long) (Math.random() * 100 + 1),
-//                                    usernameField.getText(),
-//                                    emailField.getText(),
-//                                    "abcdefh"
-//                            )
-//                    );
-//
-//                    Session.setUser(MockDB.getUsers().get((MockDB.getUsers().size()-1)));
-//                    SceneManager.toGroupsScreen();
                     try {
                         User u = AuthAPI.register(
                                 usernameField.getText(),

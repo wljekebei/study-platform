@@ -1,9 +1,9 @@
 package client.screens;
 
 import client.components.ElementSetup;
-import client.models.*;
-import client.services.MembershipAPI;
-import client.util.MockDB;
+import client.dto.GroupStats;
+import client.models.Group;
+import client.services.GroupStatsAPI;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,14 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class GroupStatsScreen {
-
-    private static List<Task> tasks = MockDB.getTasks();
-    private static List<Resource> resources = MockDB.getResources();
 
     public static Scene getScene(Group group) throws Exception {
         Label header = new Label("GROUP STATS");
@@ -53,52 +46,21 @@ public class GroupStatsScreen {
         HBox topBox = new HBox(backButton, titleBox);
         topBox.setSpacing(20);
         topBox.setAlignment(Pos.CENTER_LEFT);
-        List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
-        int memberCount = memberships.size();
 
-        List<Task> groupTasks = new ArrayList<>();
-        for (Task t : tasks) {
-            if (Objects.equals(t.getGroupId(), group.getGroupId())) {
-                groupTasks.add(t);
-            }
-        }
+        GroupStats stats = GroupStatsAPI.get(group.getGroupId());
 
-        int totalTasks = groupTasks.size();
-        int openTasks = 0;
-        int inProgressTasks = 0;
-        int doneTasks = 0;
-
-        for (Task t : groupTasks) {
-            String status = t.getStatus();
-            if (status == null) continue;
-            String s = status.toUpperCase().replace(" ", "_");
-
-            if ("OPEN".equals(s)) openTasks++;
-            else if ("IN_PROGRESS".equals(s)) inProgressTasks++;
-            else if ("DONE".equals(s)) doneTasks++;
-        }
-
-        int linkResources = 0;
-        int fileResources = 0;
-
-        for (Resource r : resources) {
-            if (!Objects.equals(r.getGroupId(), group.getGroupId())) continue;
-
-            String type = r.getType();
-            if (type == null) continue;
-
-            if ("link".equalsIgnoreCase(type)) {
-                linkResources++;
-            } else if ("file".equalsIgnoreCase(type)) {
-                fileResources++;
-            }
-        }
-
+        long memberCount     = stats.members     != null ? stats.members     : 0L;
+        long totalTasks      = stats.tasks       != null ? stats.tasks       : 0L;
+        long linkResources   = stats.links       != null ? stats.links       : 0L;
+        long fileResources   = stats.files       != null ? stats.files       : 0L;
+        long doneTasks       = stats.done        != null ? stats.done        : 0L;
+        long inProgressTasks = stats.inProgress  != null ? stats.inProgress  : 0L;
+        long openTasks       = stats.open        != null ? stats.open        : 0L;
 
         VBox membersBox = createStatBox("MEMBERS", String.valueOf(memberCount));
-        VBox tasksBox = createStatBox("TASKS", String.valueOf(totalTasks));
-        VBox linksBox = createStatBox("LINKS", String.valueOf(linkResources));
-        VBox filesBox = createStatBox("FILES", String.valueOf(fileResources));
+        VBox tasksBox   = createStatBox("TASKS",   String.valueOf(totalTasks));
+        VBox linksBox   = createStatBox("LINKS",   String.valueOf(linkResources));
+        VBox filesBox   = createStatBox("FILES",   String.valueOf(fileResources));
 
         HBox statsBoxes = new HBox(membersBox, tasksBox, linksBox, filesBox);
         statsBoxes.setSpacing(25);
