@@ -122,7 +122,7 @@ public class GroupScreen {
         colDeadline.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDeadline()));
 
         TableColumn<Task, String> colStatus = new TableColumn<>("STATUS");
-        colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
+        colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus().replace("_", " ")));
 
         List<Task> tasks = TaskAPI.getByGroup(group.getGroupId());
 

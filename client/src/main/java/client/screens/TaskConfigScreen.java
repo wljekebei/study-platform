@@ -3,6 +3,7 @@ package client.screens;
 import client.components.ElementSetup;
 import client.models.Group;
 import client.models.Task;
+import client.services.TaskAPI;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,12 +43,11 @@ public class TaskConfigScreen {
             deadlinePicker.setValue(java.time.LocalDate.parse(task.getDeadline()));
         } catch (Exception ignored) {}
 
-
         ComboBox<String> statusChoice = new ComboBox<>();
         statusChoice.getItems().add("Open");
         statusChoice.getItems().add("In progress");
         statusChoice.getItems().add("Done");
-        statusChoice.setValue(task.getStatus());
+        statusChoice.setValue(task.getStatus().replace("_", " "));
         statusChoice.setPrefWidth(250);
         statusChoice.setStyle("""
                 -fx-background-color: #4D7CFE;
@@ -66,13 +66,35 @@ public class TaskConfigScreen {
         confButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                task.setTitle(titleField.getText());
-                task.setDescription(descField.getText());
+                String title = titleField.getText();
+                String desc = descField.getText();
+
+                String deadline = null;
                 if (deadlinePicker.getValue() != null) {
-                    task.setDeadline(deadlinePicker.getValue().toString());
+                    deadline = deadlinePicker.getValue().toString();
                 }
-                task.setStatus(statusChoice.getValue());
+
+                String statusLabel = statusChoice.getValue();
+                String status = null;
+                if (statusLabel != null) {
+                    if (statusLabel.equalsIgnoreCase("open")) {
+                        status = "OPEN";
+                    } else if (statusLabel.equalsIgnoreCase("in progress")) {
+                        status = "IN_PROGRESS";
+                    } else if (statusLabel.equalsIgnoreCase("done")) {
+                        status = "DONE";
+                    } else {
+                        status = statusLabel.toUpperCase().replace(" ", "_");
+                    }
+                }
+
+                task.setTitle(title);
+                task.setDescription(desc);
+                task.setDeadline(deadline);
+                task.setStatus(status);
+
                 try {
+                    TaskAPI.update(task.getTaskId(), title, desc, deadline, status);
                     SceneManager.toGroup(group);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
