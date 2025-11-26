@@ -8,11 +8,9 @@ import client.services.Session;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -122,7 +120,28 @@ public class ResourcesScreen {
                 ElementSetup.buttonSetup(downloadButton, "6", "8");
 
                 downloadButton.setOnAction(e -> {
-                    // todo
+                    try {
+                        java.io.File source = new java.io.File(r.getPathOrUrl());
+                        if (!source.exists()) {
+                            System.err.println("File not found: " + source.getAbsolutePath());
+                            return;
+                        }
+
+                        javafx.stage.FileChooser chooser = new javafx.stage.FileChooser();
+                        chooser.setTitle("Save file");
+                        chooser.setInitialFileName(source.getName());
+                        java.io.File dest = chooser.showSaveDialog(downloadButton.getScene().getWindow());
+
+                        if (dest != null) {
+                            java.nio.file.Files.copy(
+                                    source.toPath(),
+                                    dest.toPath(),
+                                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                            );
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
                 VBox item = new VBox(title, path, downloadButton);
