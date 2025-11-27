@@ -66,14 +66,6 @@ public class GroupScreen {
             users.add(u);
         }
 
-
-        // SORT BY ROLES FROM MEMBERSHIPS TABLE
-//        users.sort((a, b) -> {
-//            List<String> order = List.of("owner", "admin", "member");
-//            return Integer.compare(order.indexOf(a.role), order.indexOf(b.role));
-//        });
-        // SORT BY ROLES FROM MEMBERSHIPS TABLE
-
         for (User u : users) {
             Label name = new Label(u.getName());
             name.setFont(Font.font("Arial", 18));
@@ -131,7 +123,6 @@ public class GroupScreen {
 
         taskTable.setRowFactory(tv -> new TableRow<Task>() {
             {
-                // двойной клик как раньше
                 setOnMouseClicked(event -> {
                     if (!isEmpty() && event.getClickCount() == 2) {
                         Task task = getItem();
@@ -175,7 +166,7 @@ public class GroupScreen {
 
         colTitle.setPrefWidth(142);
         colDesc.setPrefWidth(420);
-        colDeadline.setPrefWidth(79);
+        colDeadline.setPrefWidth(76);
         colStatus.setPrefWidth(90);
 
         taskTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);

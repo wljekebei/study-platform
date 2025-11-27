@@ -69,7 +69,7 @@ public class SceneManager {
 
     public static void toGroup(Group group) throws Exception {
         stage.setScene(GroupScreen.getScene(group));
-        stage.setTitle("Remove Task");
+        stage.setTitle("Group");
         stage.show();
     }
 
