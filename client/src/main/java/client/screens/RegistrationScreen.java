@@ -86,7 +86,7 @@ public class RegistrationScreen {
                         SceneManager.toGroupsScreen();
 
                     } catch (Exception ex) {
-                        infoLabel.setText("Registration failed: " + ex.getMessage());
+                        infoLabel.setText("Registration failed");
                         infoLabel.setStyle("-fx-text-fill: red;");
                     }
 

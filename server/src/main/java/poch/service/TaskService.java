@@ -28,7 +28,7 @@ public class TaskService {
                 saved.getGroupId(),
                 new NotificationDTO(
                         "TASK_CREATED",
-                        "Nová úloha: " + saved.getTitle(),
+                        "New task: " + saved.getTitle(),
                         saved.getGroupId()
                 )
         );
@@ -71,7 +71,7 @@ public class TaskService {
                 saved.getGroupId(),
                 new NotificationDTO(
                         "TASK_UPDATED",
-                        "Úloha bola upravená: " + saved.getTitle(),
+                        "Task was updated: " + saved.getTitle(),
                         saved.getGroupId()
                 )
         );

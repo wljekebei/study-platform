@@ -6,6 +6,7 @@ C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\Group
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\JoinGroup.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\LinkRequest.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\LoginRequest.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\Notification.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\RegisterRequest.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\UpdateTask.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\dto\UserResponse.java
@@ -41,6 +42,7 @@ C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\GroupStatsAPI.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\Http.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\MembershipAPI.java
+C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\NotificationWS.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\ResourceAPI.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\Session.java
 C:\Users\rosti\IdeaProjects\study-platform\client\src\main\java\client\services\TaskAPI.java

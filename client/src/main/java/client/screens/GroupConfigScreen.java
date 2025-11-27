@@ -4,6 +4,7 @@ import client.components.ElementSetup;
 import client.dto.GroupResponse;
 import client.models.Group;
 import client.services.GroupAPI;
+import client.services.NotificationWS;
 import client.util.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -98,6 +99,7 @@ public class GroupConfigScreen {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+            NotificationWS.unsubscribeGroup(group.getGroupId());
             SceneManager.toGroupsScreen();
         });
 

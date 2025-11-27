@@ -58,7 +58,7 @@ public class ResourceService {
                 saved.getGroupId(),
                 new NotificationDTO(
                         "RESOURCE_ADDED",
-                        "Nový materiál (link): " + saved.getTitle(),
+                        "New link: " + saved.getTitle(),
                         saved.getGroupId()
                 )
         );

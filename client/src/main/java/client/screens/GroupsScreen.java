@@ -5,6 +5,7 @@ import client.models.Group;
 import client.models.Membership;
 import client.models.User;
 import client.services.MembershipAPI;
+import client.services.NotificationWS;
 import client.services.Session;
 import client.services.UserAPI;
 import client.util.SceneManager;
@@ -21,7 +22,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsScreen {
@@ -35,9 +39,30 @@ public class GroupsScreen {
         index = 0;
         List<Group> userGroups = UserAPI.getUserGroups(user.getId());
 
+        NotificationWS.init(n -> {
+            Notifications.create()
+                    .title(n.type.replace("_", " "))
+                    .text(n.message)
+                    .position(Pos.TOP_RIGHT)
+                    .hideAfter(Duration.seconds(3))
+                    .owner(SceneManager.getStage())
+                    .showInformation();
+        });
+
         for (Group group : userGroups) {
             addGroupBox(createGroupBox(group));
         }
+
+        List<Long> groupIds = new ArrayList<>();
+
+        for (Group g : userGroups) {
+            Long id = g.getGroupId();
+            if (!groupIds.contains(id)) {
+                groupIds.add(id);
+            }
+        }
+
+        NotificationWS.subscribeGroups(groupIds);
 
         Label emptyLabel = new Label("CREATE OR JOIN GROUP AND\n      IT WILL APPEAR HERE!");
         emptyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));

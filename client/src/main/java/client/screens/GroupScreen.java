@@ -5,10 +5,7 @@ import client.models.Group;
 import client.models.Membership;
 import client.models.Task;
 import client.models.User;
-import client.services.MembershipAPI;
-import client.services.Session;
-import client.services.TaskAPI;
-import client.services.UserAPI;
+import client.services.*;
 import client.util.SceneManager;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -290,6 +289,7 @@ public class GroupScreen {
                         throw new RuntimeException(ex);
                     }
                     try {
+                        NotificationWS.unsubscribeGroup(group.getGroupId());
                         SceneManager.toGroupsScreen();
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
@@ -382,6 +382,16 @@ public class GroupScreen {
                     thumb.setStyle("-fx-background-color: #6B8EFF; -fx-background-radius: 5;");
             }
         });
+
+//        NotificationWS.connect(group.getGroupId(), n -> {
+//            Notifications.create()
+//                    .title(n.type.replace("_", " ") + " (" + group.getName() + ")")
+//                    .text(n.message)
+//                    .position(Pos.TOP_RIGHT)
+//                    .hideAfter(Duration.seconds(3))
+//                    .owner(root.getScene().getWindow())
+//                    .showInformation();
+//        });
 
 
         return new Scene(root, 800, 600);

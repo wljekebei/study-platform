@@ -34,7 +34,7 @@ public class TaskController {
 
     @PostMapping
     public Task create(@RequestBody Task task) {
-        return taskService.save(task);
+        return taskService.createTask(task);
     }
 
     @DeleteMapping("/{id}")
@@ -52,6 +52,7 @@ public class TaskController {
                 dto.status
         );
     }
+
     @GetMapping("/upcoming")
     public List<Task> getUpcoming(@RequestParam int days) {
         return taskService.getUpcomingTasks(days);
@@ -61,5 +62,4 @@ public class TaskController {
     public List<Task> getOverdue() {
         return taskService.getOverdueTasks();
     }
-
 }

@@ -69,7 +69,7 @@ public class MembershipService {
                 saved.getGroupId(),
                 new NotificationDTO(
                         "MEMBER_JOINED",
-                        "Nový člen sa pridal do skupiny",
+                        "New member joined the group",
                         saved.getGroupId()
                 )
         );
@@ -92,7 +92,7 @@ public class MembershipService {
                 groupId,
                 new NotificationDTO(
                         "MEMBER_LEFT",
-                        "Člen opustil skupinu",
+                        "User left the group",
                         groupId
                 )
         );

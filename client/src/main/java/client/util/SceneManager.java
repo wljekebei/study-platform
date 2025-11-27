@@ -15,6 +15,10 @@ public class SceneManager {
         stage = primaryStage;
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
+
     public static void toRegistration() {
         stage.setScene(RegistrationScreen.getScene());
         stage.setTitle("Sign up");
