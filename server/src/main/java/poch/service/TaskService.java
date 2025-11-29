@@ -44,10 +44,6 @@ public class TaskService {
         return taskRepository.findByCreatedBy(creatorId);
     }
 
-    public Task getById(Long id) {
-        return taskRepository.findById(id).orElse(null);
-    }
-
     public Task save(Task task) {
         return taskRepository.save(task);
     }
@@ -78,14 +74,5 @@ public class TaskService {
 
         return saved;
     }
-
-    public List<Task> getUpcomingTasks(int days) {
-        LocalDate limit = LocalDate.now().plusDays(days);
-        return taskRepository.findByDeadlineLessThanEqual(limit.toString());
-    }
-
-    public List<Task> getOverdueTasks() {
-        LocalDate today = LocalDate.now();
-        return taskRepository.findByDeadlineLessThan(today.toString());
-    }
 }
+

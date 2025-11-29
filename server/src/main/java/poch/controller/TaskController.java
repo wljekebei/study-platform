@@ -27,11 +27,6 @@ public class TaskController {
         return taskService.getByCreator(id);
     }
 
-    @GetMapping("/{id}")
-    public Task getById(@PathVariable Long id) {
-        return taskService.getById(id);
-    }
-
     @PostMapping
     public Task create(@RequestBody Task task) {
         return taskService.createTask(task);
@@ -51,15 +46,5 @@ public class TaskController {
                 dto.deadline,
                 dto.status
         );
-    }
-
-    @GetMapping("/upcoming")
-    public List<Task> getUpcoming(@RequestParam int days) {
-        return taskService.getUpcomingTasks(days);
-    }
-
-    @GetMapping("/overdue")
-    public List<Task> getOverdue() {
-        return taskService.getOverdueTasks();
     }
 }

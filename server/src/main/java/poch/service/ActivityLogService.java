@@ -24,9 +24,6 @@ public class ActivityLogService {
         return activityLogRepository.save(log);
     }
 
-    public void delete(Long id) {
-        activityLogRepository.deleteById(id);
-    }
     public void log(Long userId, String action, String details) {
         ActivityLog log = new ActivityLog();
         log.setUserId(userId);

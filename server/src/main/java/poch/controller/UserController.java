@@ -23,11 +23,6 @@ public class UserController {
         this.membershipService = membershipService;
     }
 
-    @GetMapping
-    public List<User> getAll() {
-        return userService.getAllUsers();
-    }
-
     @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
         return userService.getUserById(id);
@@ -39,19 +34,10 @@ public class UserController {
         return membershipService.getGroupsOfUser(id);
     }
 
-    @GetMapping("/email/{email}")
-    public User getByEmail(@PathVariable String email) {
-        return userService.getByEmail(email);
-    }
 
     @PostMapping
     public User create(@RequestBody User user) {
         return userService.save(user);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        userService.delete(id);
     }
 
     @PutMapping("/{id}")

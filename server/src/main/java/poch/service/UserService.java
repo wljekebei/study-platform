@@ -22,30 +22,18 @@ public class UserService {
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       ActivityLogService activityLogService) {   // 🔥 добавили сюда
+                       ActivityLogService activityLogService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.activityLogService = activityLogService;            // 🔥 сохраняем сюда
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+        this.activityLogService = activityLogService;
     }
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
-    }
-
     public User save(User user) {
         return userRepository.save(user);
-    }
-
-    public void delete(Long id) {
-        userRepository.deleteById(id);
     }
 
     public UserResponseDTO register(UserRegisterDTO dto) {

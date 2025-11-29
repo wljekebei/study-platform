@@ -32,10 +32,6 @@ public class MembershipController {
         return membershipService.save(membership);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        membershipService.delete(id);
-    }
     @PostMapping("/join")
     public Membership join(@RequestBody JoinGroupDTO dto) {
         return membershipService.joinGroup(dto);
