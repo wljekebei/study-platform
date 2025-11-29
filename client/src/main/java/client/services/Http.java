@@ -13,6 +13,9 @@ import java.net.http.HttpResponse;
 
 public class Http {
 
+    // POST - create
+    // PUT - update
+
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
 
@@ -148,6 +151,7 @@ public class Http {
         }
     }
 
+    // ChatGPT
     public static <T> T uploadFile(String url, Long groupId, Long uploadedBy, String title, File file) throws Exception {
 
         String boundary = "----Boundary" + System.currentTimeMillis();

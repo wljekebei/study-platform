@@ -1,17 +1,9 @@
 package client;
 
-import client.screens.GroupScreen;
-import client.screens.GroupsScreen;
 import client.screens.LoginScreen;
-import client.screens.RegistrationScreen;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class Main  extends Application {
     @Override

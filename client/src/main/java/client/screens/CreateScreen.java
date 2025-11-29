@@ -5,7 +5,6 @@ import client.models.Group;
 import client.services.GroupAPI;
 import client.services.MembershipAPI;
 import client.services.Session;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,9 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class CreateScreen {
     public static Scene getScene() {

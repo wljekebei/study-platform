@@ -4,7 +4,6 @@ import client.components.ElementSetup;
 import client.models.User;
 import client.services.AuthAPI;
 import client.services.Session;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -82,7 +81,7 @@ public class RegistrationScreen {
                                 pwd1
                         );
 
-                        Session.setUser(u);  // если есть сессия
+                        Session.setUser(u);
                         SceneManager.toGroupsScreen();
 
                     } catch (Exception ex) {

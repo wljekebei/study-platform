@@ -49,18 +49,18 @@ public class GroupStatsScreen {
 
         GroupStats stats = GroupStatsAPI.get(group.getGroupId());
 
-        long memberCount     = stats.members     != null ? stats.members     : 0L;
-        long totalTasks      = stats.tasks       != null ? stats.tasks       : 0L;
-        long linkResources   = stats.links       != null ? stats.links       : 0L;
-        long fileResources   = stats.files       != null ? stats.files       : 0L;
-        long doneTasks       = stats.done        != null ? stats.done        : 0L;
-        long inProgressTasks = stats.inProgress  != null ? stats.inProgress  : 0L;
-        long openTasks       = stats.open        != null ? stats.open        : 0L;
+        long memberCount = stats.members != null ? stats.members : 0L;
+        long totalTasks = stats.tasks != null ? stats.tasks : 0L;
+        long linkResources = stats.links != null ? stats.links : 0L;
+        long fileResources = stats.files != null ? stats.files : 0L;
+        long doneTasks = stats.done != null ? stats.done : 0L;
+        long inProgressTasks = stats.inProgress != null ? stats.inProgress : 0L;
+        long openTasks = stats.open != null ? stats.open : 0L;
 
         VBox membersBox = createStatBox("MEMBERS", String.valueOf(memberCount));
-        VBox tasksBox   = createStatBox("TASKS",   String.valueOf(totalTasks));
-        VBox linksBox   = createStatBox("LINKS",   String.valueOf(linkResources));
-        VBox filesBox   = createStatBox("FILES",   String.valueOf(fileResources));
+        VBox tasksBox = createStatBox("TASKS", String.valueOf(totalTasks));
+        VBox linksBox = createStatBox("LINKS", String.valueOf(linkResources));
+        VBox filesBox = createStatBox("FILES", String.valueOf(fileResources));
 
         HBox statsBoxes = new HBox(membersBox, tasksBox, linksBox, filesBox);
         statsBoxes.setSpacing(25);
@@ -79,11 +79,11 @@ public class GroupStatsScreen {
             statusPie.getData().add(new PieChart.Data("DONE", doneTasks));
         }
 
-        Pane statusPiePane = wrapBox(statusPie);
+        Pane statusPiePane = GroupScreen.wrapBox(statusPie);
 
         Label noTasksLabel = new Label("ADD TASKS TO SEE STATISTICS");
         noTasksLabel.setFont(Font.font("Arial", FontWeight.BOLD, 40));
-        Pane noTasksPane = wrapBox(noTasksLabel);
+        Pane noTasksPane = GroupScreen.wrapBox(noTasksLabel);
 
         VBox root = new VBox(topBox, statsBoxes, (totalTasks != 0) ? statusPiePane : noTasksPane);
         root.setSpacing(35);
@@ -109,17 +109,6 @@ public class GroupStatsScreen {
                 -fx-background-radius: 12;
             """);
 
-        return box;
-    }
-
-    private static Pane wrapBox(javafx.scene.Node node) {
-        VBox box = new VBox(node);
-        box.setAlignment(Pos.CENTER);
-        box.setPadding(new Insets(15));
-        box.setStyle("""
-                    -fx-background-color: #C5D6FF;
-                    -fx-background-radius: 12;
-                """);
         return box;
     }
 }

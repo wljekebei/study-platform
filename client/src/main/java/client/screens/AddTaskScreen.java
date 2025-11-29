@@ -5,7 +5,6 @@ import client.models.Group;
 import client.models.Task;
 import client.services.Session;
 import client.services.TaskAPI;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,8 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.time.LocalDateTime;
 
 public class AddTaskScreen {
     public static Scene getScene(Group group) {

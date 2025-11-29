@@ -135,7 +135,7 @@ public class GroupsScreen {
     }
 
     public static VBox createGroupBox(Group group) throws Exception {
-        int fontSize = 38; // set limit at 10 symbols for group name !!
+        int fontSize = 38;
         if (group.getName().length() > 7) fontSize = 20;
         else if (group.getName().length() > 4) fontSize = 25;
 

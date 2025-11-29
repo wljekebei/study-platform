@@ -16,8 +16,4 @@ public class ActivityLogAPI {
         return Http.post(BASE, log, ActivityLog.class);
     }
 
-    public static void delete(Long id) throws Exception {
-        Http.delete(BASE + "/" + id);
-    }
-
 }

@@ -19,8 +19,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -353,6 +351,7 @@ public class GroupScreen {
         root.setSpacing(30);
         root.setStyle("-fx-background-color: #D9E6FF;");
 
+        // chatgpt
         Platform.runLater(() -> {
             ScrollBar bar = (ScrollBar) userScroll.lookup(".scroll-bar:vertical");
             if (bar != null) {
@@ -383,17 +382,6 @@ public class GroupScreen {
             }
         });
 
-//        NotificationWS.connect(group.getGroupId(), n -> {
-//            Notifications.create()
-//                    .title(n.type.replace("_", " ") + " (" + group.getName() + ")")
-//                    .text(n.message)
-//                    .position(Pos.TOP_RIGHT)
-//                    .hideAfter(Duration.seconds(3))
-//                    .owner(root.getScene().getWindow())
-//                    .showInformation();
-//        });
-
-
         return new Scene(root, 800, 600);
     }
 
@@ -408,8 +396,6 @@ public class GroupScreen {
     }
 
     public static String getUserRole(Long id, Group group) throws Exception {
-//        Long currentUserId = Session.getUser().getId();
-
         List<Membership> memberships = MembershipAPI.getByGroup(group.getGroupId());
 
         for (Membership m : memberships) {

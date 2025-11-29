@@ -22,10 +22,6 @@ public class MembershipAPI {
         return Http.post(BASE, membership, Membership.class);
     }
 
-    public static void delete(Long id) throws Exception {
-        Http.delete(BASE + "/" + id);
-    }
-
     public static Membership join(Long userId, Long groupId, String role) throws Exception {
         JoinGroup req = new JoinGroup(userId, groupId, role);
         return Http.post(BASE + "/join", req, Membership.class);

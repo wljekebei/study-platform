@@ -7,7 +7,6 @@ import client.models.Group;
 import client.models.Task;
 import client.models.User;
 import client.services.*;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -113,6 +112,7 @@ public class UserStatsScreen {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("TASKS");
 
+        // chatgpt
         BarChart<String, Number> groupChart = new BarChart<>(xAxis, yAxis);
         groupChart.setTitle("TASKS PER GROUP");
         groupChart.setLegendVisible(false);

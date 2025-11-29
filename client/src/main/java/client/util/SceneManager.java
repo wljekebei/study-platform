@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class SceneManager {
-    private static Stage stage; // static - exists once in all program
+    private static Stage stage;
 
     public static void init(Stage primaryStage) {
         stage = primaryStage;
@@ -133,7 +133,7 @@ public class SceneManager {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        stage.setTitle("User Stats");
+        stage.setTitle("Group Stats");
         stage.show();
     }
 }

@@ -14,16 +14,13 @@ import java.util.function.Consumer;
 
 public class NotificationWS {
 
-    private static WebSocketStompClient stompClient;
+    private static WebSocketStompClient stompClient; // connect
     private static StompSession session;
 
-    // подписки по groupId
-    private static final Map<Long, StompSession.Subscription> subscriptions = new ConcurrentHashMap<>();
+    private static final Map<Long, StompSession.Subscription> subscriptions = new ConcurrentHashMap<>(); // bc multithread
 
-    // на какие группы мы вообще хотим быть подписаны (декларативно)
-    private static final Set<Long> desiredGroups = ConcurrentHashMap.newKeySet();
+    private static final Set<Long> subscribedGroups = ConcurrentHashMap.newKeySet();
 
-    // один глобальный обработчик (показывает тосты)
     private static Consumer<Notification> globalHandler;
 
     private static final String URL = "ws://localhost:8080/ws-native";
@@ -41,7 +38,6 @@ public class NotificationWS {
                 @Override
                 public void afterConnected(StompSession sess, StompHeaders connectedHeaders) {
                     session = sess;
-                    // как только подключились – подписываемся на все желаемые группы
                     resubscribeAll();
                 }
 
@@ -51,27 +47,23 @@ public class NotificationWS {
                 }
             });
         } else {
-            // если уже подключены – просто пересобираем подписки
             resubscribeAll();
         }
     }
 
-    // установить полный список групп (после логина / обновления списка)
     public static synchronized void subscribeGroups(Collection<Long> groupIds) {
-        desiredGroups.clear();
-        desiredGroups.addAll(groupIds);
+        subscribedGroups.clear();
+        subscribedGroups.addAll(groupIds);
         resubscribeAll();
     }
 
-    // добавить одну группу (после успешного join)
     public static synchronized void subscribeGroup(Long groupId) {
-        desiredGroups.add(groupId);
+        subscribedGroups.add(groupId);
         resubscribeAll();
     }
 
-    // отписаться от одной группы (leave/delete)
     public static synchronized void unsubscribeGroup(Long groupId) {
-        desiredGroups.remove(groupId);
+        subscribedGroups.remove(groupId);
 
         StompSession.Subscription sub = subscriptions.remove(groupId);
         if (sub != null) {
@@ -79,30 +71,14 @@ public class NotificationWS {
         }
     }
 
-    // полностью всё выключить (logout)
-    public static synchronized void disconnectAll() {
-        for (StompSession.Subscription sub : subscriptions.values()) {
-            sub.unsubscribe();
-        }
-        subscriptions.clear();
-        desiredGroups.clear();
-
-        if (session != null && session.isConnected()) {
-            session.disconnect();
-        }
-        session = null;
-    }
-
-    // ====== внутренние помощники ======
-
+    // main method to keep subscribed to all needed groups
     private static void resubscribeAll() {
         if (session == null || !session.isConnected() || globalHandler == null) {
             return;
         }
 
-        // отписываемся от лишних групп
         for (Long groupId : new HashSet<>(subscriptions.keySet())) {
-            if (!desiredGroups.contains(groupId)) {
+            if (!subscribedGroups.contains(groupId)) {
                 StompSession.Subscription sub = subscriptions.remove(groupId);
                 if (sub != null) {
                     sub.unsubscribe();
@@ -110,14 +86,14 @@ public class NotificationWS {
             }
         }
 
-        // подписываемся на недостающие
-        for (Long groupId : desiredGroups) {
+        for (Long groupId : subscribedGroups) {
             if (!subscriptions.containsKey(groupId)) {
                 subscribeGroupInternal(groupId, globalHandler);
             }
         }
     }
 
+    // chatgpt
     private static void subscribeGroupInternal(Long groupId, Consumer<Notification> handler) {
         if (session == null || !session.isConnected()) return;
 

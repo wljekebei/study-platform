@@ -17,10 +17,6 @@ public class TaskAPI {
         return Http.getList(BASE + "/creator/" + id, new com.fasterxml.jackson.core.type.TypeReference<List<Task>>() {});
     }
 
-    public static Task getById(Long id) throws Exception {
-        return Http.get(BASE + "/" + id, Task.class);
-    }
-
     public static Task create(Task task) throws Exception {
         return Http.post(BASE, task, Task.class);
     }
@@ -32,14 +28,6 @@ public class TaskAPI {
     public static Task update(Long id, String title, String description, String deadline, String status) throws Exception {
         UpdateTask req = new UpdateTask(title, description, deadline, status);
         return Http.put(BASE + "/" + id, req, Task.class);
-    }
-
-    public static List<Task> getUpcoming(int days) throws Exception {
-        return Http.getList(BASE + "/upcoming?days=" + days, new com.fasterxml.jackson.core.type.TypeReference<List<Task>>() {});
-    }
-
-    public static List<Task> getOverdue() throws Exception {
-        return Http.getList(BASE + "/overdue", new com.fasterxml.jackson.core.type.TypeReference<List<Task>>() {});
     }
 
 }

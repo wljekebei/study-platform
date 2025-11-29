@@ -4,7 +4,6 @@ import client.components.ElementSetup;
 import client.models.User;
 import client.services.AuthAPI;
 import client.services.Session;
-import client.util.MockDB;
 import client.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,13 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.io.IOException;
 
 public class LoginScreen {
     public static Scene getScene() {
@@ -122,7 +118,6 @@ public class LoginScreen {
             SceneManager.toRegistration();
         });
 
-
         HBox passwordBox = new HBox(passwordField, passwordVisible, passwordButton);
         passwordBox.setSpacing(10);
 
@@ -142,14 +137,5 @@ public class LoginScreen {
 
         return new Scene(root, 400, 400);
     }
-
-//    public static User findUserByEmail(String email) {
-//        for (User u : MockDB.getUsers()) {
-//            if (u.getEmail().equals(email)) {
-//                return u;
-//            }
-//        }
-//        return null;
-//    }
 
 }

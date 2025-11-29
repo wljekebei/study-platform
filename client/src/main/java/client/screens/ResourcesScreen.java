@@ -17,7 +17,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.net.URI;
 import java.util.List;
 
 public class ResourcesScreen {
@@ -83,7 +86,7 @@ public class ResourcesScreen {
 
             if (r.getType().equalsIgnoreCase("file")) {
                 fileNum++;
-                java.io.File f = new java.io.File(r.getPathOrUrl());
+                File f = new File(r.getPathOrUrl());
                 displayedText = f.getName().substring(14);
             } else {
                 linkNum++;
@@ -103,7 +106,7 @@ public class ResourcesScreen {
 
                 path.setOnMouseClicked(e -> {
                     try {
-                        java.awt.Desktop.getDesktop().browse(new java.net.URI(r.getPathOrUrl()));
+                        java.awt.Desktop.getDesktop().browse(new URI(r.getPathOrUrl()));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -121,16 +124,16 @@ public class ResourcesScreen {
 
                 downloadButton.setOnAction(e -> {
                     try {
-                        java.io.File source = new java.io.File(r.getPathOrUrl());
+                        File source = new File(r.getPathOrUrl());
                         if (!source.exists()) {
                             System.err.println("File not found: " + source.getAbsolutePath());
                             return;
                         }
 
-                        javafx.stage.FileChooser chooser = new javafx.stage.FileChooser();
+                        FileChooser chooser = new FileChooser();
                         chooser.setTitle("Save file");
                         chooser.setInitialFileName(source.getName());
-                        java.io.File dest = chooser.showSaveDialog(downloadButton.getScene().getWindow());
+                        File dest = chooser.showSaveDialog(downloadButton.getScene().getWindow());
 
                         if (dest != null) {
                             java.nio.file.Files.copy(

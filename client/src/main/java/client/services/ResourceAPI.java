@@ -14,14 +14,6 @@ public class ResourceAPI {
         return Http.getList(BASE + "/group/" + id, new com.fasterxml.jackson.core.type.TypeReference<List<Resource>>() {});
     }
 
-    public static List<Resource> getByUser(Long id) throws Exception {
-        return Http.getList(BASE + "/user/" + id, new com.fasterxml.jackson.core.type.TypeReference<List<Resource>>() {});
-    }
-
-    public static Resource getById(Long id) throws Exception {
-        return Http.get(BASE + "/" + id, Resource.class);
-    }
-
     public static Resource create(Resource resource) throws Exception {
         return Http.post(BASE, resource, Resource.class);
     }

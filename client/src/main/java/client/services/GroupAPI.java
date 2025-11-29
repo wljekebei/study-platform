@@ -16,10 +16,6 @@ public class GroupAPI {
         Http.delete(BASE + "/" + id);
     }
 
-    public static List<GroupResponse> getAll() throws Exception {
-        return Http.getList(BASE, new com.fasterxml.jackson.core.type.TypeReference<List<GroupResponse>>() {});
-    }
-
     public static Group getById(Long id) throws Exception {
         return Http.get(BASE + "/" + id, Group.class);
     }
