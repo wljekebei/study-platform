@@ -61,7 +61,6 @@ client\services\TaskAPI.class
 client\screens\UserStatsScreen.class
 client\services\Http.class
 client\services\UserStatsAPI.class
-client\services\TaskAPI$2.class
 client\screens\AddResourceScreen$2.class
 client\models\ActivityLog.class
 client\screens\GroupScreen$2.class
