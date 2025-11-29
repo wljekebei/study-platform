@@ -25,15 +25,7 @@ public class ResourceController {
         return resourceService.getResourcesByGroup(id);
     }
 
-    @GetMapping("/user/{id}")
-    public List<Resource> getByUser(@PathVariable Long id) {
-        return resourceService.getResourcesByUser(id);
-    }
 
-    @GetMapping("/{id}")
-    public Resource getById(@PathVariable Long id) {
-        return resourceService.getById(id);
-    }
 
     @PostMapping
     public Resource create(@RequestBody Resource resource) {

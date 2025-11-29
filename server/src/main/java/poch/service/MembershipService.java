@@ -39,9 +39,6 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
 
-    public void delete(Long id) {
-        membershipRepository.deleteById(id);
-    }
     public List<Group> getGroupsOfUser(Long userId) {
         List<Long> groupIds = membershipRepository.findGroupIdsByUserId(userId);
         return groupRepository.findAllById(groupIds);

@@ -27,14 +27,6 @@ public class ResourceService {
         return resourceRepository.findByGroupId(groupId);
     }
 
-    public List<Resource> getResourcesByUser(Long userId) {
-        return resourceRepository.findByUploadedBy(userId);
-    }
-
-    public Resource getById(Long id) {
-        return resourceRepository.findById(id).orElse(null);
-    }
-
     public Resource save(Resource resource) {
         return resourceRepository.save(resource);
     }

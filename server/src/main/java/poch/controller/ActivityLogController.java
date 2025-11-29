@@ -25,9 +25,4 @@ public class ActivityLogController {
     public ActivityLog create(@RequestBody ActivityLog log) {
         return activityLogService.save(log);
     }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        activityLogService.delete(id);
-    }
 }
