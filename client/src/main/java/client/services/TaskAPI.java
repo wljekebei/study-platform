@@ -13,10 +13,6 @@ public class TaskAPI {
         return Http.getList(BASE + "/group/" + id, new com.fasterxml.jackson.core.type.TypeReference<List<Task>>() {});
     }
 
-    public static List<Task> getByCreator(Long id) throws Exception {
-        return Http.getList(BASE + "/creator/" + id, new com.fasterxml.jackson.core.type.TypeReference<List<Task>>() {});
-    }
-
     public static Task create(Task task) throws Exception {
         return Http.post(BASE, task, Task.class);
     }
