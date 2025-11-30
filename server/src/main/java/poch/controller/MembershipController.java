@@ -46,5 +46,6 @@ public class MembershipController {
     public void kick(@PathVariable Long groupId, @PathVariable Long userId) {
         membershipService.kickUser(userId, groupId);
     }
+
 }
 

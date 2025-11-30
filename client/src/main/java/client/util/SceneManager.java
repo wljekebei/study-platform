@@ -136,4 +136,5 @@ public class SceneManager {
         stage.setTitle("Group Stats");
         stage.show();
     }
+
 }
