@@ -2,6 +2,26 @@
 
 ### The application is designed to help users organize group work and make collaboration more efficient. It allows students to create and join groups, manage members, share useful resources (links and files), create tasks with deadlines, and track their progress.
 
+## Start the application
+
+
+### Make sure you have the following installed:
+
+- Java 17+
+- Maven 3.8+
+- SQLite
+
+### Backend: 
+```bash
+cd server
+mvn spring-boot:run
+```
+
+### Frontend: 
+```bash
+cd client
+mvn clean javafx:run
+```
 
 ## Architecture Overview
 
